@@ -1,11 +1,11 @@
 Sentinel Drishti
 ===============
 
-![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-FF6B00)
-![Qualcomm AI Hub](https://img.shields.io/badge/Qualcomm-AI%20Hub-3253DC)
-![Platform](https://img.shields.io/badge/Platform-Windows%20ARM64-lightgrey)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Prototype-orange)
+![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-DC2626?style=for-the-badge&logo=qualcomm&logoColor=white)
+![Qualcomm AI Hub](https://img.shields.io/badge/Qualcomm-AI%20Hub-3253DC?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Windows%20ARM64-4B5563?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Prototype-F59E0B?style=for-the-badge)
 [![Demo](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml/badge.svg)](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml)
 
 On-Device AI Compliance & Data Loss Prevention Agent for Snapdragon-Powered HP PCs
