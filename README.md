@@ -6,10 +6,12 @@
 ![Platform](https://img.shields.io/badge/Platform-Windows%20ARM64-4B5563?style=for-the-badge&logo=windows&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge)
 [![Demo](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml/badge.svg)](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml)
-
 On-Device AI Compliance & Data Loss Prevention Agent for Snapdragon-Powered HP PCs
 
 Built for the Snapdragon AI Lab Build & Present Challenge 2026.
+<p align="center">
+  <img src="docs/images/dragon.png" alt="Snapdragon" width="120">
+</p>
 
 
 Problem
