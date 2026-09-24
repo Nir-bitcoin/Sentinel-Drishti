@@ -1,0 +1,30 @@
+name: Sentinel Drishti Demo
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install fastapi uvicorn httpx pyserial websockets numpy Pillow
+
+      - name: Run demo (Snapdragon-targeted)
+        run: python run_demo.py
+
+      - name: Run benchmark
+        run: python scripts/benchmark.py
