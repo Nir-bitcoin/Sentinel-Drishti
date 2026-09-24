@@ -1,17 +1,16 @@
 Sentinel Drishti
 ===============
 
-![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-red)
-![Qualcomm AI Hub](https://img.shields.io/badge/Qualcomm-AI%20Hub-blue)
+![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-FF6B00)
+![Qualcomm AI Hub](https://img.shields.io/badge/Qualcomm-AI%20Hub-3253DC)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20ARM64-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-FF6B00?style=for-the-badge&logo=qualcomm&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Prototype-orange)
+[![Demo](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml/badge.svg)](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml)
 
 On-Device AI Compliance & Data Loss Prevention Agent for Snapdragon-Powered HP PCs
-Sentinel Drishti
-===============
 
-On-Device AI Compliance & Data Loss Prevention Agent for Snapdragon-Powered HP PCs
+Built for the Snapdragon AI Lab Build & Present Challenge 2026.
 
 
 Problem
@@ -132,12 +131,12 @@ Local Setup
 Demo Scenarios
 --------------
 
-    Scenario             Content              Behavior                         Action
-    -------------------  -------------------  -------------------------------  ---------------
-    Normal work          Meeting notes        Open + type                      ALLOW
-    PII to Gmail         HR salary data       Copy + paste to personal email   BLOCK + ALERT
-    Confidential read    Confidential doc     Open + read only                 ALLOW (logged)
-    PII to USB           Salary record        Copy + paste to USB              BLOCK + ALERT
+    Scenario             Behavior                            Action
+    -------------------  ----------------------------------  ---------------
+    Normal work          Open + type                         ALLOW
+    PII to Gmail         Copy + paste to personal email      BLOCK + ALERT
+    Confidential read    Open + read only                    ALLOW (logged)
+    PII to USB           Copy + paste to USB                 BLOCK + ALERT
 
 Sensitive data alone does not trigger a block. Suspicious behavior involving 
 sensitive data does.
@@ -154,7 +153,7 @@ Honest Limitations
     Risk scoring                     Real
     DLP policy logic                 Real
     Audit logging                    Real (SHA-256 hash chain)
-    NPU inference timing             Qualcomm AI Hub benchmark ref
+    NPU inference timing             Qualcomm AI Hub benchmark reference
     Snapdragon hardware validation   Pending device access
     Enforcement interception         Simulated (demo mode)
 
@@ -195,5 +194,6 @@ Author
 ------
 
 Niranjan Vishe
-GitHub:   https://github.com/Nir-bitcoin
-LinkedIn: https://www.linkedin.com/in/nirvishe/
+
+[![GitHub](https://img.shields.io/badge/GitHub-Nir--bitcoin-181717?logo=github)](https://github.com/Nir-bitcoin)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-nirvishe-0A66C2?logo=linkedin)](https://www.linkedin.com/in/nirvishe/)
