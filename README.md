@@ -9,9 +9,6 @@
 On-Device AI Compliance & Data Loss Prevention Agent for Snapdragon-Powered HP PCs
 
 Built for the Snapdragon AI Lab Build & Present Challenge 2026.
-<p align="center">
-  <img src="docs/images/dragon.png" alt="Snapdragon" width="120">
-</p>
 
 
 Problem
