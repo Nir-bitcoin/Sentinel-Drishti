@@ -1,11 +1,10 @@
-Sentinel Drishti
+🐉 Sentinel Drishti
 ===============
 
-![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-DC2626?style=for-the-badge&logo=qualcomm&logoColor=white)
-![Qualcomm AI Hub](https://img.shields.io/badge/Qualcomm-AI%20Hub-3253DC?style=for-the-badge)
-![Platform](https://img.shields.io/badge/Platform-Windows%20ARM64-4B5563?style=for-the-badge)
+[![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-DC2626?style=for-the-badge&logo=qualcomm&logoColor=white)](https://www.qualcomm.com/products/snapdragon)
+[![Qualcomm AI Hub](https://img.shields.io/badge/Qualcomm-AI%20Hub-3253DC?style=for-the-badge&logo=qualcomm&logoColor=white)](https://aihub.qualcomm.com)
+![Platform](https://img.shields.io/badge/Platform-Windows%20ARM64-4B5563?style=for-the-badge&logo=windows&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Prototype-F59E0B?style=for-the-badge)
 [![Demo](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml/badge.svg)](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml)
 
 On-Device AI Compliance & Data Loss Prevention Agent for Snapdragon-Powered HP PCs
@@ -195,5 +194,5 @@ Author
 
 Niranjan Vishe
 
-[![GitHub](https://img.shields.io/badge/GitHub-Nir--bitcoin-181717?logo=github)](https://github.com/Nir-bitcoin)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-nirvishe-0A66C2?logo=linkedin)](https://www.linkedin.com/in/nirvishe/)
+[![GitHub](https://img.shields.io/badge/GitHub-Nir--bitcoin-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Nir-bitcoin)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-nirvishe-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nirvishe/)
