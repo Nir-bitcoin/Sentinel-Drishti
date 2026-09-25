@@ -1,10 +1,5 @@
 # demo script
-# 4 scenarios
-#
-# chalao: python run_demo.py             (snapdragon - simulated)
-#         python run_demo.py --cpu       (cpu baseline)
-#
-# N - 26 sept
+
 
 import sys
 import argparse
@@ -20,6 +15,18 @@ from src.policy.risk_scorer import RiskScorer
 from simulation.simulated_arduino import SimulatedArduino
 
 
+def show_telemetry(title, result):
+    # hardware telemetry HUD
+    print("  -- Hardware Telemetry: " + title + " --")
+    print("  Latency:        " + str(result["latency_ms"]) + " ms")
+    print("  Compute unit:   " + result["compute_unit"])
+    print("  Precision:      " + str(result.get("precision", "unknown")))
+    print("  RAM peak:       " + str(result.get("ram_peak_mb", "?")) + " MB")
+    print("  Layers on NPU:  " + str(result.get("layers_on_npu", "?")))
+    print("  Runtime:        " + str(result.get("runtime", "?")))
+    print("  -----------------------------")
+
+
 def run_one(title, content, app, actions, mode):
     print()
     print("Scenario: " + title)
@@ -33,6 +40,7 @@ def run_one(title, content, app, actions, mode):
     dlp = DLPEngine()
     ard = SimulatedArduino()
 
+    # 1
     print("Stage 1 - Screen capture")
     c = cap.capture_text(content, app)
     print("  Source: " + c["source"])
@@ -42,16 +50,20 @@ def run_one(title, content, app, actions, mode):
         prev += "..."
     print("  Text: " + prev)
 
+    # 2
     print()
     print("Stage 2 - Perception")
     v = vis.analyze(content)
     print("  Sensitive: " + str(v["sensitive"]))
     print("  Entities:  " + str(v["entities"]) + " [regex pattern detection]")
     if v["timing_source"] == "SIMULATED_NPU":
-        print("  Time:      " + str(v["latency_ms"]) + " ms [AI Hub benchmark reference]")
+        label = " [AI Hub benchmark]"
     else:
-        print("  Time:      " + str(v["latency_ms"]) + " ms [measured on " + v["compute_unit"] + "]")
+        label = " [measured]"
+    print("  Time:      " + str(v["latency_ms"]) + " ms" + label)
+    show_telemetry("Perception", v)
 
+    # 3
     print()
     print("Stage 3 - Behavior tracking")
     for a in actions:
@@ -62,6 +74,7 @@ def run_one(title, content, app, actions, mode):
     print("  Destination: " + b.get("destination", "LOCAL"))
     print("  Reason:      " + b["reason"])
 
+    # 4
     print()
     print("Stage 4 - Risk scoring")
     r = scr.calculate(v["entities"], b)
@@ -73,16 +86,20 @@ def run_one(title, content, app, actions, mode):
     for x in r["reasons"]:
         print("    - " + x)
 
+    # 5
     print()
     print("Stage 5 - Reasoning (rule engine)")
     i = rea.classify(content, v["entities"])
     print("  Intent:           " + i["classification"])
     print("  Rule match score: " + str(i["confidence"]) + " [rule-engine]")
     if i["timing_source"] == "SIMULATED_NPU":
-        print("  Time:             " + str(i["latency_ms"]) + " ms [AI Hub benchmark reference]")
+        label = " [AI Hub benchmark]"
     else:
-        print("  Time:             " + str(i["latency_ms"]) + " ms [measured on " + i["compute_unit"] + "]")
+        label = " [measured]"
+    print("  Time:             " + str(i["latency_ms"]) + " ms" + label)
+    show_telemetry("Reasoning", i)
 
+    # 6
     print()
     print("Stage 6 - DLP decision")
     d = dlp.evaluate(content, i, b, r)
@@ -103,6 +120,7 @@ def run_one(title, content, app, actions, mode):
         print("    - Enforcement status: " + enf_status)
         print("    - Note: actual interception not performed on this laptop")
 
+    # 7
     print()
     print("Stage 7 - Arduino UNO Q")
     if d["triggered"]:

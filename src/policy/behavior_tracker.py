@@ -3,7 +3,6 @@
 from datetime import datetime
 
 
-# destination keyword lists
 PERSONAL_EMAIL = ["gmail", "yahoo", "outlook.com", "hotmail"]
 WORK_EMAIL = ["exchange", "company", "corp"]
 MESSAGING = ["whatsapp", "telegram", "slack", "teams", "signal", "discord"]
@@ -18,21 +17,19 @@ class BehaviorTracker:
         self.events = []
 
     def record(self, action, app, detail=""):
-        # store one event
-        event = {
+        ev = {
             "time": datetime.now().isoformat(),
             "action": action,
             "app": app,
             "detail": detail,
         }
-        self.events.append(event)
-        return event
+        self.events.append(ev)
+        return ev
 
-    def get_recent(self, count=10):
-        return self.events[-count:]
+    def get_recent(self, n=10):
+        return self.events[-n:]
 
     def classify_destination(self, app_name):
-        # figure out destination category
         a = app_name.lower()
 
         if any(x in a for x in EXTERNAL_DEVICE):
@@ -48,104 +45,92 @@ class BehaviorTracker:
         return "LOCAL"
 
     def assess_risk(self):
-        # look at last few events and decide verdict
         recent = self.get_recent(10)
 
         opened_sensitive = False
-        copied_data = False
+        copied = False
         paste_dest = None
-        usb_detected = False
-        after_hours = False
+        usb_seen = False
+        after_hrs = False
 
         for e in recent:
             app = e["app"].lower()
             action = e["action"]
 
-            # was a sensitive file opened?
             if action == "OPEN":
                 if any(x in app for x in ["excel", "hr", "sheet", "salary"]):
                     opened_sensitive = True
 
-            # copy action
             if action == "COPY":
-                copied_data = True
+                copied = True
 
-            # where did it get pasted?
             if action == "PASTE":
                 paste_dest = self.classify_destination(e["app"])
 
-            # USB check
             if "usb" in app or "external" in app:
-                usb_detected = True
+                usb_seen = True
 
-            # time check (before 9am or after 7pm = after hours)
             try:
                 h = datetime.fromisoformat(e["time"]).hour
                 if h < 9 or h > 19:
-                    after_hours = True
+                    after_hrs = True
             except Exception:
                 pass
 
-        # ---- verdict logic ----
-
-        # USB copy = worst case
-        if copied_data and usb_detected:
+        # USB copy = worst
+        if copied and usb_seen:
             return {
                 "verdict": "CRITICAL_RISK",
                 "reason": "Sensitive data copied to USB device",
                 "destination": "EXTERNAL_DEVICE",
                 "chain": ["sensitive_source", "copy", "usb"],
-                "after_hours": after_hours,
+                "after_hours": after_hrs,
             }
 
-        # copy to personal email
-        if copied_data and paste_dest == "PERSONAL_EMAIL":
+        # personal email = CRITICAL (not HIGH)
+        if copied and paste_dest == "PERSONAL_EMAIL":
             return {
-                "verdict": "CRITICAL_RISK" if after_hours else "HIGH_RISK",
+                "verdict": "CRITICAL_RISK",
                 "reason": "Sensitive data pasted to personal email",
                 "destination": "PERSONAL_EMAIL",
                 "chain": ["sensitive_source", "copy", "personal_email", "paste"],
-                "after_hours": after_hours,
+                "after_hours": after_hrs,
             }
 
-        # copy to cloud
-        if copied_data and paste_dest == "CLOUD_STORAGE":
+        if copied and paste_dest == "CLOUD_STORAGE":
             return {
                 "verdict": "HIGH_RISK",
                 "reason": "Sensitive data uploaded to cloud storage",
                 "destination": "CLOUD_STORAGE",
                 "chain": ["sensitive_source", "copy", "cloud", "paste"],
-                "after_hours": after_hours,
+                "after_hours": after_hrs,
             }
 
-        # copy to messaging
-        if copied_data and paste_dest == "MESSAGING":
+        if copied and paste_dest == "MESSAGING":
             return {
                 "verdict": "HIGH_RISK",
                 "reason": "Sensitive data sent via messaging app",
                 "destination": "MESSAGING",
                 "chain": ["sensitive_source", "copy", "messaging", "paste"],
-                "after_hours": after_hours,
+                "after_hours": after_hrs,
             }
 
-        # pasted to work email - allowed
-        if copied_data and paste_dest == "WORK_EMAIL":
+        if copied and paste_dest == "WORK_EMAIL":
             return {
                 "verdict": "LOW_RISK",
                 "reason": "Data pasted into work email (audit only)",
                 "destination": "WORK_EMAIL",
                 "chain": ["sensitive_source", "copy", "work_email"],
-                "after_hours": after_hours,
+                "after_hours": after_hrs,
             }
 
-        # only opened sensitive app
         if opened_sensitive:
             return {
                 "verdict": "LOW_RISK",
                 "reason": "Sensitive app opened, no exfiltration action yet",
                 "destination": "LOCAL",
                 "chain": ["sensitive_source"],
-                "after_hours": after_hours,
+                "after_hours": after_hrs,
             }
 
         return {
@@ -153,7 +138,7 @@ class BehaviorTracker:
             "reason": "No suspicious pattern detected",
             "destination": "LOCAL",
             "chain": [],
-            "after_hours": after_hours,
+            "after_hours": after_hrs,
         }
 
     def reset(self):

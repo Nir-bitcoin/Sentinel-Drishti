@@ -6,6 +6,7 @@
 ![Platform](https://img.shields.io/badge/Platform-Windows%20ARM64-4B5563?style=for-the-badge&logo=windows&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge)
 [![Demo](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml/badge.svg)](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml)
+
 On-Device AI Compliance & Data Loss Prevention Agent for Snapdragon-Powered HP PCs
 
 Built for the Snapdragon AI Lab Build & Present Challenge 2026.
@@ -94,16 +95,46 @@ Benchmark Results
     Total                    3358 ms          380 ms            8.8x
 
 
+Quantization Comparison (Real Hardware)
+---------------------------------------
+
+Two precision levels profiled on actual Snapdragon X Elite hardware via 
+Qualcomm AI Hub:
+
+    Precision    Min Inference    Peak Memory    Compute Unit         Job ID
+    -----------  ---------------  -------------  -------------------  ----------
+    FLOAT16      1.0 ms           0.6 MB         NPU (Hexagon HTP)    j5qllld4p
+    INT8         0.687 ms         14.4 MB        NPU (Hexagon HTP)    jgnz1zdkg
+
+Result: INT8 delivers 1.46x faster inference than FLOAT16 on the same 
+Snapdragon X Elite NPU. Both precisions execute entirely on the Hexagon 
+HTP with no CPU fallback.
+
+Verification jobs:
+    FLOAT16 Profile:  https://workbench.aihub.qualcomm.com/jobs/j5qllld4p/
+    INT8 Quantize:    https://workbench.aihub.qualcomm.com/jobs/jp8eje3zp/
+    INT8 Compile:     https://workbench.aihub.qualcomm.com/jobs/jp1nonk8g/
+    INT8 Profile:     https://workbench.aihub.qualcomm.com/jobs/jgnz1zdkg/
+
+
 Real NPU Validation Completed
 -----------------------------
 
 MobileNetV2 profiled on actual Snapdragon X Elite CRD via Qualcomm AI Hub:
 
-    Job ID:              j5qllld4p
-    Target:              Snapdragon X Elite CRD (SC8380XP)
-    Inference:           1.0 ms
-    Layers on NPU:       104 / 104
-    Precision:           FLOAT16
+    FLOAT16:
+      Job ID:              j5qllld4p
+      Target:              Snapdragon X Elite CRD (SC8380XP)
+      Inference:           1.0 ms
+      Layers on NPU:       104 / 104
+      Precision:           FLOAT16
+
+    INT8:
+      Job ID:              jgnz1zdkg
+      Target:              Snapdragon X Elite CRD (SC8380XP)
+      Inference:           0.687 ms
+      Compute Unit:        NPU (Hexagon HTP)
+      Precision:           INT8
 
 
 Live Demo
@@ -151,8 +182,10 @@ Honest Limitations
     Risk scoring                     Real
     DLP policy logic                 Real
     Audit logging                    Real (SHA-256 hash chain)
-    NPU inference timing             Qualcomm AI Hub benchmark reference
-    Snapdragon hardware validation   Pending device access
+    FLOAT16 NPU profiling            Real, on Snapdragon X Elite CRD
+    INT8 NPU profiling               Real, on Snapdragon X Elite CRD
+    NPU inference timing (demo)      Qualcomm AI Hub benchmark reference
+    Snapdragon on-device validation  Pending device access
     Enforcement interception         Simulated (demo mode)
 
 The pipeline is production-ready. On actual Snapdragon hardware, the same code 
