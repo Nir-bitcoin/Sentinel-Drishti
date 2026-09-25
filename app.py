@@ -1,3 +1,5 @@
+# app.py
+
 
 import streamlit as st
 import sys
@@ -5,12 +7,18 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.vision.internvl_screen import InternVLScreenAnalyzer
-from src.vision.easyocr_screen import EasyOCRScreenAnalyzer
 from src.reasoning.qwen_intent import QwenIntentClassifier
 from src.reasoning.translator import AlertTranslator
 from src.policy.dlp_engine import DLPEngine
 from src.policy.behavior_tracker import BehaviorTracker
 from src.policy.risk_scorer import RiskScorer
+
+# EasyOCR optional
+try:
+    from src.vision.easyocr_screen import EasyOCRScreenAnalyzer
+    HAS_EASYOCR = True
+except Exception:
+    HAS_EASYOCR = False
 
 
 st.set_page_config(
@@ -22,6 +30,13 @@ st.set_page_config(
 st.title("🛡 Sentinel Drishti")
 st.caption("On-Device AI Compliance & Data Loss Prevention")
 st.caption("Snapdragon AI Lab Build & Present Challenge 2026")
+
+if not HAS_EASYOCR:
+    st.warning(
+        "EasyOCR not available in this deployment. "
+        "Text-based scenarios are fully functional. "
+        "Image OCR runs in local deployment."
+    )
 
 with st.sidebar:
     st.header("Mode")
@@ -38,10 +53,12 @@ with st.sidebar:
 
     st.divider()
     st.caption("Test scenarios:")
-    scenario = st.selectbox(
-        "Choose input",
-        ["PII text", "Image (EasyOCR)", "Confidential doc", "USB copy"]
-    )
+
+    scenario_options = ["PII text", "Confidential doc", "USB copy"]
+    if HAS_EASYOCR:
+        scenario_options.insert(1, "Image (EasyOCR)")
+
+    scenario = st.selectbox("Choose input", scenario_options)
 
 if scenario == "PII text":
     content = "Employee salary record: Name - Rajesh Kumar, PAN - ABCDE1234F, Phone - 9876543210"
@@ -89,13 +106,16 @@ for a in actions:
 
 if st.button("Run Analysis", type="primary"):
     with st.spinner("Running pipeline..."):
+        o = None
         if image_mode:
-            ocr = EasyOCRScreenAnalyzer(mode)
-            o = ocr.extract_text(content)
-            text_content = o["text"]
+            if HAS_EASYOCR:
+                ocr = EasyOCRScreenAnalyzer(mode)
+                o = ocr.extract_text(content)
+                text_content = o["text"]
+            else:
+                text_content = ""
         else:
             text_content = content
-            o = None
 
         vis = InternVLScreenAnalyzer(mode)
         rea = QwenIntentClassifier(mode)
@@ -130,14 +150,16 @@ if st.button("Run Analysis", type="primary"):
         st.write("Image size: " + o["image_size"])
         st.write("Passes: " + str(o["passes_used"]))
         st.write("Inference: " + str(o["inference_ms"]) + " ms [CPU]")
-        st.write("Snapdragon reference: ~39.5 ms detector + ~19.3 ms recognizer")
 
     tab1, tab2, tab3, tab4 = st.tabs(["Perception", "Behavior", "Risk", "Alerts"])
 
     with tab1:
         st.write("**Entities:**")
-        for e in v["entities"]:
-            st.code(e)
+        if v["entities"]:
+            for e in v["entities"]:
+                st.code(e)
+        else:
+            st.write("None")
 
     with tab2:
         st.write("Verdict: **" + b["verdict"] + "**")
