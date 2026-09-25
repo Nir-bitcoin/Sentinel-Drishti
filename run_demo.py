@@ -1,4 +1,3 @@
-# demo script
 
 
 import sys
@@ -9,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from src.vision.screen_capture import ScreenCapture
 from src.vision.internvl_screen import InternVLScreenAnalyzer
 from src.reasoning.qwen_intent import QwenIntentClassifier
+from src.reasoning.translator import AlertTranslator
 from src.policy.dlp_engine import DLPEngine
 from src.policy.behavior_tracker import BehaviorTracker
 from src.policy.risk_scorer import RiskScorer
@@ -119,6 +119,17 @@ def run_one(title, content, app, actions, mode):
         print("    - " + e["blocked_action"] + ": BLOCK ACTION TRIGGERED")
         print("    - Enforcement status: " + enf_status)
         print("    - Note: actual interception not performed on this laptop")
+
+        # local language alerts
+        trans = AlertTranslator()
+        alert_msg = d["action"] + " - " + e["blocked_action"]
+        print()
+        print("  LOCALIZED ALERTS:")
+        print("    EN: " + alert_msg)
+        print("    HI: " + trans.translate(alert_msg, "hi")["text"])
+        print("    MR: " + trans.translate(alert_msg, "mr")["text"])
+        print("    TA: " + trans.translate(alert_msg, "ta")["text"])
+        print("    TE: " + trans.translate(alert_msg, "te")["text"])
 
     # 7
     print()
