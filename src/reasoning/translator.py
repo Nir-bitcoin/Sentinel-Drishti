@@ -34,8 +34,9 @@ class AlertTranslator:
             text = text.replace("Cloud upload", "क्लाउड अपलोड")
             text = text.replace("Message send", "संदेश भेजें")
          # marathi
+                
         elif lang == "mr":
-            text = text.replace("BLOCK_AND_ALERT", "रोखा आणि सतर्क करा")
+            text = text.replace("BLOCK_AND_ALERT", "थांबवा आणि सतर्क करा")
             text = text.replace("ALLOW", "परवानगी द्या")
             text = text.replace("PASTE to personal email", "वैयक्तिक ईमेल")
             text = text.replace("USB file transfer", "USB फाइल ट्रान्सफर")
