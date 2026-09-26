@@ -1,4 +1,4 @@
-name: Sentinel Drishti Demo
+name: Sentinel Drishti CI
 
 on:
   push:
@@ -6,25 +6,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  demo:
+  ci:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install psutil pyyaml
 
-      - name: Run tests
+      - name: Unit tests
         run: python tests/test_pipeline.py
+
+      - name: Security deep tests
+        run: python tests/test_security_deep.py
+
+      - name: E2E tests
+        run: python tests/test_e2e.py
 
       - name: Provider diagnostic
         run: python scripts/check_provider.py
@@ -32,8 +36,17 @@ jobs:
       - name: Health check
         run: python scripts/healthcheck.py
 
-      - name: Run demo
+      - name: Policy loader
+        run: python src/policy/policy_loader.py
+
+      - name: Detection evaluation
+        run: python evaluation/run_evaluation.py
+
+      - name: Demo
         run: python run_demo.py
 
-      - name: Run benchmark
-        run: python scripts/benchmark.py
+      - name: Benchmark (mixed)
+        run: python scripts/benchmark_continuous.py --mixed
+
+      - name: Memory profile
+        run: python scripts/memory_profile.py

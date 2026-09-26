@@ -1,0 +1,33 @@
+# Sentinel Drishti - Policy Configuration
+
+risk_weights:
+  pii_detected: 40
+  financial_data: 35
+  confidential_marking: 20
+  copy_event: 20
+  paste_event: 15
+  usb_insert: 45
+  personal_email: 40
+  cloud_storage: 35
+  messaging_app: 35
+  external_device: 45
+  outside_hours: 10
+  after_hours_access: 10
+
+thresholds:
+  allow_max: 29
+  warn_max: 69
+  block_min: 70
+
+severity_actions:
+  HIGH: BLOCK_AND_ALERT
+  MEDIUM: WARN_AND_ALERT
+  LOW: ALERT_ONLY
+
+destinations:
+  LOCAL: NORMAL
+  PERSONAL_EMAIL: CRITICAL
+  EXTERNAL_DEVICE: CRITICAL
+  CLOUD_STORAGE: HIGH
+  MESSAGING: HIGH
+  WORK_EMAIL: LOW

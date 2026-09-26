@@ -1,9 +1,4 @@
 # dlp_engine.py
-#
-# DLP rules + explanation + enforcement.
-# Uses tamper-evident hash chain for audit logging.
-# Does NOT store raw sensitive content in logs.
-
 import re
 import hashlib
 import json
@@ -182,6 +177,17 @@ class DLPEngine:
                 lines.append("Decision: ALLOW (behavior not risky)")
             else:
                 lines.append("Decision: ALLOW (no rule matched)")
+
+        # Evidence-based output (not fake model confidence)
+        if blocked:
+            lines.append("Evidence Level: HIGH")
+            lines.append("Policy Decision: BLOCK_AND_ALERT")
+        elif len(hits) > 0:
+            lines.append("Evidence Level: MEDIUM")
+            lines.append("Policy Decision: ALERT_ONLY")
+        else:
+            lines.append("Evidence Level: LOW")
+            lines.append("Policy Decision: ALLOW")
 
         return lines
 

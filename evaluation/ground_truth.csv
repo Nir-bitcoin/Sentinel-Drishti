@@ -1,0 +1,11 @@
+sample_id,text,has_pan,has_phone,has_financial
+s01,PAN ABCDE1234F,1,0,0
+s02,Call 9876543210 now,0,1,0
+s03,Employee salary breakdown,0,0,1
+s04,Meeting at 3pm,0,0,0
+s05,PAN FGHIJ5678K phone 9123456780,1,1,0
+s06,Monthly CTC 500000 for employee,0,0,1
+s07,Project report due Friday,0,0,0
+s08,Contact 9988776655 for details,0,1,0
+s09,PAN ZZZZZ9999Z,1,0,0
+s10,Lunch meeting notes,0,0,0

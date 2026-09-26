@@ -2,3 +2,5 @@ streamlit
 numpy
 Pillow
 easyocr
+psutil
+pyyaml

@@ -67,7 +67,7 @@ def run_benchmark(mode, force_cache_clear=False):
     if force_cache_clear:
         try:
             from src.vision import easyocr_screen
-            easyocr_screen._ocr_cache.clear()
+            easyocr_screen.cache_clear()
         except Exception:
             pass
 
@@ -84,7 +84,7 @@ def run_benchmark(mode, force_cache_clear=False):
     if mode == "cold" or force_cache_clear:
         try:
             from src.vision import easyocr_screen
-            easyocr_screen._ocr_cache.clear()
+            easyocr_screen.cache_clear()
         except Exception:
             pass
     print("Ready.")
@@ -102,7 +102,7 @@ def run_benchmark(mode, force_cache_clear=False):
         if mode == "cold" and actions:
             try:
                 from src.vision import easyocr_screen
-                easyocr_screen._ocr_cache.clear()
+                easyocr_screen.cache_clear()
             except Exception:
                 pass
 
@@ -196,3 +196,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
