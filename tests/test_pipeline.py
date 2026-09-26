@@ -2,36 +2,35 @@
 # Basic tests for Sentinel Drishti pipeline.
 # Run: python tests/test_pipeline.py
 
-
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.vision.internvl_screen import InternVLScreenAnalyzer
+from src.vision.perception import TextPerception
 from src.policy.behavior_tracker import BehaviorTracker
 from src.policy.risk_scorer import RiskScorer
 from src.policy.dlp_engine import DLPEngine
 from src.policy.audit_chain import AuditChain
-from src.reasoning.qwen_intent import QwenIntentClassifier
+from src.reasoning.intent_classifier import RuleBasedIntentClassifier
 
 
 def test_pii_pan():
-    a = InternVLScreenAnalyzer("cpu")
+    a = TextPerception("cpu")
     r = a.analyze("PAN - ABCDE1234F")
     assert "PAN" in r["entities"]
 
 def test_pii_phone():
-    a = InternVLScreenAnalyzer("cpu")
+    a = TextPerception("cpu")
     r = a.analyze("Phone - 9876543210")
     assert "PHONE" in r["entities"]
 
 def test_pii_financial():
-    a = InternVLScreenAnalyzer("cpu")
+    a = TextPerception("cpu")
     r = a.analyze("Employee salary record")
     assert "EMPLOYEE_FINANCIAL_DATA" in r["entities"]
 
 def test_no_pii_benign():
-    a = InternVLScreenAnalyzer("cpu")
+    a = TextPerception("cpu")
     r = a.analyze("Team meeting at 3pm")
     assert r["sensitive"] == False
 
@@ -84,17 +83,17 @@ def test_dlp_allows_benign():
     assert r["triggered"] == False
 
 def test_intent_exfiltration():
-    c = QwenIntentClassifier("cpu")
+    c = RuleBasedIntentClassifier("cpu")
     r = c.classify("PAN ABCDE1234F", ["PAN", "EMPLOYEE_FINANCIAL_DATA"])
     assert r["classification"] == "EXFILTRATION"
 
 def test_intent_benign():
-    c = QwenIntentClassifier("cpu")
+    c = RuleBasedIntentClassifier("cpu")
     r = c.classify("meeting notes", [])
     assert r["classification"] == "BENIGN"
 
 def test_intent_ocr_fail():
-    c = QwenIntentClassifier("cpu")
+    c = RuleBasedIntentClassifier("cpu")
     r = c.classify("", [])
     assert r["classification"] == "UNVERIFIED_DATA_TRANSFER"
 
@@ -108,6 +107,15 @@ def test_audit_chain_integrity():
     assert valid == True
     shutil.rmtree("audit_logs_test", ignore_errors=True)
 
+def test_provider_diagnostic_runs():
+    import subprocess
+    result = subprocess.run(
+        [sys.executable, "scripts/check_provider.py"],
+        capture_output=True, text=True, timeout=60
+    )
+    assert result.returncode == 0
+    assert "Selected provider" in result.stdout
+
 
 if __name__ == "__main__":
     tests = [
@@ -116,6 +124,7 @@ if __name__ == "__main__":
         test_risk_capped, test_dlp_blocks_pii, test_dlp_allows_benign,
         test_intent_exfiltration, test_intent_benign, test_intent_ocr_fail,
         test_audit_chain_integrity,
+        test_provider_diagnostic_runs,
     ]
     passed = 0
     failed = 0
