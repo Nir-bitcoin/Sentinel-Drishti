@@ -28,7 +28,7 @@ measurements tied to Sentinel Drishti's perception components.
 
 These jobs were executed on physical Qualcomm-hosted Snapdragon 
 
-hardware (not simulated), as reported by Qualcomm AI Hub Workbench.
+hardware (not simulated).
 
 
 
@@ -36,63 +36,61 @@ hardware (not simulated), as reported by Qualcomm AI Hub Workbench.
 
 
 
-\## Component Evidence
+\## EasyOCR Component Evidence
 
 
 
-\### 1. EasyOCR Detector — Perception Component
+\### Optimized uint8 (Latest)
 
 
 
-| Field | Value |
+| Component | Job ID | Precision | Inference | Compute |
 
-|---|---|
+|---|---|---|---|---|
 
-| Job ID | jpxlmx3jp |
+| Detector | jgk4j29wp | uint8 | \*\*13.5 ms\*\* | NPU |
 
-| Compute Unit | NPU (Hexagon HTP) |
-
-| Inference | \~39.5 ms |
-
-| Target | Snapdragon X Elite CRD |
-
-| Verify | https://aihub.qualcomm.com/jobs/jpxlmx3jp |
+| Recognizer | jp1n3jw7g | uint8 | \*\*10.5 ms\*\* | NPU |
 
 
 
-This job validates that the EasyOCR detector stage of Sentinel 
-
-Drishti's perception pipeline can execute on Snapdragon X Elite NPU.
+These represent quantized uint8 optimization on Snapdragon X Elite.
 
 
 
-\### 2. EasyOCR Recognizer — Perception Component
+\### Baseline FLOAT16 (Earlier)
 
 
 
-| Field | Value |
+| Component | Job ID | Precision | Inference | Compute |
 
-|---|---|
+|---|---|---|---|---|
 
-| Job ID | jprl9wnvp |
+| Detector | jpxlmx3jp | FLOAT16 | \~39.5 ms | NPU |
 
-| Compute Unit | NPU (Hexagon HTP) |
-
-| Inference | \~19.3 ms |
-
-| Target | Snapdragon X Elite CRD |
-
-| Verify | https://aihub.qualcomm.com/jobs/jprl9wnvp |
+| Recognizer | jprl9wnvp | FLOAT16 | \~19.3 ms | NPU |
 
 
 
-This job validates that the EasyOCR recognizer stage of Sentinel 
-
-Drishti's perception pipeline can execute on Snapdragon X Elite NPU.
+\### Optimization Summary
 
 
 
-\### 3. Optimized INT8 Model — NPU Capability Proof
+| Component | FLOAT16 | uint8 | Speedup |
+
+|---|---|---|---|
+
+| Detector | 39.5 ms | 13.5 ms | \*\*2.9×\*\* |
+
+| Recognizer | 19.3 ms | 10.5 ms | \*\*1.8×\*\* |
+
+
+
+\---
+
+
+
+\## Optimized INT8 Model (NPU Capability Proof)
 
 
 
@@ -112,29 +110,11 @@ Drishti's perception pipeline can execute on Snapdragon X Elite NPU.
 
 | Target | Snapdragon X Elite CRD |
 
-| Verify | https://workbench.aihub.qualcomm.com/jobs/jgnz1zdkg/ |
-
 
 
 This job demonstrates NPU INT8 quantization capability on Snapdragon 
 
-X Elite. Not part of the Sentinel OCR pipeline.
-
-
-
-\### Related Jobs
-
-
-
-| Job ID | Purpose |
-
-|---|---|
-
-| jp1nonk8g | INT8 QNN compilation |
-
-| jp8eje3zp | INT8 quantization |
-
-| j5qllld4p | FLOAT16 baseline profile |
+X Elite.
 
 
 
@@ -150,19 +130,23 @@ X Elite. Not part of the Sentinel OCR pipeline.
 
 |---|---|---|
 
-| EasyOCR detector | AI Hub X Elite NPU profile | ✅ |
+| EasyOCR detector (uint8) | AI Hub X Elite NPU | OK |
 
-| EasyOCR recognizer | AI Hub X Elite NPU profile | ✅ |
+| EasyOCR recognizer (uint8) | AI Hub X Elite NPU | OK |
 
-| Optimized INT8 model | AI Hub X Elite NPU profile | ✅ |
+| EasyOCR detector (FLOAT16) | AI Hub X Elite NPU | OK |
 
-| Full OCR pipeline (end-to-end) | End-to-end X Elite measurement | ⏳ Pending |
+| EasyOCR recognizer (FLOAT16) | AI Hub X Elite NPU | OK |
 
-| DLP engine | Local CPU | ✅ |
+| Optimized INT8 model | AI Hub X Elite NPU | OK |
 
-| Arduino action | Local hardware / demo | ✅ |
+| Full OCR pipeline (end-to-end) | Pending | Pending |
 
-| Full app on HP Snapdragon PC | Physical target validation | ⏳ Pending |
+| DLP engine | Local CPU | OK |
+
+| Arduino action | Local | OK |
+
+| Full app on HP Snapdragon | Physical validation | Pending |
 
 
 
@@ -176,9 +160,7 @@ X Elite. Not part of the Sentinel OCR pipeline.
 
 These are \*\*Qualcomm AI Hub hosted-device component measurements\*\*. 
 
-They are \*\*not\*\* presented as end-to-end Sentinel Drishti application 
-
-latency.
+They are \*\*not\*\* presented as end-to-end Sentinel Drishti latency.
 
 
 
@@ -186,7 +168,7 @@ latency.
 
 \- Local pipeline: measured on development PC (CPU)
 
-\- Physical Snapdragon-powered HP PC validation: \*\*pending hardware access\*\*
+\- Physical HP Snapdragon validation: \*\*pending hardware access\*\*
 
 
 
@@ -198,7 +180,7 @@ latency.
 
 
 
-Qualcomm AI Hub distinguishes between:
+Qualcomm AI Hub distinguishes:
 
 
 
@@ -206,15 +188,11 @@ Qualcomm AI Hub distinguishes between:
 
 |---|---|
 
-| First App Load | Cold startup cost (\~2.7 s) |
+| First App Load | Cold startup (\~2.7 s) |
 
 | Subsequent App Load | Warm load (\~1.1 s) |
 
-| Inference | Steady-state per-call latency (0.7 ms for INT8 model) |
-
-
-
-This distinction matters for realistic deployment planning.
+| Inference | Steady-state per-call latency |
 
 
 
@@ -226,17 +204,13 @@ This distinction matters for realistic deployment planning.
 
 
 
-1\. The Sentinel perception components (EasyOCR detector + recognizer) 
+1\. EasyOCR perception components are compatible with Snapdragon 
 
-&#x20;  are compatible with Snapdragon X Elite NPU execution.
+&#x20;  X Elite NPU execution (both FLOAT16 and uint8).
 
-2\. The INT8 quantization workflow was completed on real Snapdragon 
+2\. uint8 quantization reduces NPU latency 1.8-2.9× vs FLOAT16.
 
-&#x20;  X Elite hardware.
-
-3\. The AI Hub compilation/profiling pipeline was successfully 
-
-&#x20;  integrated into the project.
+3\. INT8 quantization workflow completed on real Snapdragon hardware.
 
 
 
@@ -244,11 +218,9 @@ This distinction matters for realistic deployment planning.
 
 
 
-1\. That the full Sentinel Drishti application ran end-to-end on 
+1\. Full Sentinel Drishti end-to-end on Snapdragon.
 
-&#x20;  Snapdragon hardware.
+2\. OS-level enforcement on Snapdragon.
 
-2\. That OS-level enforcement interception ran on Snapdragon.
-
-3\. Physical Snapdragon-powered HP PC validation.
+3\. Physical HP Snapdragon PC validation.
 

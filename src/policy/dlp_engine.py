@@ -1,4 +1,8 @@
 # dlp_engine.py
+#
+# DLP rules + explanation + enforcement.
+# Uses tamper-evident hash chain for audit logging.
+# Does NOT store raw sensitive content in logs.
 
 import re
 import hashlib
@@ -182,12 +186,17 @@ class DLPEngine:
         return lines
 
     def _log(self, res, snippet):
+        # SECURITY: do not store raw sensitive content in logs
+        # store only a short hash for evidence linkage
+        snippet_hash = hashlib.sha256(snippet.encode()).hexdigest()[:16]
+
         event = {
             "severity": res["severity"],
             "action": res["action"],
             "matches": [m["rule_id"] for m in res["matches"]],
             "risk_score": res["risk_score"],
-            "snippet": snippet,
+            "content_hash": snippet_hash,
+            "content_redacted": True,
         }
 
         if self.chain is not None:

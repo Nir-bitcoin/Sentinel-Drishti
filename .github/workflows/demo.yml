@@ -26,6 +26,12 @@ jobs:
       - name: Run tests
         run: python tests/test_pipeline.py
 
+      - name: Provider diagnostic
+        run: python scripts/check_provider.py
+
+      - name: Health check
+        run: python scripts/healthcheck.py
+
       - name: Run demo
         run: python run_demo.py
 

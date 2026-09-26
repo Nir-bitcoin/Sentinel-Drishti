@@ -131,10 +131,12 @@ Backend Abstraction
     -------------------  --------------------  -----------------------  ---------
     CPUBackend           Local development PC  Measured                 Working
     SnapdragonBackend    Snapdragon X Elite    Qualcomm AI Hub ref      Pending
+    QNNBackend           Snapdragon X Elite    QNN/HTP target           Target
 
-The Snapdragon backend is a target implementation path — it returns 
-reference markers, not simulated values. When physical Snapdragon 
-hardware is available, the same interface can be wired to QNN/HTP.
+The Snapdragon/QNN backends are target implementation paths — they 
+return reference markers, not simulated values. When physical 
+Snapdragon hardware is available, the same interface can be wired 
+to QNN/HTP via onnxruntime + QNNExecutionProvider.
 
 
 Qualcomm AI Hub References
@@ -159,12 +161,12 @@ Benchmark Results
 
 Pipeline-only benchmark (regex + rule engine + DLP, no OCR):
 
-    Run 1..5: sub-millisecond per iteration
+    Run 1..5: ~1.2 ms per iteration
 
     Statistics:
-      Min:     0.1 ms
-      Median:  0.2 ms
-      Max:     0.4 ms
+      Min:    1.15 ms
+      Median: 1.26 ms
+      Max:    1.38 ms
 
 EasyOCR end-to-end (local CPU):
 
@@ -172,8 +174,16 @@ EasyOCR end-to-end (local CPU):
 
 Snapdragon reference (component benchmarks, AI Hub hosted):
 
-    EasyOCR detector    ~39.5 ms  [job jpxlmx3jp]
-    EasyOCR recognizer  ~19.3 ms  [job jprl9wnvp]
+    Component      Precision    Job ID      Reference
+    -------------  -----------  ----------  -----------
+    Detector       uint8        jgk4j29wp   13.5 ms
+    Recognizer     uint8        jp1n3jw7g   10.5 ms
+    Detector       FLOAT16      jpxlmx3jp   ~39.5 ms
+    Recognizer     FLOAT16      jprl9wnvp   ~19.3 ms
+
+uint8 optimization reduces component latency by 1.8-2.9x vs FLOAT16:
+    Detector:   39.5 ms -> 13.5 ms  (2.9x)
+    Recognizer: 19.3 ms -> 10.5 ms  (1.8x)
 
 Adaptive OCR behavior:
     Fast pass (800px)  -> confidence ~0.69
@@ -207,7 +217,7 @@ Test Coverage: 15/15 unit tests passing
     Provider diagnostic:    1 test
 
 Architecture: Modular design with separate layers
-    Backend abstraction (CPU/Snapdragon)
+    Backend abstraction (CPU/QNN/Snapdragon)
     Vision (EasyOCR + TextPerception)
     Behavior tracking
     Risk scoring
@@ -234,9 +244,11 @@ Snapdragon Validation Evidence
 
     Component                 Snapdragon evidence            Status
     ------------------------  -----------------------------  ------
-    EasyOCR detector          AI Hub X Elite NPU profile     OK
-    EasyOCR recognizer        AI Hub X Elite NPU profile     OK
-    Optimized INT8 model      AI Hub X Elite NPU profile     OK
+    EasyOCR detector (uint8)  AI Hub X Elite NPU             OK
+    EasyOCR recognizer (uint8) AI Hub X Elite NPU            OK
+    EasyOCR detector (FLOAT16) AI Hub X Elite NPU            OK
+    EasyOCR recognizer (FLOAT16) AI Hub X Elite NPU          OK
+    Optimized INT8 model      AI Hub X Elite NPU             OK
     Full OCR pipeline         End-to-end X Elite measurement Pending
     DLP engine                Local CPU                      OK
     Arduino action            Local hardware / demo          OK
@@ -250,16 +262,22 @@ Qualcomm AI Hub Hosted-Device References
 
 EasyOCR component jobs on hosted Snapdragon X Elite CRD (NPU):
 
-    Job ID              Component        Compute      Reference
-    ------------------  ---------------  -----------  -----------
-    jpxlmx3jp           Detector         NPU (HTP)    ~39.5 ms
-    jprl9wnvp           Recognizer       NPU (HTP)    ~19.3 ms
-    jgnz1zdkg           INT8 optimized   NPU (HTP)    0.7 ms
+    Component          Precision    Job ID      Reference
+    -----------------  -----------  ----------  -----------
+    Detector           uint8        jgk4j29wp   13.5 ms
+    Recognizer         uint8        jp1n3jw7g   10.5 ms
+    Detector           FLOAT16      jpxlmx3jp   ~39.5 ms
+    Recognizer         FLOAT16      jprl9wnvp   ~19.3 ms
+
+uint8 optimization reduces component latency by 1.8-2.9x vs FLOAT16:
+    Detector:   39.5 ms -> 13.5 ms  (2.9x)
+    Recognizer: 19.3 ms -> 10.5 ms  (1.8x)
 
 Verify online:
+    https://aihub.qualcomm.com/jobs/jgk4j29wp
+    https://aihub.qualcomm.com/jobs/jp1n3jw7g
     https://aihub.qualcomm.com/jobs/jpxlmx3jp
     https://aihub.qualcomm.com/jobs/jprl9wnvp
-    https://workbench.aihub.qualcomm.com/jobs/jgnz1zdkg/
 
 These are hosted Qualcomm device results, not measurements on the 
 developer's laptop. They are component references, not a validation 
@@ -352,7 +370,7 @@ Project Structure
 
     Sentinel-Drishti/
     |-- src/
-    |   |-- backend/         Inference backend abstraction
+    |   |-- backend/         Inference backend abstraction + QNN adapter
     |   |-- vision/          EasyOCR + TextPerception + ROI cache
     |   |-- reasoning/       RuleBasedIntentClassifier + translator
     |   |-- policy/          DLP engine + behavior + risk + audit chain

@@ -4,6 +4,7 @@
 # Shows clear reason why QNN/HTP is not available.
 
 
+
 import platform
 import sys
 from pathlib import Path
@@ -52,9 +53,13 @@ def main():
         print("Status:            FALLBACK")
         print()
         print("Reference (Qualcomm AI Hub hosted-device):")
-        print("  EasyOCR detector:   ~39.5 ms  [job jpxlmx3jp]")
-        print("  EasyOCR recognizer: ~19.3 ms  [job jprl9wnvp]")
-        print("  Compute unit:       NPU (Hexagon HTP)")
+        print("  EasyOCR detector uint8:    13.5 ms  [job jgk4j29wp]")
+        print("  EasyOCR recognizer uint8:  10.5 ms  [job jp1n3jw7g]")
+        print("  EasyOCR detector FLOAT16:  ~39.5 ms [job jpxlmx3jp]")
+        print("  EasyOCR recognizer FLOAT16: ~19.3 ms [job jprl9wnvp]")
+        print("  Compute unit:               NPU (Hexagon HTP)")
+        print()
+        print("uint8 optimization: 1.8-2.9x faster vs FLOAT16")
         print()
         print("On a Snapdragon-powered PC, this script will report:")
         print("  QNN EP:    AVAILABLE")

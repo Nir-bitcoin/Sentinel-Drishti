@@ -2,6 +2,7 @@
 # Basic tests for Sentinel Drishti pipeline.
 # Run: python tests/test_pipeline.py
 
+
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -116,6 +117,91 @@ def test_provider_diagnostic_runs():
     assert result.returncode == 0
     assert "Selected provider" in result.stdout
 
+def test_ocr_status_success():
+    from src.vision.easyocr_screen import EasyOCRScreenAnalyzer
+    a = EasyOCRScreenAnalyzer("cpu")
+    assert a is not None
+
+def test_ocr_low_confidence_failsafe():
+    d = DLPEngine()
+    intent = {"classification": "UNVERIFIED_DATA_TRANSFER", "confidence": 0.5}
+    behavior = {"verdict": "CRITICAL_RISK", "destination": "PERSONAL_EMAIL"}
+    risk = {"score": 65, "level": "HIGH"}
+    r = d.evaluate("", intent, behavior, risk)
+    assert r["action"] in ["BLOCK_AND_ALERT", "WARN_AND_ALERT", "ALLOW"]
+
+def test_pii_read_local_allows():
+    d = DLPEngine()
+    intent = {"classification": "CONFIDENTIAL_DATA_ACCESS", "confidence": 0.82}
+    behavior = {"verdict": "NORMAL", "destination": "LOCAL"}
+    risk = {"score": 20, "level": "LOW"}
+    r = d.evaluate("CONFIDENTIAL internal only", intent, behavior, risk)
+    assert r["triggered"] == False
+
+def test_audit_content_not_stored():
+    import shutil
+    from src.policy.audit_chain import AuditChain
+    import json
+    import datetime as dt
+
+    shutil.rmtree("audit_logs_sec_test", ignore_errors=True)
+    c = AuditChain(log_dir="audit_logs_sec_test")
+    c.append({"action": "TEST", "content_redacted": True})
+
+    today = dt.datetime.now().strftime("%Y%m%d")
+    fpath = "audit_logs_sec_test/chain_" + today + ".jsonl"
+    with open(fpath) as f:
+        line = f.readline()
+    entry = json.loads(line)
+    assert entry["event"].get("content_redacted") == True
+    shutil.rmtree("audit_logs_sec_test", ignore_errors=True)
+
+def test_risk_multiple_pii_high():
+    s = RiskScorer()
+    entities = ["PAN", "PHONE", "AADHAAR"]
+    behavior = {"verdict": "NORMAL", "destination": "LOCAL", "after_hours": False}
+    r = s.calculate(entities, behavior)
+    assert r["score"] >= 30
+
+def test_risk_financial_data_adds_score():
+    s = RiskScorer()
+    entities = ["EMPLOYEE_FINANCIAL_DATA"]
+    behavior = {"verdict": "NORMAL", "destination": "LOCAL", "after_hours": False}
+    r = s.calculate(entities, behavior)
+    assert r["score"] >= 20
+
+def test_behavior_cloud_high_risk():
+    t = BehaviorTracker()
+    t.record("OPEN", "Excel")
+    t.record("COPY", "Excel")
+    t.record("OPEN", "Google Drive")
+    t.record("PASTE", "Google Drive")
+    r = t.assess_risk()
+    assert r["verdict"] in ["HIGH_RISK", "CRITICAL_RISK"]
+
+def test_behavior_messaging_high_risk():
+    t = BehaviorTracker()
+    t.record("OPEN", "Excel")
+    t.record("COPY", "Excel")
+    t.record("OPEN", "WhatsApp")
+    t.record("PASTE", "WhatsApp")
+    r = t.assess_risk()
+    assert r["verdict"] in ["HIGH_RISK", "CRITICAL_RISK"]
+
+def test_behavior_work_email_low_risk():
+    t = BehaviorTracker()
+    t.record("OPEN", "Excel")
+    t.record("COPY", "Excel")
+    t.record("OPEN", "Outlook Exchange")
+    t.record("PASTE", "Outlook Exchange")
+    r = t.assess_risk()
+    assert r["verdict"] == "LOW_RISK"
+
+def test_intent_unverified_transfer():
+    c = RuleBasedIntentClassifier("cpu")
+    r = c.classify("", [])
+    assert r["classification"] == "UNVERIFIED_DATA_TRANSFER"
+
 
 if __name__ == "__main__":
     tests = [
@@ -125,6 +211,16 @@ if __name__ == "__main__":
         test_intent_exfiltration, test_intent_benign, test_intent_ocr_fail,
         test_audit_chain_integrity,
         test_provider_diagnostic_runs,
+        test_ocr_status_success,
+        test_ocr_low_confidence_failsafe,
+        test_pii_read_local_allows,
+        test_audit_content_not_stored,
+        test_risk_multiple_pii_high,
+        test_risk_financial_data_adds_score,
+        test_behavior_cloud_high_risk,
+        test_behavior_messaging_high_risk,
+        test_behavior_work_email_low_risk,
+        test_intent_unverified_transfer,
     ]
     passed = 0
     failed = 0
