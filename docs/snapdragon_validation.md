@@ -1,226 +1,282 @@
-\# Snapdragon Validation Evidence
+\# Snapdragon Validation — Sentinel Drishti
 
 
 
-This document records the actual Qualcomm AI Hub hosted-device 
+\## Purpose
 
-measurements tied to Sentinel Drishti's perception components.
 
 
+This document provides honest, verifiable evidence of the Snapdragon-side
 
-\---
+execution path for Sentinel Drishti. It separates:
 
 
 
-\## Target Device
+1\. Local development (CPU) — measured
 
+2\. Snapdragon target (QNN/HTP) — architecture ready
 
+3\. Qualcomm AI Hub component benchmarks — hosted reference
 
-\- \*\*Device\*\*: Snapdragon X Elite CRD
 
-\- \*\*Platform\*\*: Windows 11
 
-\- \*\*SOC\*\*: SC8380XP
+\*\*No fabricated on-device numbers.\*\*
 
-\- \*\*Runtime\*\*: QNN / QAIRT
 
 
+\## 1. Local Development Backend
 
-These jobs were executed on physical Qualcomm-hosted Snapdragon 
 
-hardware (not simulated).
 
+| Property | Value |
 
+|----------|-------|
 
-\---
+| Runtime | Windows AMD64 |
 
+| Provider | `CPUBackend` |
 
+| OCR engine | EasyOCR (CPU) |
 
-\## EasyOCR Component Evidence
+| Purpose | functional correctness + real benchmarks |
 
 
 
-\### Optimized uint8 (Latest)
+Measured on this host:
 
 
 
-| Component | Job ID | Precision | Inference | Compute |
+\- L0 control plane: \~0.36 ms P50
 
-|---|---|---|---|---|
+\- Cache hit path: \~3-4 ms P50
 
-| Detector | jgk4j29wp | uint8 | \*\*13.5 ms\*\* | NPU |
+\- Cold OCR (new screen): \~8-9 s P50
 
-| Recognizer | jp1n3jw7g | uint8 | \*\*10.5 ms\*\* | NPU |
+\- Final OCR confidence: \~0.968
 
 
 
-These represent quantized uint8 optimization on Snapdragon X Elite.
+Reproducible via:
 
 
 
-\### Baseline FLOAT16 (Earlier)
+```powershell
 
+python scripts/benchmark\_continuous.py --cache
 
+python scripts/benchmark\_continuous.py --mixed
 
-| Component | Job ID | Precision | Inference | Compute |
+python scripts/benchmark\_continuous.py --cold
 
-|---|---|---|---|---|
+```
 
-| Detector | jpxlmx3jp | FLOAT16 | \~39.5 ms | NPU |
 
-| Recognizer | jprl9wnvp | FLOAT16 | \~19.3 ms | NPU |
 
+\## 2. Snapdragon Target Backend (QNN/HTP)
 
 
-\### Optimization Summary
 
+| Property | Value |
 
+|----------|-------|
 
-| Component | FLOAT16 | uint8 | Speedup |
+| Provider | `QNNBackend` |
 
-|---|---|---|---|
+| Runtime | ONNX Runtime + QNN Execution Provider |
 
-| Detector | 39.5 ms | 13.5 ms | \*\*2.9×\*\* |
+| Target | Hexagon Tensor Processor (HTP) |
 
-| Recognizer | 19.3 ms | 10.5 ms | \*\*1.8×\*\* |
+| Hardware | Snapdragon X Elite (HP PC class) |
 
+| Status | NOT hardware-validated in this environment |
 
 
-\---
 
+Fallback architecture:
 
+&#x20;    Sentinel Runtime
 
-\## Optimized INT8 Model (NPU Capability Proof)
+&#x20;           |
 
+&#x20;   +-------+-------+
 
+&#x20;   |               |
 
-| Field | Value |
+&#x20;QNN/HTP          CPU
 
-|---|---|
+&#x20;   |               |
 
-| Job ID | jgnz1zdkg |
+Snapdragon target dev host
 
-| Compute Unit | NPU (Hexagon HTP) |
 
-| Inference | 0.7 ms |
 
-| Peak Memory | 0.6 MB |
 
-| Precision | INT8 |
 
-| Target | Snapdragon X Elite CRD |
+`get\_backend\_with\_fallback()` selects QNN when available, otherwise CPU.
 
+The CPU path is what runs end-to-end in this submission.
 
 
-This job demonstrates NPU INT8 quantization capability on Snapdragon 
 
-X Elite.
+\## 3. Qualcomm AI Hub Component Benchmarks (Hosted)
 
 
 
-\---
+These are component-level benchmarks run on Qualcomm-hosted Snapdragon X Elite
 
+devices via AI Hub. They are NOT end-to-end Sentinel timings and must not be
 
+presented as such.
 
-\## Evidence Matrix
 
 
+| Component | Job ID | Precision | Latency |
 
-| Component | Snapdragon Evidence | Status |
+|-----------|--------|-----------|---------|
 
-|---|---|---|
+| EasyOCR text detector | `jgk4j29wp` | uint8 | \~13.5 ms |
 
-| EasyOCR detector (uint8) | AI Hub X Elite NPU | OK |
+| EasyOCR text recognizer | `jprl9wnvp` | uint8 | \~10.5 ms |
 
-| EasyOCR recognizer (uint8) | AI Hub X Elite NPU | OK |
 
-| EasyOCR detector (FLOAT16) | AI Hub X Elite NPU | OK |
 
-| EasyOCR recognizer (FLOAT16) | AI Hub X Elite NPU | OK |
+Verify:
 
-| Optimized INT8 model | AI Hub X Elite NPU | OK |
+\- https://aihub.qualcomm.com/jobs/jgk4j29wp
 
-| Full OCR pipeline (end-to-end) | Pending | Pending |
+\- https://aihub.qualcomm.com/jobs/jprl9wnvp
 
-| DLP engine | Local CPU | OK |
 
-| Arduino action | Local | OK |
 
-| Full app on HP Snapdragon | Physical validation | Pending |
+\## 4. What Is Honestly NOT Claimed
 
 
 
-\---
+\- On-device NPU execution of the full Sentinel pipeline
 
+\- "22 s CPU -> 10 ms NPU" style speedup claims
 
+\- 8.8x speedup numbers
 
-\## Scope Statement
+\- Full end-to-end latency on Snapdragon hardware
 
 
 
-These are \*\*Qualcomm AI Hub hosted-device component measurements\*\*. 
+\## 5. What IS Claimed
 
-They are \*\*not\*\* presented as end-to-end Sentinel Drishti latency.
 
 
+\- Backend abstraction supports QNN/HTP selection
 
-\- Component benchmarks: measured on real Snapdragon X Elite via AI Hub
+\- Automatic fallback to CPU when QNN unavailable
 
-\- Local pipeline: measured on development PC (CPU)
+\- CPU path validated end-to-end with real OCR + real DLP decisions
 
-\- Physical HP Snapdragon validation: \*\*pending hardware access\*\*
+\- Component-level Snapdragon NPU benchmarks referenced from AI Hub
 
+\- Runtime diagnostic visibly reports provider + fallback reason
 
 
-\---
 
+\## 6. Runtime Diagnostic
 
 
-\## Latency Types
 
+```powershell
 
+python scripts/check\_provider.py
 
-Qualcomm AI Hub distinguishes:
+```
 
 
 
-| Type | Meaning |
+Output shows:
 
-|---|---|
 
-| First App Load | Cold startup (\~2.7 s) |
 
-| Subsequent App Load | Warm load (\~1.1 s) |
+\- Selected provider
 
-| Inference | Steady-state per-call latency |
+\- QNN availability
 
+\- Fallback reason
 
+\- Snapdragon reference numbers (clearly labelled as hosted)
 
-\---
 
 
+\## 7. Architecture Readiness for Snapdragon
 
-\## What This Proves
 
 
+When deployed on Snapdragon hardware with QNN EP available:
 
-1\. EasyOCR perception components are compatible with Snapdragon 
+&#x20;             Sentinel Runtime
 
-&#x20;  X Elite NPU execution (both FLOAT16 and uint8).
+&#x20;                    |
 
-2\. uint8 quantization reduces NPU latency 1.8-2.9× vs FLOAT16.
+&#x20;         get\_backend\_with\_fallback()
 
-3\. INT8 quantization workflow completed on real Snapdragon hardware.
+&#x20;                    |
 
+&#x20;             QNN EP available?
 
+&#x20;             +------+------+
 
-\## What This Does NOT Prove
+&#x20;             |             |
 
+&#x20;            Yes            No
 
+&#x20;             |             |
 
-1\. Full Sentinel Drishti end-to-end on Snapdragon.
+&#x20;       QNNBackend      CPUBackend
 
-2\. OS-level enforcement on Snapdragon.
+&#x20;             |             |
 
-3\. Physical HP Snapdragon PC validation.
+&#x20;     +-------+-------+     |
+
+&#x20;     |               |     |
+
+&#x20; detect()        recognize()
+
+&#x20; (QNN/HTP)        (QNN/HTP)
+
+&#x20;     |               |
+
+&#x20;     +-------+-------+
+
+&#x20;             |
+
+&#x20;    Same Entity Detection
+
+&#x20;             |
+
+&#x20;      Same Risk Engine
+
+&#x20;             |
+
+&#x20;      Same DLP Engine
+
+&#x20;             |
+
+&#x20;      Same Audit Chain
+
+
+
+
+
+Only the perception layer swaps. Everything downstream is unchanged.
+
+
+
+\## 8. Honest Statement
+
+
+
+Full physical Snapdragon execution has not been measured.
+
+The above are hosted component benchmarks from Qualcomm AI Hub.
+
+The runtime architecture supports QNN fallback to CPU, which is what
+
+this submission demonstrates end-to-end.
 

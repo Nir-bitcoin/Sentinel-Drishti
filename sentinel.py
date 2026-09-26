@@ -1,5 +1,5 @@
 # sentinel.py
-
+# Unified entry point for Sentinel Drishti.
 
 import sys
 import subprocess

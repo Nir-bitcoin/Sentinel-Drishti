@@ -1,5 +1,5 @@
 # test_e2e.py
-
+# End-to-end pipeline test: OCR -> entities -> behavior -> risk -> DLP.
 
 import sys
 from pathlib import Path

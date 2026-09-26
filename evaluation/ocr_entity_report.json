@@ -1,0 +1,468 @@
+{
+  "total_images": 30,
+  "ocr_success": 30,
+  "ocr_failure": 0,
+  "ocr_success_rate_pct": 100.0,
+  "entities": {
+    "PAN": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 10,
+      "fp": 0,
+      "fn": 0
+    },
+    "PHONE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 8,
+      "fp": 0,
+      "fn": 0
+    },
+    "EMPLOYEE_FINANCIAL_DATA": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 9,
+      "fp": 0,
+      "fn": 0
+    },
+    "CONFIDENTIAL_MARKING": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 7,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "macro": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "tp": 34,
+    "fp": 0,
+    "fn": 0
+  },
+  "per_image": [
+    {
+      "image_id": "img01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.947,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.938,
+      "ocr_text": "PAN: FGHIJ5678K Name: Rajesh Kumar",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.967,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.939,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.948,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.974,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.902,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.966,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.93,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.978,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.914,
+      "ocr_text": "Bonus: 300000 Bonus structure",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.978,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.73,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.932,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.942,
+      "ocr_text": "Room 4 Lunch at Ipm",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.855,
+      "ocr_text": "Shopping list Milk; eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.867,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.851,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.91,
+      "ocr_text": "Salary: 2000000 PAN: FGHIJ5678K",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.958,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Phone: 9876543210 Salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.95,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.958,
+      "ocr_text": "CONFIDENTIAL Employee Record PAN: ABCDE1234F Phone: 9876543210 Salary: 3000000",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    }
+  ]
+}

@@ -4,3 +4,6 @@ Pillow
 easyocr
 psutil
 pyyaml
+
+psutil
+pyyaml
