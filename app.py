@@ -1,9 +1,14 @@
 # app.py
+#
+# Streamlit dashboard for Sentinel Drishti.
+# Preset scenarios + why-blocked + audit download + telemetry bar.
 
 
 import streamlit as st
+import json
 import sys
 from pathlib import Path
+from datetime import datetime
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.vision.internvl_screen import InternVLScreenAnalyzer
@@ -13,13 +18,6 @@ from src.policy.dlp_engine import DLPEngine
 from src.policy.behavior_tracker import BehaviorTracker
 from src.policy.risk_scorer import RiskScorer
 
-# EasyOCR optional
-try:
-    from src.vision.easyocr_screen import EasyOCRScreenAnalyzer
-    HAS_EASYOCR = True
-except Exception:
-    HAS_EASYOCR = False
-
 
 st.set_page_config(
     page_title="Sentinel Drishti",
@@ -27,19 +25,22 @@ st.set_page_config(
     layout="wide"
 )
 
+# ---- header ----
 st.title("🛡 Sentinel Drishti")
 st.caption("On-Device AI Compliance & Data Loss Prevention")
 st.caption("Snapdragon AI Lab Build & Present Challenge 2026")
 
-if not HAS_EASYOCR:
-    st.warning(
-        "EasyOCR not available in this deployment. "
-        "Text-based scenarios are fully functional. "
-        "Image OCR runs in local deployment."
-    )
+# ---- demo mode banner ----
+st.info(
+    "**DEMO MODE** — Text scenarios run fully. "
+    "Endpoint actions (clipboard, USB interception, screen monitoring) "
+    "are simulated in this browser demo."
+)
 
+# ---- sidebar ----
 with st.sidebar:
-    st.header("Mode")
+    st.header("Settings")
+
     mode = st.radio(
         "Backend:",
         ["snapdragon", "cpu"],
@@ -47,114 +48,152 @@ with st.sidebar:
     )
 
     if mode == "snapdragon":
-        st.info("NPU values are Qualcomm AI Hub references. Hardware validation pending.")
+        st.info("NPU values = Qualcomm AI Hub references. Hardware validation pending.")
     else:
-        st.success("CPU execution - real, measured.")
+        st.success("CPU execution — real, measured.")
 
     st.divider()
-    st.caption("Test scenarios:")
+    st.subheader("About")
+    st.caption(
+        "Sentinel Drishti detects sensitive content, tracks user behavior, "
+        "and blocks suspicious data transfer — all locally, no cloud."
+    )
 
-    scenario_options = ["PII text", "Confidential doc", "USB copy"]
-    if HAS_EASYOCR:
-        scenario_options.insert(1, "Image (EasyOCR)")
+# ---- telemetry status bar ----
+st.divider()
+tcol1, tcol2, tcol3, tcol4 = st.columns(4)
 
-    scenario = st.selectbox("Choose input", scenario_options)
+with tcol1:
+    st.metric("Backend", "NPU" if mode == "snapdragon" else "CPU")
+with tcol2:
+    st.metric("Mode", "Target" if mode == "snapdragon" else "Local")
+with tcol3:
+    st.metric("Offline", "Active")
+with tcol4:
+    st.metric("Detection", "Enabled")
+st.divider()
 
-if scenario == "PII text":
-    content = "Employee salary record: Name - Rajesh Kumar, PAN - ABCDE1234F, Phone - 9876543210"
-    image_mode = False
-    actions = [
-        {"action": "OPEN", "app": "Excel"},
-        {"action": "COPY", "app": "Excel"},
-        {"action": "OPEN", "app": "Gmail"},
-        {"action": "PASTE", "app": "Gmail"},
-    ]
-elif scenario == "Image (EasyOCR)":
-    content = "docs/screenshots/hr_screenshot.png"
-    image_mode = True
-    actions = [
-        {"action": "OPEN", "app": "Excel"},
-        {"action": "COPY", "app": "Excel"},
-        {"action": "OPEN", "app": "Gmail"},
-        {"action": "PASTE", "app": "Gmail"},
-    ]
-elif scenario == "Confidential doc":
-    content = "CONFIDENTIAL: Internal only - Q4 pricing strategy draft"
-    image_mode = False
-    actions = [
-        {"action": "OPEN", "app": "Word"},
-        {"action": "READ", "app": "Word"},
-    ]
-else:
-    content = "Employee salary record: PAN - ABCDE1234F, Phone - 9876543210"
-    image_mode = False
-    actions = [
-        {"action": "OPEN", "app": "Excel"},
-        {"action": "COPY", "app": "Excel"},
-        {"action": "INSERT", "app": "USB Drive"},
-        {"action": "PASTE", "app": "USB Drive"},
-    ]
 
-if not image_mode:
-    content = st.text_area("Screen content:", value=content, height=100)
-else:
-    st.write("**Image:** " + content)
+# ---- preset scenarios ----
+scenarios = {
+    "Normal Work": {
+        "content": "Team meeting scheduled for 3pm to discuss Q4 roadmap",
+        "actions": [
+            {"action": "OPEN", "app": "Notepad"},
+            {"action": "TYPE", "app": "Notepad"},
+            {"action": "SAVE", "app": "Notepad"},
+        ],
+        "desc": "Employee opens notes and types — benign activity.",
+    },
+    "PII → Personal Gmail": {
+        "content": "Employee salary record: Name - Rajesh Kumar, PAN - ABCDE1234F, Phone - 9876543210",
+        "actions": [
+            {"action": "OPEN", "app": "Excel"},
+            {"action": "COPY", "app": "Excel"},
+            {"action": "OPEN", "app": "Gmail"},
+            {"action": "PASTE", "app": "Gmail"},
+        ],
+        "desc": "Employee copies PII and pastes to personal Gmail — exfiltration.",
+    },
+    "PII → USB": {
+        "content": "Employee salary record: PAN - ABCDE1234F, Phone - 9876543210",
+        "actions": [
+            {"action": "OPEN", "app": "Excel"},
+            {"action": "COPY", "app": "Excel"},
+            {"action": "INSERT", "app": "USB Drive"},
+            {"action": "PASTE", "app": "USB Drive"},
+        ],
+        "desc": "Employee copies sensitive data to USB drive.",
+    },
+    "Confidential Read": {
+        "content": "CONFIDENTIAL: Internal only - Q4 pricing strategy draft",
+        "actions": [
+            {"action": "OPEN", "app": "Word"},
+            {"action": "READ", "app": "Word"},
+        ],
+        "desc": "Employee reads confidential doc locally — allowed with log.",
+    },
+}
 
-st.write("**Behavior sequence:**")
-for a in actions:
-    st.write("- " + a["action"] + " on " + a["app"])
+# ---- scenario selection ----
+st.subheader("Choose a Scenario")
+st.caption("Click a scenario button to run the full pipeline instantly.")
 
-if st.button("Run Analysis", type="primary"):
+cols = st.columns(4)
+selected = None
+for i, name in enumerate(scenarios.keys()):
+    with cols[i]:
+        if st.button(name, use_container_width=True):
+            selected = name
+
+# manual override
+with st.expander("Or enter custom content"):
+    custom_content = st.text_area("Screen content:", height=80)
+    if custom_content:
+        selected = "Custom"
+        scenarios["Custom"] = {
+            "content": custom_content,
+            "actions": [
+                {"action": "OPEN", "app": "Excel"},
+                {"action": "COPY", "app": "Excel"},
+                {"action": "OPEN", "app": "Gmail"},
+                {"action": "PASTE", "app": "Gmail"},
+            ],
+            "desc": "Custom input",
+        }
+
+
+# ---- run pipeline ----
+if selected:
+    sc = scenarios[selected]
+
+    st.divider()
+    st.subheader("Pipeline: " + selected)
+    st.caption(sc["desc"])
+
     with st.spinner("Running pipeline..."):
-        o = None
-        if image_mode:
-            if HAS_EASYOCR:
-                ocr = EasyOCRScreenAnalyzer(mode)
-                o = ocr.extract_text(content)
-                text_content = o["text"]
-            else:
-                text_content = ""
-        else:
-            text_content = content
-
         vis = InternVLScreenAnalyzer(mode)
         rea = QwenIntentClassifier(mode)
         trk = BehaviorTracker()
         scr = RiskScorer()
         dlp = DLPEngine()
 
-        v = vis.analyze(text_content)
-        for a in actions:
+        v = vis.analyze(sc["content"])
+        for a in sc["actions"]:
             trk.record(a["action"], a["app"])
         b = trk.assess_risk()
         r = scr.calculate(v["entities"], b)
-        i = rea.classify(text_content, v["entities"])
-        d = dlp.evaluate(text_content, i, b, r)
+        i = rea.classify(sc["content"], v["entities"])
+        d = dlp.evaluate(sc["content"], i, b, r)
 
+    # stage cards
+    stage1, stage2, stage3, stage4 = st.columns(4)
+    with stage1:
+        st.metric("OCR / Input", "TEXT", "loaded")
+    with stage2:
+        st.metric("Entities", str(len(v["entities"])), "detected")
+    with stage3:
+        st.metric("Risk", str(r["score"]) + "/100", r["level"])
+    with stage4:
+        icon = "🚫" if d["triggered"] else "✅"
+        st.metric("Decision", icon + " " + d["action"])
+
+    # ---- why blocked ----
     st.divider()
+    if d["triggered"]:
+        st.error("🚫 BLOCKED")
+    else:
+        st.success("✅ ALLOWED")
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Risk Score", str(r["score"]) + "/100", r["level"])
-    with col2:
-        icon = "🔴" if d["triggered"] else "🟢"
-        st.metric("Action", icon + " " + d["action"])
-    with col3:
-        if d.get("enforcement"):
-            st.metric("Enforcement", "SIMULATED")
+    st.subheader("Why this decision?")
+    for line in d["explanation"]:
+        st.write("✓ " + line)
 
-    if o:
-        st.subheader("OCR (EasyOCR)")
-        st.write("Status: " + o["status"])
-        st.write("Confidence: " + str(o["avg_confidence"]))
-        st.write("Image size: " + o["image_size"])
-        st.write("Passes: " + str(o["passes_used"]))
-        st.write("Inference: " + str(o["inference_ms"]) + " ms [CPU]")
-
-    tab1, tab2, tab3, tab4 = st.tabs(["Perception", "Behavior", "Risk", "Alerts"])
+    # ---- tabs ----
+    tab1, tab2, tab3, tab4 = st.tabs(["Entities", "Behavior", "Risk Detail", "Alerts"])
 
     with tab1:
-        st.write("**Entities:**")
+        st.write("**Detected entities:**")
         if v["entities"]:
             for e in v["entities"]:
                 st.code(e)
@@ -162,14 +201,16 @@ if st.button("Run Analysis", type="primary"):
             st.write("None")
 
     with tab2:
-        st.write("Verdict: **" + b["verdict"] + "**")
-        st.write("Destination: " + b.get("destination", "LOCAL"))
-        st.write("Reason: " + b["reason"])
+        st.write("**Behavior sequence:**")
+        for a in sc["actions"]:
+            st.write("• " + a["action"] + " on " + a["app"])
+        st.write("**Verdict:** " + b["verdict"])
+        st.write("**Destination:** " + b.get("destination", "LOCAL"))
 
     with tab3:
         st.write("**Risk breakdown:**")
         for x in r["reasons"]:
-            st.write("- " + x)
+            st.write("• " + x)
 
     with tab4:
         if d.get("enforcement"):
@@ -185,9 +226,35 @@ if st.button("Run Analysis", type="primary"):
         else:
             st.write("No alert triggered.")
 
-    st.subheader("Explanation")
-    for line in d["explanation"]:
-        st.write("• " + line)
+    # ---- audit report ----
+    st.divider()
+    st.subheader("Audit Report")
+
+    audit = {
+        "event_id": "SD-" + datetime.now().strftime("%Y%m%d%H%M%S"),
+        "timestamp": datetime.now().isoformat(),
+        "scenario": selected,
+        "mode": mode,
+        "entities": v["entities"],
+        "behavior_verdict": b["verdict"],
+        "destination": b.get("destination", "LOCAL"),
+        "risk_score": r["score"],
+        "risk_level": r["level"],
+        "action": d["action"],
+        "explanation": d["explanation"],
+    }
+
+    st.code(json.dumps(audit, indent=2), language="json")
+
+    st.download_button(
+        label="Download Audit Report (JSON)",
+        data=json.dumps(audit, indent=2),
+        file_name=audit["event_id"] + ".json",
+        mime="application/json",
+    )
 
 st.divider()
-st.caption("GitHub: https://github.com/Nir-bitcoin/Sentinel-Drishti")
+st.caption(
+    "GitHub: https://github.com/Nir-bitcoin/Sentinel-Drishti  |  "
+    "Automated tests: https://github.com/Nir-bitcoin/Sentinel-Drishti/actions"
+)
