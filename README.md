@@ -36,13 +36,13 @@ Solution
 
 A Snapdragon-targeted, AI-assisted DLP agent that:
 
-1. Processes input (image / direct text)
+1. Processes input (image via EasyOCR / direct text)
 2. Detects sensitive entities (PII, financial data, confidential markings)
 3. Tracks user behavior across applications
 4. Scores risk using content + behavior + destination + time
 5. Decides via a deterministic DLP policy engine
 6. Triggers physical alerts (Arduino buzzer + LED)
-7. Logs every event with a local audit trail
+7. Logs every event with a tamper-evident audit hash chain
 
 The backend abstraction separates the local CPU implementation from the 
 Snapdragon-target implementation path. Snapdragon execution is pending 
@@ -57,13 +57,13 @@ Layer 1: INPUT
 
 Layer 2: PERCEPTION
     EasyOCR detector + recognizer — text extraction
-    Regex — entity detection (PII, financial, confidential)
+    TextPerception — regex entity detection (PII, financial, confidential)
 
 Layer 3: BEHAVIOR TRACKING
     Destination awareness + time + action sequences
 
 Layer 4: REASONING
-    Rule engine — intent classification
+    RuleBasedIntentClassifier — rule-based intent classification
 
 Layer 5: DLP DECISION
     Policy engine + enforcement logic
@@ -72,17 +72,69 @@ Layer 6: ACTION
     Arduino UNO Q — buzzer + LED alert
 
 
+Provider Routing
+----------------
+
+The system detects available inference backends at runtime:
+
+    Auto-detect
+         |
+    QNN EP available?
+         |
+      +--+--+
+      |     |
+     YES    NO
+      |     |
+   QNN/HTP  CPU
+   (NPU)   fallback
+      |     |
+      +--+--+
+         |
+    Same DLP pipeline
+
+Run diagnostic:
+    python scripts/check_provider.py
+
+On current development PC (no Snapdragon NPU):
+    Selected provider: CPU
+    Status:            FALLBACK
+
+On Snapdragon X Elite (target):
+    Selected provider: QNN / HTP
+    Status:            NPU ACTIVE
+
+
+Implementation Notes
+--------------------
+
+The pipeline is honest about what is real vs reference:
+
+    Component              Status
+    ---------------------  ------------------------------------
+    EasyOCR (CPU)          Real, measured locally (~7.1-7.4 s)
+    TextPerception         Real, regex-based
+    BehaviorTracker        Real
+    RiskScorer             Real
+    DLPEngine              Real
+    AuditChain (SHA-256)   Real, verifiable
+    Snapdragon NPU         Reference only (AI Hub hosted jobs)
+
+No time.sleep() simulation is used in the backend. Snapdragon reference
+values come from Qualcomm AI Hub hosted-device jobs and are clearly
+marked as reference, not measured.
+
+
 Backend Abstraction
 -------------------
-
-The pipeline uses an abstract inference backend, allowing the same 
-architecture to support CPU execution locally and Snapdragon-targeted 
-inference when target hardware is available:
 
     Backend              Host                  Timing Source            Status
     -------------------  --------------------  -----------------------  ---------
     CPUBackend           Local development PC  Measured                 Working
     SnapdragonBackend    Snapdragon X Elite    Qualcomm AI Hub ref      Pending
+
+The Snapdragon backend is a target implementation path — it returns 
+reference markers, not simulated values. When physical Snapdragon 
+hardware is available, the same interface can be wired to QNN/HTP.
 
 
 Qualcomm AI Hub References
@@ -105,13 +157,23 @@ X Elite would require additional orchestration measurements.
 Benchmark Results
 -----------------
 
-    Component                  Local CPU            Snapdragon reference
-    -------------------------  -------------------  ---------------------
-    EasyOCR end-to-end         ~7.1-7.4 s           Not end-to-end
-    EasyOCR detector           —                    ~39.5 ms [AI Hub]
-    EasyOCR recognizer         —                    ~19.3 ms [AI Hub]
-    PII regex                  ~0.1 ms              Local rule execution
-    Risk / policy engine       ~0.1 ms              Local rule execution
+Pipeline-only benchmark (regex + rule engine + DLP, no OCR):
+
+    Run 1..5: sub-millisecond per iteration
+
+    Statistics:
+      Min:     0.1 ms
+      Median:  0.2 ms
+      Max:     0.4 ms
+
+EasyOCR end-to-end (local CPU):
+
+    ~7.1-7.4 s  (5-run median, development laptop)
+
+Snapdragon reference (component benchmarks, AI Hub hosted):
+
+    EasyOCR detector    ~39.5 ms  [job jpxlmx3jp]
+    EasyOCR recognizer  ~19.3 ms  [job jprl9wnvp]
 
 Adaptive OCR behavior:
     Fast pass (800px)  -> confidence ~0.69
@@ -122,27 +184,65 @@ No side-by-side speedup comparison between CPU end-to-end and NPU
 component references is claimed, because they measure different scopes.
 
 
+Optimization: ROI Cache
+-----------------------
+
+Repeated OCR of unchanged screens is skipped via content-hash cache.
+Same screen -> cached result. Different screen -> run OCR.
+
+This models how a real endpoint agent would avoid redundant inference
+during continuous monitoring.
+
+
 Technical Implementation
 ------------------------
 
-Test Coverage: 13/13 unit tests passing
-    PII detection:         4 tests
-    Behavior tracking:     3 tests
-    Risk scoring:          1 test
-    DLP policy:            2 tests
-    Intent classification: 3 tests
+Test Coverage: 15/15 unit tests passing
+    PII detection:          4 tests
+    Behavior tracking:      3 tests
+    Risk scoring:           1 test
+    DLP policy:             2 tests
+    Intent classification:  3 tests
+    Audit hash chain:       1 test
+    Provider diagnostic:    1 test
 
 Architecture: Modular design with separate layers
     Backend abstraction (CPU/Snapdragon)
-    Vision (EasyOCR + regex)
+    Vision (EasyOCR + TextPerception)
     Behavior tracking
     Risk scoring
     DLP policy engine
     Multi-language alerts
-    Audit logging
+    Tamper-evident audit chain (SHA-256)
+    ROI cache for repeated screens
 
 Run tests:
     python tests/test_pipeline.py
+
+
+Security Features
+-----------------
+
+    Tamper-evident audit log (SHA-256 hash chain)
+    Each event links to previous event's hash
+    verify_chain() detects any modification
+    Fail-safe: low OCR confidence + risky behavior -> WARN_AND_ALERT
+
+
+Snapdragon Validation Evidence
+------------------------------
+
+    Component                 Snapdragon evidence            Status
+    ------------------------  -----------------------------  ------
+    EasyOCR detector          AI Hub X Elite NPU profile     OK
+    EasyOCR recognizer        AI Hub X Elite NPU profile     OK
+    Optimized INT8 model      AI Hub X Elite NPU profile     OK
+    Full OCR pipeline         End-to-end X Elite measurement Pending
+    DLP engine                Local CPU                      OK
+    Arduino action            Local hardware / demo          OK
+    Full app on HP Snapdragon Physical target validation     Pending
+
+Details: docs/snapdragon_validation.md
 
 
 Qualcomm AI Hub Hosted-Device References
@@ -154,10 +254,12 @@ EasyOCR component jobs on hosted Snapdragon X Elite CRD (NPU):
     ------------------  ---------------  -----------  -----------
     jpxlmx3jp           Detector         NPU (HTP)    ~39.5 ms
     jprl9wnvp           Recognizer       NPU (HTP)    ~19.3 ms
+    jgnz1zdkg           INT8 optimized   NPU (HTP)    0.7 ms
 
 Verify online:
     https://aihub.qualcomm.com/jobs/jpxlmx3jp
     https://aihub.qualcomm.com/jobs/jprl9wnvp
+    https://workbench.aihub.qualcomm.com/jobs/jgnz1zdkg/
 
 These are hosted Qualcomm device results, not measurements on the 
 developer's laptop. They are component references, not a validation 
@@ -180,13 +282,13 @@ Browser Demo
 A browser-based Streamlit interface is provided for demonstration.
 
 Demo mode supports:
-    - Uploading an image
-    - OCR extraction
+    - Image upload (EasyOCR on local deployments)
     - PII detection
     - Behavior selection
     - Risk scoring
     - DLP decision
     - Audit result
+    - JSON audit download
 
 Note: The browser demo does not access the user's local screen, 
 clipboard, USB devices, or Snapdragon NPU.
@@ -201,6 +303,7 @@ Local Setup
     python run_demo.py
     python run_demo.py --cpu
     python scripts/benchmark.py
+    python scripts/check_provider.py
     python tests/test_pipeline.py
 
 
@@ -233,7 +336,7 @@ Honest Limitations
     Behavior tracking                Real
     Risk scoring                     Real
     DLP policy logic                 Real
-    Audit logging                    Real event logging
+    Audit logging                    Real (SHA-256 hash chain)
     EasyOCR NPU profiling            Hosted Qualcomm X Elite CRD
     NPU inference timing (demo)      Qualcomm AI Hub benchmark reference
     Snapdragon on-device validation  Pending device access
@@ -250,12 +353,12 @@ Project Structure
     Sentinel-Drishti/
     |-- src/
     |   |-- backend/         Inference backend abstraction
-    |   |-- vision/          Input + EasyOCR + perception
-    |   |-- reasoning/       Intent classification + translator
-    |   |-- policy/          DLP engine + behavior + risk
+    |   |-- vision/          EasyOCR + TextPerception + ROI cache
+    |   |-- reasoning/       RuleBasedIntentClassifier + translator
+    |   |-- policy/          DLP engine + behavior + risk + audit chain
     |   +-- api/             FastAPI backend
     |-- simulation/          Arduino simulation
-    |-- scripts/             Benchmark
+    |-- scripts/             Benchmark + provider diagnostic
     |-- tests/               Unit tests
     |-- docs/                Documentation and screenshots
     |-- run_demo.py          Main demo runner
