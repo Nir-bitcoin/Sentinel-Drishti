@@ -1,8 +1,7 @@
 # test_pipeline.py
 # Basic tests for Sentinel Drishti pipeline.
 # Run: python tests/test_pipeline.py
-#
-# N
+
 
 import sys
 from pathlib import Path
@@ -12,6 +11,7 @@ from src.vision.internvl_screen import InternVLScreenAnalyzer
 from src.policy.behavior_tracker import BehaviorTracker
 from src.policy.risk_scorer import RiskScorer
 from src.policy.dlp_engine import DLPEngine
+from src.policy.audit_chain import AuditChain
 from src.reasoning.qwen_intent import QwenIntentClassifier
 
 
@@ -98,6 +98,16 @@ def test_intent_ocr_fail():
     r = c.classify("", [])
     assert r["classification"] == "UNVERIFIED_DATA_TRANSFER"
 
+def test_audit_chain_integrity():
+    import shutil
+    c = AuditChain(log_dir="audit_logs_test")
+    c.append({"action": "TEST_A"})
+    c.append({"action": "TEST_B"})
+    c.append({"action": "TEST_C"})
+    valid, msg = c.verify_chain()
+    assert valid == True
+    shutil.rmtree("audit_logs_test", ignore_errors=True)
+
 
 if __name__ == "__main__":
     tests = [
@@ -105,6 +115,7 @@ if __name__ == "__main__":
         test_behavior_usb_critical, test_behavior_gmail_critical, test_behavior_normal,
         test_risk_capped, test_dlp_blocks_pii, test_dlp_allows_benign,
         test_intent_exfiltration, test_intent_benign, test_intent_ocr_fail,
+        test_audit_chain_integrity,
     ]
     passed = 0
     failed = 0

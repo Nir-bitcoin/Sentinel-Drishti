@@ -1,12 +1,4 @@
-# dlp rules + explanation + enforcement
-#
-# pehle sirf "BLOCKED" print kar raha tha. ab actual simulate karta hai
-# ki rok diya. ye difference hai between "detect" aur "prevent"
-#
-# note: ye enforcement simulated hai, actual interception nahi ho rahi
-# current laptop pe. production mein windows api use karenge.
-#
-# N - 26 sept
+# dlp_engine.py
 
 import re
 import hashlib
@@ -14,12 +6,16 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+try:
+    from src.policy.audit_chain import AuditChain
+    HAS_CHAIN = True
+except Exception:
+    HAS_CHAIN = False
+
 
 class DLPEngine:
 
     def __init__(self):
-        # TODO - rules ko json file se load karna
-        # abhi hardcoded hai
         self.rules = [
             {
                 "id": "PII_001",
@@ -57,8 +53,12 @@ class DLPEngine:
         if not self.log_dir.exists():
             self.log_dir.mkdir()
 
+        if HAS_CHAIN:
+            self.chain = AuditChain(str(self.log_dir))
+        else:
+            self.chain = None
+
     def evaluate(self, text, intent, behavior, risk):
-        # rules match
         hits = []
         for rule in self.rules:
             for rx in rule["regex"]:
@@ -71,7 +71,6 @@ class DLPEngine:
                     })
                     break
 
-        # dono chahiye - content + behavior
         risky = behavior.get("verdict") in ["CRITICAL_RISK", "HIGH_RISK"]
         sensitive = len(hits) > 0
 
@@ -88,7 +87,6 @@ class DLPEngine:
                 "enforcement": None,
             }
 
-        # sabse high severity pick karo
         order = {"LOW": 1, "MEDIUM": 2, "HIGH": 3}
         top = hits[0]
         for m in hits:
@@ -115,8 +113,6 @@ class DLPEngine:
         return res
 
     def _block(self, behavior):
-        # block simulate. actual interception nahi ho rahi.
-        # production mein windows api use karenge.
         d = behavior.get("destination", "LOCAL")
 
         if d == "PERSONAL_EMAIL":
@@ -156,7 +152,6 @@ class DLPEngine:
             }
 
     def _why(self, hits, behavior, risk, blocked):
-        # reason list banao
         lines = []
 
         if len(hits) > 0:
@@ -187,18 +182,21 @@ class DLPEngine:
         return lines
 
     def _log(self, res, snippet):
-        entry = {
-            "ts": datetime.now().isoformat(),
+        event = {
             "severity": res["severity"],
             "action": res["action"],
             "matches": [m["rule_id"] for m in res["matches"]],
             "risk_score": res["risk_score"],
-            "snippet": snippet
+            "snippet": snippet,
         }
 
-        s = json.dumps(entry, sort_keys=True)
-        entry["hash"] = hashlib.sha256(s.encode()).hexdigest()[:16]
-
-        fname = "dlp_" + datetime.now().strftime("%Y%m%d") + ".jsonl"
-        with open(self.log_dir / fname, "a", encoding="utf-8") as f:
-            f.write(json.dumps(entry) + "\n")
+        if self.chain is not None:
+            self.chain.append(event)
+        else:
+            entry = {"ts": datetime.now().isoformat()}
+            entry.update(event)
+            s = json.dumps(entry, sort_keys=True)
+            entry["hash"] = hashlib.sha256(s.encode()).hexdigest()[:16]
+            fname = "dlp_" + datetime.now().strftime("%Y%m%d") + ".jsonl"
+            with open(self.log_dir / fname, "a", encoding="utf-8") as f:
+                f.write(json.dumps(entry) + "\n")
