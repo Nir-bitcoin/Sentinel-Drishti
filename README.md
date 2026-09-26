@@ -3,11 +3,12 @@
 
 [![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-DC2626?style=for-the-badge&logo=qualcomm&logoColor=white)](https://www.qualcomm.com/products/snapdragon)
 [![Qualcomm AI Hub](https://img.shields.io/badge/Qualcomm-AI%20Hub-3253DC?style=for-the-badge&logo=qualcomm&logoColor=white)](https://aihub.qualcomm.com)
-![Platform](https://img.shields.io/badge/Platform-Windows%20ARM64-4B5563?style=for-the-badge&logo=windows&logoColor=white)
+![Target](https://img.shields.io/badge/Target-Windows%20on%20Snapdragon-4B5563?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge)
 [![Demo](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml/badge.svg)](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml)
 
-On-Device AI Compliance & Data Loss Prevention Agent for Snapdragon-Powered HP PCs
+On-Device AI Compliance & Data Loss Prevention Agent designed for 
+Snapdragon-Powered HP PCs.
 
 Built for the Snapdragon AI Lab Build & Present Challenge 2026.
 
@@ -16,37 +17,43 @@ Problem
 -------
 
 Indian enterprises handle sensitive data daily — employee PII, financial 
-records, intellectual property. Cloud-based DLP tools create three problems:
+records, intellectual property. Cloud-based DLP tools can create additional 
+data-residency, privacy, outsourcing, and compliance requirements for 
+regulated organizations.
 
-- Data sovereignty: sensitive data leaves the organization's control
-- Compliance: regulated industries legally cannot use cloud DLP (DPDP Act, RBI)
-- Cost: recurring cloud subscriptions per endpoint
+Sentinel Drishti addresses this by keeping the detection pipeline on the 
+endpoint — reducing cloud dependency and keeping sensitive content local 
+to the device.
 
-Sentinel Drishti solves this by running entirely on the user's device — 
-no cloud, no internet, no data leaving the laptop.
+In local deployment, inference and policy processing run on the user's 
+device without sending sensitive content to a cloud service. Internet 
+access is only required for initial dependency/model setup and for viewing 
+external Qualcomm AI Hub benchmark references.
 
 
 Solution
 --------
 
-An NPU-accelerated AI agent that:
+A Snapdragon-targeted, AI-assisted DLP agent that:
 
-1. Captures screen content (via EasyOCR for images)
+1. Processes input (image / direct text)
 2. Detects sensitive entities (PII, financial data, confidential markings)
 3. Tracks user behavior across applications
 4. Scores risk using content + behavior + destination + time
 5. Decides via a deterministic DLP policy engine
-6. Enforces through physical alerts (Arduino buzzer + LED)
-7. Logs every event with a hash-verified audit trail
+6. Triggers physical alerts (Arduino buzzer + LED)
+7. Logs every event with a local audit trail
 
-All computation is local. The entire detection pipeline works without internet.
+The backend abstraction separates the local CPU implementation from the 
+Snapdragon-target implementation path. Snapdragon execution is pending 
+physical target validation.
 
 
 Architecture
 ------------
 
-Layer 1: SCREEN CAPTURE
-    EasyOCR (real AI) / direct text input
+Layer 1: INPUT
+    Image (EasyOCR) / direct text
 
 Layer 2: PERCEPTION
     EasyOCR detector + recognizer — text extraction
@@ -59,7 +66,7 @@ Layer 4: REASONING
     Rule engine — intent classification
 
 Layer 5: DLP DECISION
-    Policy engine + enforcement
+    Policy engine + enforcement logic
 
 Layer 6: ACTION
     Arduino UNO Q — buzzer + LED alert
@@ -68,45 +75,51 @@ Layer 6: ACTION
 Backend Abstraction
 -------------------
 
-The pipeline uses an abstract inference backend, so the same code runs on both:
+The pipeline uses an abstract inference backend, allowing the same 
+architecture to support CPU execution locally and Snapdragon-targeted 
+inference when target hardware is available:
 
     Backend              Host                  Timing Source            Status
     -------------------  --------------------  -----------------------  ---------
-    CPUBackend           Local laptop          Measured                 Working
+    CPUBackend           Local development PC  Measured                 Working
     SnapdragonBackend    Snapdragon X Elite    Qualcomm AI Hub ref      Pending
 
 
-Qualcomm AI Hub Models
-----------------------
+Qualcomm AI Hub References
+--------------------------
 
-    Model                  Task                              Reference
+Component jobs profiled on hosted Snapdragon X Elite CRD:
+
+    Model/Component        Task                              Reference
     ---------------------  --------------------------------  --------------
     EasyOCR detector       Text region detection             ~39.5 ms NPU
     EasyOCR recognizer     Text recognition                  ~19.3 ms NPU
-    InternVL3.5-2B         Screen content understanding      ~180 ms NPU
-    Qwen3-1.7B-Instruct    Intent classification             ~200 ms NPU
 
-    Job IDs:  jpxlmx3jp (detector), jprl9wnvp (recognizer),
-              j5qllld4p (MobileNetV2 FLOAT16), jgnz1zdkg (MobileNetV2 INT8)
+    Job IDs:  jpxlmx3jp (detector), jprl9wnvp (recognizer)
+
+Note: These are separate component benchmarks, not an end-to-end 
+pipeline measurement. The full OCR pipeline running on Snapdragon 
+X Elite would require additional orchestration measurements.
 
 
 Benchmark Results
 -----------------
 
-    Stage                    CPU (measured)   NPU (reference)   Speedup
-    -----------------------  ---------------  ----------------  ---------
-    EasyOCR (full pipeline)  ~7.4 s           component ref     see below
-    Perception (regex)       ~0.1 ms          ~180 ms           1800x
-    Reasoning (rule engine)  ~0.1 ms          ~200 ms           2000x
+    Component                  Local CPU            Snapdragon reference
+    -------------------------  -------------------  ---------------------
+    EasyOCR end-to-end         ~7.1-7.4 s           Not end-to-end
+    EasyOCR detector           —                    ~39.5 ms [AI Hub]
+    EasyOCR recognizer         —                    ~19.3 ms [AI Hub]
+    PII regex                  ~0.1 ms              Local rule execution
+    Risk / policy engine       ~0.1 ms              Local rule execution
 
-OCR Component Benchmarks (Snapdragon X Elite NPU via Qualcomm AI Hub):
-    EasyOCR detector:    ~39.5 ms  [job jpxlmx3jp]
-    EasyOCR recognizer:  ~19.3 ms  [job jprl9wnvp]
-    Note: separate component benchmarks, not end-to-end.
+Adaptive OCR behavior:
+    Fast pass (800px)  -> confidence ~0.69
+    Retry  (1000px)    -> confidence ~0.95
+    If confidence < 0.85, system retries at 1000px.
 
-Adaptive OCR:
-    Fast pass (800px) → if confidence < 0.85, retry at 1000px
-    Tested: 1000px = 0.95 conf, 800px = 0.68 conf, 600px = 0.06 conf
+No side-by-side speedup comparison between CPU end-to-end and NPU 
+component references is claimed, because they measure different scopes.
 
 
 Technical Implementation
@@ -132,58 +145,51 @@ Run tests:
     python tests/test_pipeline.py
 
 
-Quantization Comparison (Real Hardware)
----------------------------------------
+Qualcomm AI Hub Hosted-Device References
+----------------------------------------
 
-Two precision levels profiled on actual Snapdragon X Elite hardware via 
-Qualcomm AI Hub:
+EasyOCR component jobs on hosted Snapdragon X Elite CRD (NPU):
 
-    Precision    Min Inference    Peak Memory    Compute Unit         Job ID
-    -----------  ---------------  -------------  -------------------  ----------
-    FLOAT16      1.0 ms           0.6 MB         NPU (Hexagon HTP)    j5qllld4p
-    INT8         0.7 ms           0.6 MB         NPU (Hexagon HTP)    jgnz1zdkg
+    Job ID              Component        Compute      Reference
+    ------------------  ---------------  -----------  -----------
+    jpxlmx3jp           Detector         NPU (HTP)    ~39.5 ms
+    jprl9wnvp           Recognizer       NPU (HTP)    ~19.3 ms
 
-Result: INT8 delivers ~1.4x faster inference than FLOAT16 on the same 
-Snapdragon X Elite NPU. Both precisions execute entirely on the Hexagon 
-HTP with no CPU fallback.
+Verify online:
+    https://aihub.qualcomm.com/jobs/jpxlmx3jp
+    https://aihub.qualcomm.com/jobs/jprl9wnvp
 
-Verification jobs:
-    FLOAT16 Profile:  https://workbench.aihub.qualcomm.com/jobs/j5qllld4p/
-    INT8 Quantize:    https://workbench.aihub.qualcomm.com/jobs/jp8eje3zp/
-    INT8 Compile:     https://workbench.aihub.qualcomm.com/jobs/jp1nonk8g/
-    INT8 Profile:     https://workbench.aihub.qualcomm.com/jobs/jgnz1zdkg/
+These are hosted Qualcomm device results, not measurements on the 
+developer's laptop. They are component references, not a validation 
+of Sentinel Drishti itself on Snapdragon hardware.
 
 
-Real NPU Validation Completed
------------------------------
+Automated CI Demo
+-----------------
 
-Three models profiled on actual Snapdragon X Elite CRD via Qualcomm AI Hub:
-
-    MobileNetV2 FLOAT16:
-      Job ID:              j5qllld4p
-      Inference:           1.0 ms
-      Layers on NPU:       104 / 104
-      Precision:           FLOAT16
-
-    MobileNetV2 INT8:
-      Job ID:              jgnz1zdkg
-      Inference:           0.7 ms
-      Compute Unit:        NPU (Hexagon HTP)
-      Precision:           INT8
-
-    EasyOCR (detector + recognizer):
-      Detector job:        jpxlmx3jp  (~39.5 ms NPU)
-      Recognizer job:      jprl9wnvp  (~19.3 ms NPU)
-      Compute Unit:        NPU (Hexagon HTP)
-
-
-Live Demo
----------
-
-The pipeline runs automatically on GitHub Actions on every push.
+The pipeline runs automatically on GitHub Actions on every push 
+(reproducible test run, not a live cloud deployment).
 
 View latest run:
 https://github.com/Nir-bitcoin/Sentinel-Drishti/actions
+
+
+Browser Demo
+------------
+
+A browser-based Streamlit interface is provided for demonstration.
+
+Demo mode supports:
+    - Uploading an image
+    - OCR extraction
+    - PII detection
+    - Behavior selection
+    - Risk scoring
+    - DLP decision
+    - Audit result
+
+Note: The browser demo does not access the user's local screen, 
+clipboard, USB devices, or Snapdragon NPU.
 
 
 Local Setup
@@ -204,13 +210,13 @@ Demo Scenarios
     Scenario             Behavior                            Action
     -------------------  ----------------------------------  ---------------
     Normal work          Open + type                         ALLOW
-    Image OCR (EasyOCR)  Real image → PII detect → COPY      BLOCK + ALERT
+    Image OCR (EasyOCR)  Real image -> PII detect -> COPY    BLOCK + ALERT
     PII to Gmail         Copy + paste to personal email      BLOCK + ALERT
     Confidential read    Open + read only                    ALLOW (logged)
     PII to USB           Copy + paste to USB                 BLOCK + ALERT
 
-Sensitive data alone does not trigger a block. Suspicious behavior involving 
-sensitive data does.
+Sensitive data alone does not trigger a block. Suspicious behavior 
+involving sensitive data does.
 
 When OCR confidence is low AND behavior is risky, the system triggers 
 WARN_AND_ALERT (fail-safe) instead of silent ALLOW.
@@ -221,22 +227,21 @@ Honest Limitations
 
     Component                        Status
     -------------------------------  ----------------------------------
-    CPU execution                    Real, measured on this laptop
+    CPU execution                    Real, measured on development PC
     EasyOCR integration              Real (CPU execution, adaptive)
     Entity detection                 Real (regex on real input)
     Behavior tracking                Real
     Risk scoring                     Real
     DLP policy logic                 Real
-    Audit logging                    Real (SHA-256 hash chain)
-    FLOAT16 NPU profiling            Real, on Snapdragon X Elite CRD
-    INT8 NPU profiling               Real, on Snapdragon X Elite CRD
-    EasyOCR NPU profiling            Real, on Snapdragon X Elite CRD (component)
+    Audit logging                    Real event logging
+    EasyOCR NPU profiling            Hosted Qualcomm X Elite CRD
     NPU inference timing (demo)      Qualcomm AI Hub benchmark reference
     Snapdragon on-device validation  Pending device access
     Enforcement interception         Simulated (demo mode)
 
-The pipeline is production-ready. On actual Snapdragon hardware, the same code 
-path will measure real NPU latency.
+The prototype is designed for deployment on Snapdragon-powered PCs. 
+On physical Snapdragon hardware, the Snapdragon backend can be 
+validated with real NPU inference measurements.
 
 
 Project Structure
@@ -245,7 +250,7 @@ Project Structure
     Sentinel-Drishti/
     |-- src/
     |   |-- backend/         Inference backend abstraction
-    |   |-- vision/          Screen capture + EasyOCR + perception
+    |   |-- vision/          Input + EasyOCR + perception
     |   |-- reasoning/       Intent classification + translator
     |   |-- policy/          DLP engine + behavior + risk
     |   +-- api/             FastAPI backend
@@ -254,7 +259,7 @@ Project Structure
     |-- tests/               Unit tests
     |-- docs/                Documentation and screenshots
     |-- run_demo.py          Main demo runner
-    |-- app.py               Streamlit web UI
+    |-- app.py               Streamlit browser demo
     +-- requirements.txt
 
 
