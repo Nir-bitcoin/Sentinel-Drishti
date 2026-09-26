@@ -11,9 +11,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.vision.screen_capture import ScreenCapture
-from src.vision.internvl_screen import InternVLScreenAnalyzer
+from src.vision.perception import TextPerception
 from src.vision.easyocr_screen import EasyOCRScreenAnalyzer
-from src.reasoning.qwen_intent import QwenIntentClassifier
+from src.reasoning.intent_classifier import RuleBasedIntentClassifier
 from src.reasoning.translator import AlertTranslator
 from src.policy.dlp_engine import DLPEngine
 from src.policy.behavior_tracker import BehaviorTracker
@@ -34,13 +34,14 @@ def run_one(title, content, app, actions, mode):
     print()
 
     cap = ScreenCapture()
-    vis = InternVLScreenAnalyzer(mode)
-    rea = QwenIntentClassifier(mode)
+    vis = TextPerception(mode)
+    rea = RuleBasedIntentClassifier(mode)
     trk = BehaviorTracker()
     scr = RiskScorer()
     dlp = DLPEngine()
     ard = SimulatedArduino()
 
+    # stage 1
     print("Stage 1 - Screen capture")
     c = cap.capture_text(content, app)
     print("  Source: " + c["source"])
@@ -50,12 +51,14 @@ def run_one(title, content, app, actions, mode):
         prev += "..."
     print("  Text: " + prev)
 
+    # stage 2
     print()
     print("Stage 2 - Perception (regex on text)")
     v = vis.analyze(content)
     print("  Sensitive: " + str(v["sensitive"]))
     print("  Entities:  " + str(v["entities"]))
 
+    # stage 3
     print()
     print("Stage 3 - Behavior tracking")
     for a in actions:
@@ -66,6 +69,7 @@ def run_one(title, content, app, actions, mode):
     print("  Destination: " + b.get("destination", "LOCAL"))
     print("  Reason:      " + b["reason"])
 
+    # stage 4
     print()
     print("Stage 4 - Risk scoring")
     r = scr.calculate(v["entities"], b)
@@ -77,12 +81,14 @@ def run_one(title, content, app, actions, mode):
     for x in r["reasons"]:
         print("    - " + x)
 
+    # stage 5
     print()
     print("Stage 5 - Reasoning (rule engine)")
     i = rea.classify(content, v["entities"])
     print("  Intent:           " + i["classification"])
     print("  Rule match score: " + str(i["confidence"]) + " [rule-engine]")
 
+    # stage 6
     print()
     print("Stage 6 - DLP decision")
     d = dlp.evaluate(content, i, b, r)
@@ -111,6 +117,7 @@ def run_one(title, content, app, actions, mode):
         print("    HI: " + trans.translate(msg, "hi")["text"])
         print("    (full 5-language list in docs/i18n_examples.md)")
 
+    # stage 7
     print()
     print("Stage 7 - Arduino UNO Q")
     if d["triggered"]:
@@ -137,7 +144,7 @@ def run_image_scenario(title, image_path, app, actions, mode):
         return
 
     ocr = EasyOCRScreenAnalyzer(mode)
-    rea = QwenIntentClassifier(mode)
+    rea = RuleBasedIntentClassifier(mode)
     trk = BehaviorTracker()
     scr = RiskScorer()
     dlp = DLPEngine()
@@ -188,7 +195,7 @@ def run_image_scenario(title, image_path, app, actions, mode):
 
     print()
     print("Stage 3 - Perception (regex on OCR text)")
-    vis = InternVLScreenAnalyzer(mode)
+    vis = TextPerception(mode)
     v = vis.analyze(content)
     print("  Sensitive: " + str(v["sensitive"]))
     print("  Entities:  " + str(v["entities"]))

@@ -1,7 +1,7 @@
 # app.py
 #
 # Streamlit dashboard for Sentinel Drishti.
-# Preset scenarios + why-blocked + audit download + telemetry bar.
+# Preset scenarios + image upload + telemetry bar.
 
 
 import streamlit as st
@@ -25,19 +25,16 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---- header ----
 st.title("🛡 Sentinel Drishti")
 st.caption("On-Device AI Compliance & Data Loss Prevention")
 st.caption("Snapdragon AI Lab Build & Present Challenge 2026")
 
-# ---- demo mode banner ----
 st.info(
     "**DEMO MODE** — Text scenarios run fully. "
     "Endpoint actions (clipboard, USB interception, screen monitoring) "
     "are simulated in this browser demo."
 )
 
-# ---- sidebar ----
 with st.sidebar:
     st.header("Settings")
 
@@ -59,10 +56,9 @@ with st.sidebar:
         "and blocks suspicious data transfer — all locally, no cloud."
     )
 
-# ---- telemetry status bar ----
+# ---- telemetry bar ----
 st.divider()
 tcol1, tcol2, tcol3, tcol4 = st.columns(4)
-
 with tcol1:
     st.metric("Backend", "NPU" if mode == "snapdragon" else "CPU")
 with tcol2:
@@ -72,6 +68,31 @@ with tcol3:
 with tcol4:
     st.metric("Detection", "Enabled")
 st.divider()
+
+
+# ---- image upload ----
+with st.expander("Upload Image (EasyOCR — local only)"):
+    uploaded = st.file_uploader("Choose a screenshot", type=["png", "jpg", "jpeg"])
+
+    if uploaded is not None:
+        tmp_dir = Path("docs/screenshots")
+        tmp_dir.mkdir(parents=True, exist_ok=True)
+        tmp_path = tmp_dir / "_uploaded.png"
+        with open(tmp_path, "wb") as f:
+            f.write(uploaded.getbuffer())
+
+        st.success("Image uploaded: " + str(tmp_path))
+
+        try:
+            from src.vision.easyocr_screen import EasyOCRScreenAnalyzer
+            ocr = EasyOCRScreenAnalyzer(mode)
+            result = ocr.extract_text(str(tmp_path))
+
+            st.write("**OCR status:** " + result["status"])
+            st.write("**Confidence:** " + str(result["avg_confidence"]))
+            st.write("**Text:** " + result["text"][:200])
+        except Exception as e:
+            st.warning("EasyOCR not available in this deployment: " + str(e))
 
 
 # ---- preset scenarios ----
@@ -115,7 +136,6 @@ scenarios = {
     },
 }
 
-# ---- scenario selection ----
 st.subheader("Choose a Scenario")
 st.caption("Click a scenario button to run the full pipeline instantly.")
 
@@ -126,7 +146,6 @@ for i, name in enumerate(scenarios.keys()):
         if st.button(name, use_container_width=True):
             selected = name
 
-# manual override
 with st.expander("Or enter custom content"):
     custom_content = st.text_area("Screen content:", height=80)
     if custom_content:
@@ -143,7 +162,6 @@ with st.expander("Or enter custom content"):
         }
 
 
-# ---- run pipeline ----
 if selected:
     sc = scenarios[selected]
 
@@ -166,7 +184,6 @@ if selected:
         i = rea.classify(sc["content"], v["entities"])
         d = dlp.evaluate(sc["content"], i, b, r)
 
-    # stage cards
     stage1, stage2, stage3, stage4 = st.columns(4)
     with stage1:
         st.metric("OCR / Input", "TEXT", "loaded")
@@ -178,7 +195,6 @@ if selected:
         icon = "🚫" if d["triggered"] else "✅"
         st.metric("Decision", icon + " " + d["action"])
 
-    # ---- why blocked ----
     st.divider()
     if d["triggered"]:
         st.error("🚫 BLOCKED")
@@ -189,7 +205,6 @@ if selected:
     for line in d["explanation"]:
         st.write("✓ " + line)
 
-    # ---- tabs ----
     tab1, tab2, tab3, tab4 = st.tabs(["Entities", "Behavior", "Risk Detail", "Alerts"])
 
     with tab1:
@@ -226,7 +241,6 @@ if selected:
         else:
             st.write("No alert triggered.")
 
-    # ---- audit report ----
     st.divider()
     st.subheader("Audit Report")
 

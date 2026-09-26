@@ -1,6 +1,11 @@
-# qwen_intent.py
+# intent_classifier.py
 #
-# intent classifier. Backend se inference.
+# Rule-based intent classification.
+# Currently uses entity-based rules (not an LLM).
+#
+# Note: earlier this was called QwenIntentClassifier, but actual code
+# is rule-based. Renamed for honesty.
+
 
 import sys
 from pathlib import Path
@@ -9,7 +14,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 from src.backend.base import get_backend
 
 
-class QwenIntentClassifier:
+class RuleBasedIntentClassifier:
+    """Classifies user intent based on detected entities."""
 
     def __init__(self, mode="snapdragon"):
         self.backend = get_backend(mode)
@@ -17,7 +23,6 @@ class QwenIntentClassifier:
     def classify(self, text, entities):
         inf = self.backend.infer("reasoning", {"text": text, "entities": entities})
 
-        # agar text empty hai (OCR fail) toh alag label
         if not text or not text.strip():
             return {
                 "classification": "UNVERIFIED_DATA_TRANSFER",
@@ -31,7 +36,6 @@ class QwenIntentClassifier:
                 "runtime": inf.get("runtime", "?"),
             }
 
-        # count each type
         n_pii = 0
         n_fin = 0
         n_conf = 0
@@ -74,3 +78,14 @@ class QwenIntentClassifier:
             "layers_on_npu": inf.get("layers_on_npu", "?"),
             "runtime": inf.get("runtime", "?"),
         }
+
+
+# backwards compat alias
+QwenIntentClassifier = RuleBasedIntentClassifier
+
+
+if __name__ == "__main__":
+    c = RuleBasedIntentClassifier("cpu")
+    r = c.classify("PAN ABCDE1234F", ["PAN", "EMPLOYEE_FINANCIAL_DATA"])
+    print("Intent:", r["classification"])
+    print("Confidence:", r["confidence"])

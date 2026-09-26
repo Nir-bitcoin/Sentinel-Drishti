@@ -1,22 +1,29 @@
-# backend base
+# base.py
+#
+# Inference backend abstraction with explicit provider routing.
+# Fallback hierarchy: Snapdragon QNN -> CPU
+#
+# Previous winners pattern: hardware fallback chain.
+# Same pipeline code runs across providers without modification.
 
 
 import time
+from typing import Dict, Any
 
 
 class InferenceBackend:
-    # base class
+    """Base class for all inference backends."""
 
     def __init__(self):
         self.name = "unknown"
         self.is_real = False
 
-    def infer(self, task, payload):
+    def infer(self, task: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         raise NotImplementedError
 
 
 class CPUBackend(InferenceBackend):
-    # CPU pe chalega
+    """CPU fallback backend - runs on any machine."""
 
     VALS = {
         "vision": 2500,
@@ -28,11 +35,12 @@ class CPUBackend(InferenceBackend):
         self.name = "CPU"
         self.is_real = True
 
-    def infer(self, task, payload):
+    def infer(self, task: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         t0 = time.time()
         target = self.VALS.get(task, 100)
         time.sleep(target / 1000.0)
         ms = (time.time() - t0) * 1000
+
         return {
             "latency_ms": round(ms, 2),
             "compute_unit": "CPU",
@@ -45,25 +53,20 @@ class CPUBackend(InferenceBackend):
 
 
 class SnapdragonBackend(InferenceBackend):
-    # Snapdragon NPU ke liye
-    #
-    # PRODUCTION CODE (jab Snapdragon laptop milega):
-    #
-    #   from qai_appbuilder import QNNContext
-    #   ctx = QNNContext(
-    #       model_path="model.dlc",
-    #       backend="htp",
-    #       precision="float16",
-    #   )
-    #   output = ctx.infer(input_tensor)
-    #
-    # abhi simulation hai kyunki hardware nahi hai.
-    # lekin model Snapdragon X Elite ke liye ALREADY compile ho chuka hai:
-    #   - Job ID: j5qllld4p
-    #   - Format: qnn_dlc
-    #   - Runtime: QNN HTP
-    #   - Precision: FLOAT16
-    #   - Layers on NPU: 104/104
+    """Snapdragon NPU backend - target implementation path.
+
+    Production code (when hardware available):
+        from qai_appbuilder import QNNContext
+        ctx = QNNContext(
+            model_path="model.dlc",
+            backend="htp",
+            precision="float16",
+        )
+        output = ctx.infer(input_tensor)
+
+    Current status: NOT hardware-validated.
+    Timing values are Qualcomm AI Hub benchmark references.
+    """
 
     VALS = {
         "vision": 180,
@@ -75,22 +78,22 @@ class SnapdragonBackend(InferenceBackend):
         self.name = "Snapdragon NPU"
         self.is_real = False
 
-    def infer(self, task, payload):
+    def infer(self, task: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         t0 = time.time()
 
         if self.is_real:
             # production: QNN runtime call
             # from qai_appbuilder import QNNContext
             # ctx = QNNContext("model.dlc", backend="htp")
-            # result = ctx.infer(payload)
+            # return ctx.infer(payload)
             pass
         else:
-            # demo: benchmark-based simulation
             target = self.VALS.get(task, 100)
             time.sleep(target / 1000.0)
 
         ms = (time.time() - t0) * 1000
         src = "REAL_NPU" if self.is_real else "SIMULATED_NPU"
+
         return {
             "latency_ms": round(ms, 2),
             "compute_unit": "NPU (Hexagon HTP)",
@@ -102,10 +105,40 @@ class SnapdragonBackend(InferenceBackend):
         }
 
 
-def get_backend(mode):
+def get_backend(mode: str) -> InferenceBackend:
+    """Provider routing factory.
+
+    Args:
+        mode: "cpu" or "snapdragon"
+
+    Returns:
+        InferenceBackend instance
+    """
     if mode == "cpu":
         return CPUBackend()
     elif mode == "snapdragon":
         return SnapdragonBackend()
     else:
-        raise ValueError("unknown mode: " + str(mode))
+        raise ValueError("Unknown backend mode: " + str(mode))
+
+
+def get_backend_with_fallback() -> InferenceBackend:
+    """Auto-select backend with fallback.
+
+    Hierarchy:
+        1. Try Snapdragon QNN (if hardware available)
+        2. Fall back to CPU
+
+    Returns:
+        Best available backend
+    """
+    try:
+        # attempt Snapdragon initialization
+        backend = SnapdragonBackend()
+        if backend.is_real:
+            return backend
+    except Exception:
+        pass
+
+    # CPU fallback
+    return CPUBackend()

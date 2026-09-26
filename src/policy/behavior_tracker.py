@@ -1,4 +1,8 @@
 # behavior_tracker.py
+#
+# Tracks user actions and detects suspicious sequences.
+
+
 
 from datetime import datetime
 
@@ -11,6 +15,23 @@ EXTERNAL_DEVICE = ["usb", "external", "removable", "pendrive"]
 
 
 class BehaviorTracker:
+    """Tracks user actions across applications.
+
+    Detects suspicious sequences such as:
+        - Copy from sensitive source
+        - Paste to personal destination
+        - USB device insertion
+
+    Behavioral verdicts:
+        - NORMAL: no suspicious pattern
+        - LOW_RISK: sensitive app opened
+        - HIGH_RISK: copy to personal email or cloud
+        - CRITICAL_RISK: copy to USB or personal email
+
+    Attributes:
+        user_id: user identifier
+        events: list of recorded actions
+    """
 
     def __init__(self, user_id="default"):
         self.user_id = user_id
@@ -77,7 +98,6 @@ class BehaviorTracker:
             except Exception:
                 pass
 
-        # USB copy = worst
         if copied and usb_seen:
             return {
                 "verdict": "CRITICAL_RISK",
@@ -87,7 +107,6 @@ class BehaviorTracker:
                 "after_hours": after_hrs,
             }
 
-        # personal email = CRITICAL (not HIGH)
         if copied and paste_dest == "PERSONAL_EMAIL":
             return {
                 "verdict": "CRITICAL_RISK",

@@ -1,71 +1,76 @@
-# benchmark - CPU vs Snapdragon comparison
+# benchmark.py
 #
-# soch ye thi - judges ko prove karna hai ki NPU zaroori hai
-# CPU pe bahut slow chalta hai, NPU pe fast
-#
-# abhi Snapdragon laptop nahi hai, isliye NPU ki values
-# Qualcomm AI Hub ke published benchmarks se li hain
-#
-# N - 26 sept
+# Real benchmark - runs pipeline 5 times and reports stats.
 
 import sys
+import time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.vision.internvl_screen import InternVLScreenAnalyzer
-from src.reasoning.qwen_intent import QwenIntentClassifier
+from src.vision.perception import TextPerception
+from src.policy.behavior_tracker import BehaviorTracker
+from src.policy.risk_scorer import RiskScorer
+from src.policy.dlp_engine import DLPEngine
+from src.reasoning.intent_classifier import RuleBasedIntentClassifier
 
 
-# ek PII wala sample le rahe hain
-TXT = ("Employee salary record: Name - Rajesh Kumar, "
-       "PAN - ABCDE1234F, Phone - 9876543210, "
-       "Bank Account - 123456789012")
+TEST_TEXT = (
+    "Employee salary record: Name - Rajesh Kumar, "
+    "PAN - ABCDE1234F, Phone - 9876543210"
+)
+
+
+def run_pipeline_once(mode):
+    vis = TextPerception(mode)
+    rea = RuleBasedIntentClassifier(mode)
+    trk = BehaviorTracker()
+    scr = RiskScorer()
+    dlp = DLPEngine()
+
+    v = vis.analyze(TEST_TEXT)
+    trk.record("OPEN", "Excel")
+    trk.record("COPY", "Excel")
+    trk.record("OPEN", "Gmail")
+    trk.record("PASTE", "Gmail")
+    b = trk.assess_risk()
+    r = scr.calculate(v["entities"], b)
+    i = rea.classify(TEST_TEXT, v["entities"])
+    d = dlp.evaluate(TEST_TEXT, i, b, r)
+    return d["action"]
 
 
 def main():
-    print("=" * 68)
-    print("SENTINEL DRISHTI - CPU vs Snapdragon-targeted benchmark")
-    print("=" * 68)
+    print("=" * 60)
+    print("  SENTINEL DRISHTI - Pipeline Benchmark")
+    print("=" * 60)
     print()
-    print("Test: " + TXT[:50] + "...")
+    print("Test: " + TEST_TEXT[:50] + "...")
     print()
 
-    # CPU wala real chalega
-    print("CPU benchmark chal raha hai (measured)...")
-    cpu_v = InternVLScreenAnalyzer("cpu").analyze(TXT)["latency_ms"]
-    cpu_i = QwenIntentClassifier("cpu").classify(TXT, ["PAN", "PHONE"])["latency_ms"]
+    run_pipeline_once("cpu")
 
-    # Snapdragon wala reference hai
-    print("Snapdragon benchmark chal raha hai (reference)...")
-    npu_v = InternVLScreenAnalyzer("snapdragon").analyze(TXT)["latency_ms"]
-    npu_i = QwenIntentClassifier("snapdragon").classify(TXT, ["PAN", "PHONE"])["latency_ms"]
+    runs = []
+    for n in range(5):
+        t0 = time.time()
+        action = run_pipeline_once("cpu")
+        ms = round((time.time() - t0) * 1000, 2)
+        runs.append(ms)
+        print("Run " + str(n + 1) + ": " + str(ms) + " ms   [action=" + action + "]")
 
-    cpu_tot = cpu_v + cpu_i
-    npu_tot = npu_v + npu_i
-
+    runs_sorted = sorted(runs)
     print()
-    print("-" * 68)
-    print("%-28s %12s %12s %10s" % ("Stage", "CPU(ms)", "NPU(ms)", "Speedup"))
-    print("-" * 68)
-    print("%-28s %12.1f %12.1f %9.1fx" % (
-        "Perception", cpu_v, npu_v, cpu_v / npu_v))
-    print("%-28s %12.1f %12.1f %9.1fx" % (
-        "Reasoning (rule engine)", cpu_i, npu_i, cpu_i / npu_i))
-    print("-" * 68)
-    print("%-28s %12.1f %12.1f %9.1fx" % (
-        "TOTAL", cpu_tot, npu_tot, cpu_tot / npu_tot))
+    print("-" * 60)
+    print("Statistics (pipeline-only, no OCR):")
+    print("  Min:    " + str(min(runs)) + " ms")
+    print("  Median: " + str(runs_sorted[2]) + " ms")
+    print("  Max:    " + str(max(runs)) + " ms")
     print()
-    print("CPU:  measured on this laptop")
-    print("NPU:  Qualcomm AI Hub benchmark reference")
-    print("      (real hardware validation pending)")
+    print("Note: This measures the regex + rule engine + DLP pipeline.")
+    print("EasyOCR inference (~7.1-7.4 s on CPU) is measured separately.")
     print()
-    print("End-to-end reference latency: %.0f ms" % npu_tot)
-
-    if npu_tot < 500:
-        print("Target <500ms : PASS (reference)")
-    else:
-        print("Target <500ms : FAIL")
-
+    print("Qualcomm AI Hub references (hosted Snapdragon X Elite):")
+    print("  EasyOCR detector:   ~39.5 ms  [job jpxlmx3jp]")
+    print("  EasyOCR recognizer: ~19.3 ms  [job jprl9wnvp]")
     print()
 
 

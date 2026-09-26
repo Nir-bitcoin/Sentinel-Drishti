@@ -1,5 +1,4 @@
-# internvl_screen.py
-
+# perception.py
 
 import re
 import sys
@@ -9,24 +8,30 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 from src.backend.base import get_backend
 
 
-class InternVLScreenAnalyzer:
+class TextPerception:
+    """Detects sensitive entities in text using regex patterns."""
 
     def __init__(self, mode="snapdragon"):
         self.backend = get_backend(mode)
 
-        # PII patterns - strictly typed
-        # ACCOUNT_NUMBER: 11+ digits (phone is 10, exclude)
+        # PII patterns
         self.pii_rx = [
             (r"\b\d{4}\s\d{4}\s\d{4}\b", "AADHAAR"),
             (r"\b[A-Z]{5}\d{4}[A-Z]\b", "PAN"),
-            (r"\b[6-9]\d{9}\b", "PHONE"),                    # Indian mobile: 10 digits starting 6-9
-            (r"\b\d{11,18}\b", "ACCOUNT_NUMBER"),            # bank account: 11-18 digits
+            (r"\b[6-9]\d{9}\b", "PHONE"),
+            (r"\b\d{11,18}\b", "ACCOUNT_NUMBER"),
         ]
 
-        self.money_words = ["salary", "compensation", "ctc", "payroll", "bonus"]
-        self.ip_words = ["confidential", "proprietary", "internal only", "trade secret"]
+        self.financial_words = [
+            "salary", "compensation", "ctc", "payroll", "bonus"
+        ]
+
+        self.confidential_words = [
+            "confidential", "proprietary", "internal only", "trade secret"
+        ]
 
     def analyze(self, text):
+        """Detect sensitive entities in text."""
         inf = self.backend.infer("vision", {"text": text})
 
         found = []
@@ -36,12 +41,12 @@ class InternVLScreenAnalyzer:
             if re.search(rx, text):
                 found.append(name)
 
-        for w in self.money_words:
+        for w in self.financial_words:
             if w in lower:
                 found.append("EMPLOYEE_FINANCIAL_DATA")
                 break
 
-        for w in self.ip_words:
+        for w in self.confidential_words:
             if w in lower:
                 found.append("CONFIDENTIAL_MARKING")
                 break
@@ -59,3 +64,14 @@ class InternVLScreenAnalyzer:
             "layers_on_npu": inf.get("layers_on_npu", "?"),
             "runtime": inf.get("runtime", "?"),
         }
+
+
+# backwards compat alias - remove later
+InternVLScreenAnalyzer = TextPerception
+
+
+if __name__ == "__main__":
+    a = TextPerception("cpu")
+    r = a.analyze("Employee salary record PAN ABCDE1234F Phone 9876543210")
+    print("Sensitive:", r["sensitive"])
+    print("Entities:", r["entities"])
