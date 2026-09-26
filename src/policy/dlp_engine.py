@@ -1,4 +1,5 @@
 # dlp_engine.py
+
 import re
 import hashlib
 import json
@@ -10,6 +11,12 @@ try:
     HAS_CHAIN = True
 except Exception:
     HAS_CHAIN = False
+
+try:
+    from src.security.masking import summarize_entities, mask_all
+    HAS_MASKING = True
+except Exception:
+    HAS_MASKING = False
 
 
 class DLPEngine:
@@ -72,40 +79,71 @@ class DLPEngine:
 
         risky = behavior.get("verdict") in ["CRITICAL_RISK", "HIGH_RISK"]
         sensitive = len(hits) > 0
+        dest = behavior.get("destination", "LOCAL")
+        risk_score = risk.get("score", 0)
 
-        if not (risky and sensitive):
-            exp = self._why(hits, behavior, risk, False)
-            return {
-                "triggered": False,
-                "matches": hits,
-                "severity": "NONE",
-                "action": "ALLOW",
-                "explanation": exp,
-                "risk_score": risk["score"],
-                "risk_level": risk["level"],
-                "enforcement": None,
-            }
+        # ---------- Decision matrix ----------
+        # LOW: no sensitive OR no risky behavior
+        # WARN: sensitive + suspicious destination but not full exfiltration
+        # BLOCK: sensitive + risky behavior + external destination
 
+        critical_dests = ("PERSONAL_EMAIL", "EXTERNAL_DEVICE")
+        warn_dests = ("CLOUD_STORAGE", "MESSAGING")
+
+        if not sensitive or not risky:
+            # ALLOW path
+            if sensitive and risk_score >= 40:
+                # sensitive data present and moderate risk -> WARN
+                decision = "WARN_AND_ALERT"
+                action = "WARN_AND_ALERT"
+                triggered = True
+            else:
+                decision = "ALLOW"
+                action = "ALLOW"
+                triggered = False
+        else:
+            # risky + sensitive
+            if dest in critical_dests:
+                decision = "BLOCK_AND_ALERT"
+                action = "BLOCK_AND_ALERT"
+                triggered = True
+            elif dest in warn_dests:
+                decision = "WARN_AND_ALERT"
+                action = "WARN_AND_ALERT"
+                triggered = True
+            else:
+                # risky but local -> WARN
+                decision = "WARN_AND_ALERT"
+                action = "WARN_AND_ALERT"
+                triggered = True
+
+        # pick top severity hit
         order = {"LOW": 1, "MEDIUM": 2, "HIGH": 3}
-        top = hits[0]
-        for m in hits:
-            if order.get(m["severity"], 0) > order.get(top["severity"], 0):
-                top = m
+        top = hits[0] if hits else {"severity": "NONE", "action": "ALLOW"}
 
-        exp = self._why(hits, behavior, risk, True)
-        enf = self._block(behavior)
+        # explanation
+        exp = self._why(hits, behavior, risk, action)
+
+        # enforcement (only for BLOCK)
+        enf = None
+        if action == "BLOCK_AND_ALERT":
+            enf = self._block(behavior)
+        elif action == "WARN_AND_ALERT":
+            enf = self._warn(behavior)
 
         res = {
-            "triggered": True,
+            "triggered": triggered,
             "matches": hits,
             "severity": top["severity"],
-            "action": top["action"],
+            "action": action,
+            "decision": decision,
             "intent_classification": intent.get("classification", "?"),
             "intent_confidence": intent.get("confidence", 0),
             "explanation": exp,
-            "risk_score": risk["score"],
-            "risk_level": risk["level"],
+            "risk_score": risk_score,
+            "risk_level": risk.get("level", "LOW"),
             "enforcement": enf,
+            "requires_user_confirmation": action == "WARN_AND_ALERT",
         }
 
         self._log(res, text[:200])
@@ -113,44 +151,33 @@ class DLPEngine:
 
     def _block(self, behavior):
         d = behavior.get("destination", "LOCAL")
+        messages = {
+            "PERSONAL_EMAIL": ("PASTE to personal email", "Data exfiltration PREVENTED"),
+            "EXTERNAL_DEVICE": ("USB file transfer", "Removable device write PREVENTED"),
+            "CLOUD_STORAGE": ("Cloud upload", "Upload PREVENTED"),
+            "MESSAGING": ("Message send", "Message send PREVENTED"),
+        }
+        act, msg = messages.get(d, ("Unknown action", "Action PREVENTED"))
+        return {
+            "blocked_action": act,
+            "status": "BLOCKED",
+            "message": msg,
+            "mode": "SIMULATED",
+            "requires_user_confirmation": False,
+        }
 
-        if d == "PERSONAL_EMAIL":
-            return {
-                "blocked_action": "PASTE to personal email",
-                "status": "BLOCKED",
-                "message": "Data exfiltration PREVENTED",
-                "mode": "SIMULATED",
-            }
-        elif d == "EXTERNAL_DEVICE":
-            return {
-                "blocked_action": "USB file transfer",
-                "status": "BLOCKED",
-                "message": "Removable device write PREVENTED",
-                "mode": "SIMULATED",
-            }
-        elif d == "CLOUD_STORAGE":
-            return {
-                "blocked_action": "Cloud upload",
-                "status": "BLOCKED",
-                "message": "Upload PREVENTED",
-                "mode": "SIMULATED",
-            }
-        elif d == "MESSAGING":
-            return {
-                "blocked_action": "Message send",
-                "status": "BLOCKED",
-                "message": "Message send PREVENTED",
-                "mode": "SIMULATED",
-            }
-        else:
-            return {
-                "blocked_action": "Unknown action",
-                "status": "BLOCKED",
-                "message": "Action PREVENTED",
-                "mode": "SIMULATED",
-            }
+    def _warn(self, behavior):
+        d = behavior.get("destination", "LOCAL")
+        return {
+            "warned_action": "Transfer to " + str(d),
+            "status": "WARNED",
+            "message": "Confirm to proceed (policy risk flag)",
+            "mode": "USER_CONFIRMATION",
+            "requires_user_confirmation": True,
+            "options": ["Allow once", "Cancel transfer"],
+        }
 
-    def _why(self, hits, behavior, risk, blocked):
+    def _why(self, hits, behavior, risk, action):
         lines = []
 
         if len(hits) > 0:
@@ -170,21 +197,12 @@ class DLPEngine:
 
         lines.append("Risk score: " + str(risk["score"]) + "/100 (" + risk["level"] + ")")
 
-        if blocked:
-            lines.append("Decision: BLOCK + ALERT")
-        else:
-            if not behavior.get("verdict") in ["CRITICAL_RISK", "HIGH_RISK"]:
-                lines.append("Decision: ALLOW (behavior not risky)")
-            else:
-                lines.append("Decision: ALLOW (no rule matched)")
-
-        # Evidence-based output (not fake model confidence)
-        if blocked:
+        if action == "BLOCK_AND_ALERT":
             lines.append("Evidence Level: HIGH")
             lines.append("Policy Decision: BLOCK_AND_ALERT")
-        elif len(hits) > 0:
+        elif action == "WARN_AND_ALERT":
             lines.append("Evidence Level: MEDIUM")
-            lines.append("Policy Decision: ALERT_ONLY")
+            lines.append("Policy Decision: WARN_AND_ALERT")
         else:
             lines.append("Evidence Level: LOW")
             lines.append("Policy Decision: ALLOW")
@@ -192,17 +210,35 @@ class DLPEngine:
         return lines
 
     def _log(self, res, snippet):
-        # SECURITY: do not store raw sensitive content in logs
-        # store only a short hash for evidence linkage
         snippet_hash = hashlib.sha256(snippet.encode()).hexdigest()[:16]
+
+        # privacy-preserving: per-entity masked summary
+        masked_entities = []
+        if HAS_MASKING:
+            try:
+                entity_names = [m["rule_id"] for m in res["matches"]]
+                friendly = []
+                if "PII_001" in entity_names:
+                    friendly.append("PAN")
+                    friendly.append("PHONE")
+                if "FIN_001" in entity_names:
+                    friendly.append("EMPLOYEE_FINANCIAL_DATA")
+                if "CONF_001" in entity_names:
+                    friendly.append("CONFIDENTIAL_MARKING")
+                masked_entities = summarize_entities(friendly, snippet)
+            except Exception:
+                masked_entities = []
 
         event = {
             "severity": res["severity"],
             "action": res["action"],
+            "decision": res["decision"],
             "matches": [m["rule_id"] for m in res["matches"]],
             "risk_score": res["risk_score"],
             "content_hash": snippet_hash,
             "content_redacted": True,
+            "masked_entities": masked_entities,
+            "raw_content_stored": False,
         }
 
         if self.chain is not None:
