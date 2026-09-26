@@ -1,6 +1,6 @@
-# intent classifier
-# backend se inference, classification real
-
+# qwen_intent.py
+#
+# intent classifier. Backend se inference.
 
 import sys
 from pathlib import Path
@@ -16,6 +16,20 @@ class QwenIntentClassifier:
 
     def classify(self, text, entities):
         inf = self.backend.infer("reasoning", {"text": text, "entities": entities})
+
+        # agar text empty hai (OCR fail) toh alag label
+        if not text or not text.strip():
+            return {
+                "classification": "UNVERIFIED_DATA_TRANSFER",
+                "confidence": 0.90,
+                "latency_ms": inf["latency_ms"],
+                "compute_unit": inf["compute_unit"],
+                "timing_source": inf["timing_source"],
+                "precision": inf.get("precision", "unknown"),
+                "ram_peak_mb": inf.get("ram_peak_mb", "?"),
+                "layers_on_npu": inf.get("layers_on_npu", "?"),
+                "runtime": inf.get("runtime", "?"),
+            }
 
         # count each type
         n_pii = 0
@@ -49,7 +63,6 @@ class QwenIntentClassifier:
             label = "BENIGN"
             conf = 0.95
 
-        # full telemetry pass-through
         return {
             "classification": label,
             "confidence": conf,

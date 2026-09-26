@@ -1,6 +1,4 @@
-# vision layer
-# backend se inference leta hai
-# entity detection real hai - regex real input pe chalta hai
+# internvl_screen.py
 
 
 import re
@@ -16,22 +14,21 @@ class InternVLScreenAnalyzer:
     def __init__(self, mode="snapdragon"):
         self.backend = get_backend(mode)
 
-        # aadhaar mein space chahiye
+        # PII patterns - strictly typed
+        # ACCOUNT_NUMBER: 11+ digits (phone is 10, exclude)
         self.pii_rx = [
             (r"\b\d{4}\s\d{4}\s\d{4}\b", "AADHAAR"),
             (r"\b[A-Z]{5}\d{4}[A-Z]\b", "PAN"),
-            (r"\b[6-9]\d{9}\b", "PHONE"),
-            (r"\b\d{9,18}\b", "ACCOUNT_NUMBER"),
+            (r"\b[6-9]\d{9}\b", "PHONE"),                    # Indian mobile: 10 digits starting 6-9
+            (r"\b\d{11,18}\b", "ACCOUNT_NUMBER"),            # bank account: 11-18 digits
         ]
 
         self.money_words = ["salary", "compensation", "ctc", "payroll", "bonus"]
         self.ip_words = ["confidential", "proprietary", "internal only", "trade secret"]
 
     def analyze(self, text):
-        # backend se inference
         inf = self.backend.infer("vision", {"text": text})
 
-        # real detection
         found = []
         lower = text.lower()
 
@@ -51,7 +48,6 @@ class InternVLScreenAnalyzer:
 
         found = list(set(found))
 
-        # full telemetry pass-through
         return {
             "sensitive": len(found) > 0,
             "entities": sorted(found),
