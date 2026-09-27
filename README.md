@@ -1,15 +1,23 @@
 <div align="center">
 
-<img src="https://img.shields.io/badge/-SNAPDRAGON%20AI%20LAB%202026-e2231a?style=for-the-badge&logo=qualcomm&logoColor=white" />
-
-# 🛡️ Sentinel Drishti
+# 🐉 Sentinel Drishti
 
 **An on-device AI agent that stops sensitive data from leaving enterprise laptops.**
 
-[![Tests](https://img.shields.io/badge/tests-62%2F62_passing-22c55e?style=flat-square)](tests/)
-[![F1](https://img.shields.io/badge/OCR→Entity_F1-1.00-22c55e?style=flat-square)](#evidence)
-[![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=flat-square)](#zero-cloud)
-[![Snapdragon](https://img.shields.io/badge/Snapdragon-QNN%20%2F%20HTP-e2231a?style=flat-square)](docs/snapdragon_validation.md)
+<br>
+
+[![Tests](https://img.shields.io/badge/62%2F62-tests_passing-22c55e?style=for-the-badge&logo=pytest&logoColor=white)](#evidence)
+[![F1](https://img.shields.io/badge/OCR→Entity-F1_1.00-22c55e?style=for-the-badge)](#evidence)
+[![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=for-the-badge&logo=windows&logoColor=white)](#zero-cloud)
+[![Snapdragon](https://img.shields.io/badge/Snapdragon-QNN_%2F_HTP-e2231a?style=for-the-badge&logo=qualcomm&logoColor=white)](docs/snapdragon_validation.md)
+
+<br>
+
+| 🚀 [**Run offline**](#four-ways-to-experience-sentinel-drishti) | 🌐 [**Showcase**](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti) | 💻 [**Live demo**](https://sentinel-drishti.streamlit.app) | 📦 [**Source**](https://github.com/Nir-bitcoin/Sentinel-Drishti) |
+|:---:|:---:|:---:|:---:|
+| One-command install | Visual overview | Interactive pipeline | Full repository |
+
+<br>
 
 > **Core contribution:** Sentinel Drishti is an on-device DLP agent that
 > reasons about *data flow across applications* (Excel → Clipboard → Gmail),
@@ -362,6 +370,10 @@ Full pipeline ran with ZERO network calls.
 ---
 
 ## Four ways to experience Sentinel Drishti
+
+> **Deployment & Accessibility.** Sentinel Drishti runs in four distinct
+> environments — from a fully offline one-command install to a live
+> browser dashboard. Pick the one that fits how you want to evaluate it.
 
 ### 1. 🚀 One-command offline (real pipeline)
 
