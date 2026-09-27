@@ -7,10 +7,138 @@ from datetime import datetime
 
 st.set_page_config(
     page_title="Sentinel Drishti",
-    page_icon="🛡️",
+    page_icon="🐉",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
+
+
+# ============================================================
+# CUSTOM CSS — stylish polish
+# ============================================================
+st.markdown("""
+<style>
+/* ---------- HEADER ---------- */
+.hero-head {
+    text-align: center;
+    padding: 8px 0 4px 0;
+}
+.hero-title {
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #22c55e 0%, #0891b2 60%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+.hero-sub {
+    color: #8896ab;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+.hero-sub .name {
+    color: #dbe7f5;
+    font-weight: 700;
+}
+
+/* ---------- METRIC CARDS — softer ---------- */
+div[data-testid="stMetric"] {
+    background: linear-gradient(180deg, rgba(34,197,94,0.06), rgba(8,145,178,0.03));
+    border: 1px solid rgba(34,197,94,0.15);
+    padding: 14px 16px;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+div[data-testid="stMetric"]:hover {
+    border-color: rgba(34,197,94,0.35);
+    transform: translateY(-1px);
+}
+div[data-testid="stMetricLabel"] {
+    color: #91a4bd !important;
+    font-size: 0.78rem !important;
+}
+div[data-testid="stMetricValue"] {
+    color: #f5f8fc !important;
+    font-weight: 750 !important;
+    font-size: 1.35rem !important;
+}
+
+/* ---------- BORDERED CONTAINERS — glow ---------- */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: 14px !important;
+    border-color: rgba(34,197,94,0.12) !important;
+}
+
+/* ---------- BUTTONS ---------- */
+.stButton > button {
+    border-radius: 10px;
+    min-height: 42px;
+    font-weight: 650;
+    transition: all 0.15s;
+}
+.stButton > button:hover {
+    transform: translateY(-1px);
+}
+
+/* ---------- EXPANDERS ---------- */
+div[data-testid="stExpander"] {
+    border-radius: 10px;
+    border-color: rgba(255,255,255,0.08);
+}
+
+/* ---------- FOOTER ---------- */
+.footer-card {
+    text-align: center;
+    padding: 22px 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(34,197,94,0.06), rgba(8,145,178,0.04));
+    border: 1px solid rgba(34,197,94,0.15);
+    margin-top: 10px;
+}
+.footer-team {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+}
+.footer-team .accent {
+    background: linear-gradient(135deg, #22c55e, #0891b2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.footer-sub {
+    color: #8896ab;
+    font-size: 0.82rem;
+    margin-bottom: 14px;
+}
+.footer-links {
+    font-size: 0.88rem;
+    line-height: 2;
+}
+.footer-links a {
+    color: #22c55e;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0 8px;
+    transition: color 0.15s;
+}
+.footer-links a:hover {
+    color: #4ade80;
+}
+
+/* ---------- SECTION HEADINGS ---------- */
+h5 {
+    font-weight: 750 !important;
+    letter-spacing: -0.2px;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 # ============================================================
@@ -140,34 +268,32 @@ PRESETS = {
 
 
 # ============================================================
-# HEADER — small, centered
+# HEADER — DRAGON STYLE
 # ============================================================
-st.markdown(
-    "<h2 style='text-align:center; margin-bottom:0;'>🛡️ Sentinel Drishti</h2>",
-    unsafe_allow_html=True,
-)
-st.markdown(
-    "<p style='text-align:center; color:#8896ab; font-size:0.85rem; margin-top:4px;'>"
-    "by Niranjan Vishe"
-    "</p>",
-    unsafe_allow_html=True,
-)
+st.markdown("""
+<div class="hero-head">
+    <div class="hero-title">🐉 Sentinel Drishti</div>
+    <div class="hero-sub">
+        On-Device AI Compliance & Data Loss Prevention · 
+        <span class="name">by Niranjan Vishe</span>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
-st.divider()
+st.write("")
 
 
 # ============================================================
-# MAIN LAYOUT — LEFT INFO / RIGHT SCENARIO
+# MAIN LAYOUT
 # ============================================================
 left, right = st.columns([1, 1.4], gap="large")
 
 
 # ------------------------------------------------------------
-# LEFT COLUMN
+# LEFT
 # ------------------------------------------------------------
 with left:
 
-    # ---------- RUNTIME BACKEND ----------
     st.markdown("##### ⚙️ Runtime Backend")
 
     backend = st.radio(
@@ -177,7 +303,6 @@ with left:
         label_visibility="collapsed",
     )
 
-    # ---------- TARGET PLATFORM (compact) ----------
     st.markdown("##### 🎯 Target Platform")
     with st.container(border=True):
         st.caption("**Runtime:** Snapdragon QNN / Hexagon HTP")
@@ -186,7 +311,6 @@ with left:
         st.caption("**EasyOCR Detector:** 12.64 ms (w8a8)")
         st.caption("**EasyOCR Recognizer:** 10.55 ms (w8a8)")
 
-    # ---------- KEY METRICS (compact, side style) ----------
     st.markdown("##### 📊 Key Metrics")
     with st.container(border=True):
         st.caption("**Target Backend:** QNN / NPU")
@@ -197,7 +321,7 @@ with left:
 
 
 # ------------------------------------------------------------
-# RIGHT COLUMN — SCENARIO
+# RIGHT
 # ------------------------------------------------------------
 with right:
 
@@ -235,7 +359,7 @@ with right:
             st.session_state.audit_entries = []
             st.rerun()
 
-    # ---------- RUN ----------
+    # RUN
     if run_btn:
         with st.spinner("Running Sentinel Drishti pipeline..."):
             result = run_scenario(preset["actions"], custom_text)
@@ -255,9 +379,7 @@ with right:
                 "Masked": result["masked"][:80],
             })
 
-    # ========================================================
-    # RESULT — DIRECTLY BELOW SCENARIO (same right column)
-    # ========================================================
+    # RESULT — below scenario
     if st.session_state.history:
         r = st.session_state.history[0]
         decision = r["decision"]["decision"]
@@ -337,7 +459,7 @@ with right:
 
 
 # ============================================================
-# SESSION AUDIT LOG — FULL WIDTH
+# AUDIT LOG
 # ============================================================
 st.divider()
 st.markdown("##### 📜 Session Audit Log")
@@ -360,7 +482,7 @@ else:
 
 
 # ============================================================
-# Q&A — END
+# Q&A
 # ============================================================
 st.divider()
 st.markdown("##### ❓ Q&A")
@@ -385,7 +507,7 @@ with qa_col2:
 
 
 # ============================================================
-# TROUBLESHOOTING — END
+# TROUBLESHOOTING
 # ============================================================
 st.markdown("##### 🔧 Troubleshooting")
 
@@ -405,27 +527,23 @@ with tr_col2:
 
 
 # ============================================================
-# FOOTER — TEAM + LINKS
+# FOOTER — TEAM
 # ============================================================
 st.divider()
-st.markdown(
-    "<p style='text-align:center; font-size:0.95rem; margin-bottom:4px;'>"
-    "<b>SusDetect Team</b> · by Niranjan Vishe"
-    "</p>",
-    unsafe_allow_html=True,
-)
-st.markdown(
-    "<p style='text-align:center; color:#8896ab; font-size:0.82rem; margin-top:0;'>"
-    "Snapdragon AI Lab Challenge 2026"
-    "</p>",
-    unsafe_allow_html=True,
-)
-st.markdown(
-    "<p style='text-align:center; font-size:0.85rem;'>"
-    "📧 <a href='mailto:niranjanvishe62@gmail.com'>niranjanvishe62@gmail.com</a> &nbsp;·&nbsp; "
-    "💼 <a href='https://www.linkedin.com/in/nirvishe/' target='_blank'>LinkedIn</a> &nbsp;·&nbsp; "
-    "🐙 <a href='https://github.com/Nir-bitcoin' target='_blank'>GitHub</a> &nbsp;·&nbsp; "
-    "📦 <a href='https://github.com/Nir-bitcoin/Sentinel-Drishti' target='_blank'>Repository</a>"
-    "</p>",
-    unsafe_allow_html=True,
-)
+
+st.markdown("""
+<div class="footer-card">
+    <div class="footer-team">
+        <span class="accent">SusDetect</span> Team
+    </div>
+    <div class="footer-sub">
+        by Niranjan Vishe · Snapdragon AI Lab Challenge 2026
+    </div>
+    <div class="footer-links">
+        <a href="mailto:niranjanvishe62@gmail.com">📧 Email</a>
+        <a href="https://www.linkedin.com/in/nirvishe/" target="_blank">💼 LinkedIn</a>
+        <a href="https://github.com/Nir-bitcoin" target="_blank">🐙 GitHub</a>
+        <a href="https://github.com/Nir-bitcoin/Sentinel-Drishti" target="_blank">📦 Repository</a>
+    </div>
+</div>
+""", unsafe_allow_html=True)
