@@ -1,5 +1,7 @@
 # app.py
-# Sentinel Drishti — Simple Streamlit Dashboard
+# Sentinel Drishti — Streamlit Dashboard
+# Layout: Name top-center, Runtime backend top, Target + Q&A + Troubleshooting left,
+# Scenario box right, Result below.
 
 import streamlit as st
 import json
@@ -10,58 +12,6 @@ st.set_page_config(
     page_icon="🛡️",
     layout="wide",
 )
-
-
-# ============================================================
-# SIDEBAR
-# ============================================================
-with st.sidebar:
-    st.title("🛡️ Sentinel Drishti")
-    st.caption("On-Device AI DLP Agent")
-    st.divider()
-
-    st.subheader("⚙️ Runtime Backend")
-
-    backend = st.radio(
-        "Choose runtime",
-        ["🎯 Snapdragon QNN (target)", "💻 CPU (fallback)"],
-        index=0,
-    )
-
-    if backend.startswith("🎯"):
-        st.success(
-            "**Target: Snapdragon QNN / Hexagon HTP**\n\n"
-            "EasyOCR validated on hosted Snapdragon X Elite:\n\n"
-            "- Detector: **12.64 ms**\n"
-            "- Recognizer: **10.55 ms**"
-        )
-    else:
-        st.info(
-            "**Fallback: CPU**\n\n"
-            "Used for development and validation."
-        )
-
-    st.divider()
-
-    st.subheader("❓ Help")
-
-    with st.expander("What is ALLOW / WARN / BLOCK?"):
-        st.write("🟢 **ALLOW** — safe action")
-        st.write("🟡 **WARN** — needs user confirmation")
-        st.write("🔴 **BLOCK** — action prevented")
-
-    with st.expander("Why ALLOW instead of BLOCK?"):
-        st.write("Benign presets return ALLOW. Choose **PII → Personal Gmail** to see BLOCK.")
-
-    with st.expander("No data flow detected?"):
-        st.write("Data flow needs COPY in one app + PASTE in another.")
-
-    st.divider()
-
-    st.subheader("👤 Submission")
-    st.write("**Niranjan Vishe**")
-    st.caption("niranjanvishe62@gmail.com")
-    st.caption("Snapdragon AI Lab Challenge 2026")
 
 
 # ============================================================
@@ -191,75 +141,193 @@ PRESETS = {
 
 
 # ============================================================
-# HEADER
+# TOP — CENTERED NAME
 # ============================================================
-st.title("🛡️ Sentinel Drishti")
-st.write("On-device AI compliance and data-loss prevention agent.")
+st.markdown(
+    "<h1 style='text-align:center; margin-bottom:4px;'>🛡️ Sentinel Drishti</h1>",
+    unsafe_allow_html=True,
+)
+st.markdown(
+    "<p style='text-align:center; color:#8fa4bd; margin-top:0;'>"
+    "On-Device AI Compliance & Data Loss Prevention Agent"
+    "</p>",
+    unsafe_allow_html=True,
+)
 
 st.divider()
 
 
 # ============================================================
-# TOP METRICS
+# RUNTIME BACKEND (TOP)
 # ============================================================
-col1, col2, col3, col4 = st.columns(4)
+st.subheader("⚙️ Runtime Backend")
 
-with col1:
-    st.metric("Target Backend", "QNN / NPU")
-with col2:
-    st.metric("Fallback", "CPU")
-with col3:
-    st.metric("Tests Passing", "62 / 62")
-with col4:
-    st.metric("Core Mode", "Offline")
+backend = st.radio(
+    "Choose runtime target",
+    ["🎯 Snapdragon QNN / Hexagon HTP (target)", "💻 CPU (fallback)"],
+    index=0,
+    horizontal=True,
+)
 
-st.divider()
-
-
-# ============================================================
-# MAIN LAYOUT
-# ============================================================
-left, right = st.columns([1, 1.5])
-
-
-# ============================================================
-# LEFT — SCENARIO
-# ============================================================
-with left:
-    st.subheader("🎬 Scenario")
-
-    preset_name = st.selectbox("Choose a preset", list(PRESETS.keys()))
-    preset = PRESETS[preset_name]
-
-    custom_text = st.text_area(
-        "Text on screen",
-        value=preset["text"],
-        height=100,
+if backend.startswith("🎯"):
+    st.success(
+        "**Target runtime — Snapdragon QNN / Hexagon HTP**  \n"
+        "EasyOCR validated on hosted Snapdragon X Elite: "
+        "**Detector 12.64 ms** · **Recognizer 10.55 ms**  \n"
+        "Native runtime: `python sentinel.py --backend qnn`"
+    )
+else:
+    st.info(
+        "**Fallback runtime — CPU**  \n"
+        "Used for development and validation. Native runtime auto-selects QNN "
+        "when Snapdragon hardware is detected."
     )
 
-    st.write("**Actions:**")
-    for a in preset["actions"]:
-        st.write(f"• {a['action']} → {a['app']}")
+st.divider()
+
+
+# ============================================================
+# TWO COLUMNS — LEFT (info) / RIGHT (scenario)
+# ============================================================
+left, right = st.columns([1, 1.4], gap="large")
+
+
+# ------------------------------------------------------------
+# LEFT — TARGET / Q&A / TROUBLESHOOTING
+# ------------------------------------------------------------
+with left:
+
+    # ---------- TARGET ----------
+    st.subheader("🎯 Target")
+    with st.container(border=True):
+        st.write("**Runtime:** Snapdragon QNN / Hexagon HTP")
+        st.write("**Hardware:** Hexagon Tensor Processor (NPU)")
+        st.write("**Benchmark source:** Qualcomm AI Hub (hosted)")
+        st.write("")
+        st.write("**EasyOCR on Snapdragon X Elite:**")
+        st.write("• Detector — **12.64 ms** (w8a8)")
+        st.write("• Recognizer — **10.55 ms** (w8a8)")
+        st.write("")
+        st.write("**Fallback:** CPU (development / validation)")
 
     st.write("")
 
-    run_btn = st.button("▶  Run Pipeline", type="primary", use_container_width=True)
-    clear_btn = st.button("🗑  Clear Session", use_container_width=True)
+    # ---------- Q&A ----------
+    st.subheader("❓ Q&A")
+    with st.container(border=True):
+        with st.expander("🟢 What is ALLOW?"):
+            st.write(
+                "**ALLOW** = safe action. No sensitive data, no risky behavior, "
+                "or local/trusted destination."
+            )
+        with st.expander("🟡 What is WARN?"):
+            st.write(
+                "**WARN** = some risk detected. User confirmation required "
+                "before proceeding."
+            )
+        with st.expander("🔴 What is BLOCK?"):
+            st.write(
+                "**BLOCK** = sensitive data being exfiltrated. Action prevented, "
+                "physical alert fires."
+            )
+        with st.expander("Why preset showing ALLOW?"):
+            st.write(
+                "Benign presets correctly return ALLOW. Choose "
+                "**PII → Personal Gmail** to see BLOCK."
+            )
+        with st.expander("Session Risk meaning?"):
+            st.write(
+                "Accumulates across events. Single COPY = low. "
+                "COPY → Gmail → PASTE = high."
+            )
 
-    if clear_btn:
-        st.session_state.history = []
-        st.session_state.audit_entries = []
-        st.rerun()
+    st.write("")
+
+    # ---------- TROUBLESHOOTING ----------
+    st.subheader("🔧 Troubleshooting")
+    with st.container(border=True):
+        with st.expander("Data Flow: No flow detected?"):
+            st.write(
+                "A data flow requires **COPY in App A → PASTE in App B**. "
+                "Single-app actions stay local."
+            )
+        with st.expander("Cache / performance?"):
+            st.write(
+                "First run loads OCR (~5–10 s on CPU). Subsequent runs use "
+                "content-hash cache (~3 ms)."
+            )
+        with st.expander("Where is Snapdragon NPU used?"):
+            st.write(
+                "Target is **Snapdragon QNN / Hexagon HTP**. This browser "
+                "demo runs the pipeline on CPU."
+            )
+        with st.expander("Streamlit Cloud 'Oh no' error?"):
+            st.write(
+                "Usually a memory limit (1 GB free tier). Try "
+                "**⋮ → Reboot app** in Streamlit Cloud."
+            )
+        with st.expander("Pipeline error?"):
+            st.write(
+                "Try a different preset. If it persists, check the "
+                "repository issues page."
+            )
+
+    st.write("")
+
+    # ---------- SUBMISSION ----------
+    st.subheader("👤 Submission")
+    with st.container(border=True):
+        st.write("**Niranjan Vishe**")
+        st.caption("niranjanvishe62@gmail.com")
+        st.caption("Solo submission · Snapdragon AI Lab Challenge 2026")
 
 
-# ============================================================
-# RIGHT — RESULT
-# ============================================================
+# ------------------------------------------------------------
+# RIGHT — SCENARIO
+# ------------------------------------------------------------
 with right:
-    st.subheader("🔎 Result")
 
+    st.subheader("🎬 Scenario")
+
+    with st.container(border=True):
+        preset_name = st.selectbox("Choose a preset", list(PRESETS.keys()))
+        preset = PRESETS[preset_name]
+
+        st.write("")
+
+        custom_text = st.text_area(
+            "Text on screen",
+            value=preset["text"],
+            height=100,
+        )
+
+        st.write("**Activity sequence:**")
+        for a in preset["actions"]:
+            st.write(f"• `{a['action']}` → {a['app']}")
+
+        st.write("")
+
+        run_col, clear_col = st.columns(2)
+        with run_col:
+            run_btn = st.button(
+                "▶  Run Pipeline",
+                type="primary",
+                use_container_width=True,
+            )
+        with clear_col:
+            clear_btn = st.button(
+                "🗑  Clear Session",
+                use_container_width=True,
+            )
+
+        if clear_btn:
+            st.session_state.history = []
+            st.session_state.audit_entries = []
+            st.rerun()
+
+    # ---------- RUN ----------
     if run_btn:
-        with st.spinner("Running pipeline..."):
+        with st.spinner("Running Sentinel Drishti pipeline..."):
             result = run_scenario(preset["actions"], custom_text)
 
             if result.get("error"):
@@ -277,9 +345,18 @@ with right:
                 "Masked": result["masked"][:80],
             })
 
-    if st.session_state.history:
-        r = st.session_state.history[0]
-        decision = r["decision"]["decision"]
+
+# ============================================================
+# RESULT (BELOW)
+# ============================================================
+st.divider()
+st.subheader("🔎 Result")
+
+if st.session_state.history:
+    r = st.session_state.history[0]
+    decision = r["decision"]["decision"]
+
+    with st.container(border=True):
 
         # ---------- DECISION BANNER ----------
         if decision == "BLOCK_AND_ALERT":
@@ -292,13 +369,15 @@ with right:
         st.write("")
 
         # ---------- METRICS ----------
-        m1, m2, m3 = st.columns(3)
+        m1, m2, m3, m4 = st.columns(4)
         with m1:
             st.metric("Risk Score", f"{r['risk']['score']} / 100")
         with m2:
             st.metric("Session Risk", f"{r['session']['session_risk_score']} / 100")
         with m3:
             st.metric("Intent", r["intent"]["classification"])
+        with m4:
+            st.metric("Severity", r["decision"]["severity"])
 
         st.write("")
 
@@ -349,8 +428,8 @@ with right:
             if r["decision"].get("enforcement"):
                 st.write("**Enforcement:**")
                 st.json(r["decision"]["enforcement"])
-    else:
-        st.info("Choose a preset and click **Run Pipeline**.")
+else:
+    st.info("Choose a preset on the right and click **▶ Run Pipeline**.")
 
 
 # ============================================================
@@ -376,4 +455,7 @@ else:
 # FOOTER
 # ============================================================
 st.divider()
-st.caption("Sentinel Drishti · Snapdragon AI Lab Challenge 2026 · Native OS monitoring via `python sentinel.py`")
+st.caption(
+    "Sentinel Drishti · Snapdragon AI Lab Challenge 2026 · "
+    "Native OS monitoring via `python sentinel.py`"
+)
