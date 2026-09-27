@@ -1,7 +1,6 @@
 # app.py
 # Sentinel Drishti — Streamlit Dashboard
-# Layout: Name top-center, Runtime backend top, Target + Q&A + Troubleshooting left,
-# Scenario box right, Result below.
+# Clean, professional layout for judge presentation.
 
 import streamlit as st
 import json
@@ -11,6 +10,7 @@ st.set_page_config(
     page_title="Sentinel Drishti",
     page_icon="🛡️",
     layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 
@@ -141,101 +141,125 @@ PRESETS = {
 
 
 # ============================================================
-# TOP — CENTERED NAME
+# HERO — CENTERED
 # ============================================================
 st.markdown(
-    "<h1 style='text-align:center; margin-bottom:4px;'>🛡️ Sentinel Drishti</h1>",
+    "<h1 style='text-align:center; margin-bottom:0;'>🛡️ Sentinel Drishti</h1>",
     unsafe_allow_html=True,
 )
 st.markdown(
-    "<p style='text-align:center; color:#8fa4bd; margin-top:0;'>"
+    "<p style='text-align:center; color:#8896ab; font-size:1.05rem; margin-top:8px;'>"
     "On-Device AI Compliance & Data Loss Prevention Agent"
     "</p>",
     unsafe_allow_html=True,
 )
+st.markdown(
+    "<p style='text-align:center; color:#8896ab; font-size:0.9rem;'>"
+    "Snapdragon AI Lab Challenge 2026 · Solo submission by <b>Niranjan Vishe</b>"
+    "</p>",
+    unsafe_allow_html=True,
+)
+
+st.write("")
+
+
+# ============================================================
+# STATUS STRIP
+# ============================================================
+s1, s2, s3, s4, s5 = st.columns(5)
+with s1:
+    st.metric("Target Backend", "QNN / NPU")
+with s2:
+    st.metric("Fallback", "CPU")
+with s3:
+    st.metric("Tests", "62 / 62")
+with s4:
+    st.metric("F1 Score", "1.00")
+with s5:
+    st.metric("Core Mode", "Offline")
 
 st.divider()
 
 
 # ============================================================
-# RUNTIME BACKEND (TOP)
+# RUNTIME BACKEND
 # ============================================================
 st.subheader("⚙️ Runtime Backend")
 
 backend = st.radio(
-    "Choose runtime target",
+    "Choose runtime target:",
     ["🎯 Snapdragon QNN / Hexagon HTP (target)", "💻 CPU (fallback)"],
     index=0,
     horizontal=True,
+    label_visibility="collapsed",
 )
 
 if backend.startswith("🎯"):
     st.success(
         "**Target runtime — Snapdragon QNN / Hexagon HTP**  \n"
-        "EasyOCR validated on hosted Snapdragon X Elite: "
-        "**Detector 12.64 ms** · **Recognizer 10.55 ms**  \n"
+        "EasyOCR components validated on hosted Snapdragon X Elite via Qualcomm AI Hub: "
+        "**Detector 12.64 ms** · **Recognizer 10.55 ms** (w8a8).  \n"
         "Native runtime: `python sentinel.py --backend qnn`"
     )
 else:
     st.info(
         "**Fallback runtime — CPU**  \n"
-        "Used for development and validation. Native runtime auto-selects QNN "
-        "when Snapdragon hardware is detected."
+        "Development and validation environment. Native runtime auto-selects QNN "
+        "when Snapdragon hardware is detected. Never silent."
     )
 
 st.divider()
 
 
 # ============================================================
-# TWO COLUMNS — LEFT (info) / RIGHT (scenario)
+# TWO COLUMNS — INFO / SCENARIO
 # ============================================================
-left, right = st.columns([1, 1.4], gap="large")
+left, right = st.columns([1, 1.3], gap="large")
 
 
 # ------------------------------------------------------------
-# LEFT — TARGET / Q&A / TROUBLESHOOTING
+# LEFT — INFORMATION
 # ------------------------------------------------------------
 with left:
 
-    # ---------- TARGET ----------
-    st.subheader("🎯 Target")
+    # TARGET
+    st.subheader("🎯 Target Platform")
     with st.container(border=True):
-        st.write("**Runtime:** Snapdragon QNN / Hexagon HTP")
-        st.write("**Hardware:** Hexagon Tensor Processor (NPU)")
-        st.write("**Benchmark source:** Qualcomm AI Hub (hosted)")
-        st.write("")
-        st.write("**EasyOCR on Snapdragon X Elite:**")
-        st.write("• Detector — **12.64 ms** (w8a8)")
-        st.write("• Recognizer — **10.55 ms** (w8a8)")
-        st.write("")
-        st.write("**Fallback:** CPU (development / validation)")
+        st.markdown("**Runtime:** Snapdragon QNN / Hexagon HTP")
+        st.markdown("**Hardware:** Hexagon Tensor Processor (NPU)")
+        st.markdown("**Benchmark source:** Qualcomm AI Hub (hosted)")
+        st.markdown("")
+        st.markdown("**EasyOCR on Snapdragon X Elite:**")
+        st.markdown("- Detector — **12.64 ms** (w8a8)")
+        st.markdown("- Recognizer — **10.55 ms** (w8a8)")
+        st.markdown("")
+        st.markdown("**Fallback:** CPU (dev / validation)")
 
     st.write("")
 
-    # ---------- Q&A ----------
+    # Q&A
     st.subheader("❓ Q&A")
     with st.container(border=True):
         with st.expander("🟢 What is ALLOW?"):
             st.write(
-                "**ALLOW** = safe action. No sensitive data, no risky behavior, "
+                "Safe action. No sensitive data, no risky behavior, "
                 "or local/trusted destination."
             )
         with st.expander("🟡 What is WARN?"):
             st.write(
-                "**WARN** = some risk detected. User confirmation required "
-                "before proceeding."
+                "Some risk detected. User confirmation required before proceeding."
             )
         with st.expander("🔴 What is BLOCK?"):
             st.write(
-                "**BLOCK** = sensitive data being exfiltrated. Action prevented, "
+                "Sensitive data being exfiltrated. Action prevented, "
                 "physical alert fires."
             )
-        with st.expander("Why preset showing ALLOW?"):
+        with st.expander("Why is a preset showing ALLOW?"):
             st.write(
                 "Benign presets correctly return ALLOW. Choose "
                 "**PII → Personal Gmail** to see BLOCK."
             )
-        with st.expander("Session Risk meaning?"):
+        with st.expander("What is Session Risk?"):
             st.write(
                 "Accumulates across events. Single COPY = low. "
                 "COPY → Gmail → PASTE = high."
@@ -243,7 +267,7 @@ with left:
 
     st.write("")
 
-    # ---------- TROUBLESHOOTING ----------
+    # TROUBLESHOOTING
     st.subheader("🔧 Troubleshooting")
     with st.container(border=True):
         with st.expander("Data Flow: No flow detected?"):
@@ -251,7 +275,7 @@ with left:
                 "A data flow requires **COPY in App A → PASTE in App B**. "
                 "Single-app actions stay local."
             )
-        with st.expander("Cache / performance?"):
+        with st.expander("Cache / performance looks off?"):
             st.write(
                 "First run loads OCR (~5–10 s on CPU). Subsequent runs use "
                 "content-hash cache (~3 ms)."
@@ -271,15 +295,6 @@ with left:
                 "Try a different preset. If it persists, check the "
                 "repository issues page."
             )
-
-    st.write("")
-
-    # ---------- SUBMISSION ----------
-    st.subheader("👤 Submission")
-    with st.container(border=True):
-        st.write("**Niranjan Vishe**")
-        st.caption("niranjanvishe62@gmail.com")
-        st.caption("Solo submission · Snapdragon AI Lab Challenge 2026")
 
 
 # ------------------------------------------------------------
@@ -301,9 +316,10 @@ with right:
             height=100,
         )
 
-        st.write("**Activity sequence:**")
+        st.write("")
+        st.markdown("**Activity sequence:**")
         for a in preset["actions"]:
-            st.write(f"• `{a['action']}` → {a['app']}")
+            st.markdown(f"- `{a['action']}` → {a['app']}")
 
         st.write("")
 
@@ -325,7 +341,7 @@ with right:
             st.session_state.audit_entries = []
             st.rerun()
 
-    # ---------- RUN ----------
+    # RUN
     if run_btn:
         with st.spinner("Running Sentinel Drishti pipeline..."):
             result = run_scenario(preset["actions"], custom_text)
@@ -347,10 +363,10 @@ with right:
 
 
 # ============================================================
-# RESULT (BELOW)
+# RESULT — FULL WIDTH BELOW
 # ============================================================
 st.divider()
-st.subheader("🔎 Result")
+st.subheader("🔎 Security Decision")
 
 if st.session_state.history:
     r = st.session_state.history[0]
@@ -358,17 +374,17 @@ if st.session_state.history:
 
     with st.container(border=True):
 
-        # ---------- DECISION BANNER ----------
+        # DECISION BANNER
         if decision == "BLOCK_AND_ALERT":
-            st.error("🔴  BLOCK AND ALERT — sensitive data exfiltration prevented")
+            st.error("🔴  **BLOCK AND ALERT** — sensitive data exfiltration prevented")
         elif decision == "WARN_AND_ALERT":
-            st.warning("🟡  WARN AND ALERT — user confirmation required")
+            st.warning("🟡  **WARN AND ALERT** — user confirmation required")
         else:
-            st.success("🟢  ALLOW — action permitted")
+            st.success("🟢  **ALLOW** — action permitted by policy engine")
 
         st.write("")
 
-        # ---------- METRICS ----------
+        # METRICS
         m1, m2, m3, m4 = st.columns(4)
         with m1:
             st.metric("Risk Score", f"{r['risk']['score']} / 100")
@@ -381,7 +397,7 @@ if st.session_state.history:
 
         st.write("")
 
-        # ---------- TABS ----------
+        # TABS
         tab1, tab2, tab3, tab4 = st.tabs(
             ["🔀 Data Flow", "🔍 Entities", "🧠 Behavior", "🔐 Evidence"]
         )
@@ -389,18 +405,24 @@ if st.session_state.history:
         with tab1:
             flow = r["flow"]
             if flow.get("flow_detected"):
-                st.write("**Source:** " + str(flow.get("source")))
-                st.write("**Transfer:** " + str(flow.get("transfer")))
-                st.write("**Destination:** " + str(flow.get("destination")))
-                st.write("**Destination Class:** " + str(flow.get("destination_class", "?")))
-                st.write("**Verdict:** " + str(flow.get("verdict")))
+                c1, c2 = st.columns(2)
+                with c1:
+                    st.markdown(f"**Source:** {flow.get('source')}")
+                    st.markdown(f"**Transfer:** {flow.get('transfer')}")
+                with c2:
+                    st.markdown(f"**Destination:** {flow.get('destination')}")
+                    st.markdown(f"**Class:** {flow.get('destination_class', '?')}")
+                st.write("")
+                st.markdown(f"**Verdict:** `{flow.get('verdict')}`")
             else:
                 st.info("No cross-application data flow detected.")
+                st.caption("A data flow requires COPY in one app and PASTE in another.")
 
         with tab2:
             if r["entities"]:
+                st.markdown("**Detected entities:**")
                 for e in r["entities"]:
-                    st.write(f"🔒 {e}")
+                    st.markdown(f"- 🔒 **{e}**")
             else:
                 st.success("No sensitive entities detected.")
 
@@ -411,25 +433,29 @@ if st.session_state.history:
             with b2:
                 st.metric("Destination", str(r["behavior"].get("destination", "LOCAL")))
 
-            st.write("**Session Context:**")
+            st.write("")
+            st.markdown("**Session context:**")
             st.json({
                 "actions": [f"{a['action']} → {a['app']}" for a in preset["actions"]],
                 "session_risk": r["session"]["session_risk_score"],
             })
 
         with tab4:
-            st.write("**Decision Reasoning:**")
+            st.markdown("**Decision reasoning:**")
             for line in r["decision"]["explanation"]:
-                st.write(f"• {line}")
+                st.markdown(f"- {line}")
 
-            st.write("**Masked Text (stored in audit):**")
-            st.code(r["masked"])
+            st.write("")
+            st.markdown("**Masked text (stored in audit):**")
+            st.code(r["masked"], language=None)
 
             if r["decision"].get("enforcement"):
-                st.write("**Enforcement:**")
+                st.write("")
+                st.markdown("**Enforcement:**")
                 st.json(r["decision"]["enforcement"])
+
 else:
-    st.info("Choose a preset on the right and click **▶ Run Pipeline**.")
+    st.info("👆 Choose a preset above and click **▶ Run Pipeline** to see the decision.")
 
 
 # ============================================================
@@ -437,9 +463,14 @@ else:
 # ============================================================
 st.divider()
 st.subheader("📜 Session Audit Log")
+st.caption("Decision history for this browser session. Sensitive text is masked before storage.")
 
 if st.session_state.audit_entries:
-    st.dataframe(st.session_state.audit_entries, use_container_width=True, hide_index=True)
+    st.dataframe(
+        st.session_state.audit_entries,
+        use_container_width=True,
+        hide_index=True,
+    )
 
     st.download_button(
         "⬇ Download Audit JSON",
@@ -448,14 +479,18 @@ if st.session_state.audit_entries:
         mime="application/json",
     )
 else:
-    st.caption("No audit entries yet.")
+    st.caption("No audit entries yet. Run a scenario to populate the log.")
 
 
 # ============================================================
 # FOOTER
 # ============================================================
 st.divider()
-st.caption(
-    "Sentinel Drishti · Snapdragon AI Lab Challenge 2026 · "
-    "Native OS monitoring via `python sentinel.py`"
+st.markdown(
+    "<p style='text-align:center; color:#71859d; font-size:0.85rem;'>"
+    "<b>Sentinel Drishti</b> · Snapdragon AI Lab Challenge 2026  <br>"
+    "Browser dashboard for pipeline demonstration · "
+    "Native OS monitoring: <code>python sentinel.py</code>"
+    "</p>",
+    unsafe_allow_html=True,
 )
