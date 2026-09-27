@@ -275,7 +275,7 @@ st.markdown("""
     <div class="hero-title">🐉 Sentinel Drishti</div>
     <div class="hero-sub">
         On-Device AI Compliance & Data Loss Prevention · 
-        <span class="name">by Niranjan Vishe</span>
+        
     </div>
 </div>
 """, unsafe_allow_html=True)
