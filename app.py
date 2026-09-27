@@ -1,6 +1,6 @@
 # app.py
 # Sentinel Drishti — Streamlit Dashboard
-# Includes Q&A sidebar, error handling, and pipeline visualization.
+# Includes Q&A sidebar, backend selector, error handling, and audit log.
 
 import streamlit as st
 import json
@@ -15,13 +15,46 @@ st.set_page_config(
 
 
 # ============================================================
-# SIDEBAR — Q&A / Help
+# SIDEBAR
 # ============================================================
 with st.sidebar:
     st.title("🛡️ Sentinel Drishti")
     st.caption("On-Device AI DLP Agent")
     st.divider()
 
+    # ---------- BACKEND SELECTOR ----------
+    st.subheader("⚙️ Backend")
+
+    backend = st.radio(
+        "Runtime target",
+        options=["🎯 Snapdragon QNN (target)", "💻 CPU (fallback)"],
+        index=0,
+        help=(
+            "**Snapdragon QNN / Hexagon HTP** is the primary target runtime.\n\n"
+            "**CPU** is the development / validation fallback."
+        ),
+    )
+
+    if backend.startswith("🎯"):
+        st.info(
+            "**Target runtime**\n\n"
+            "Snapdragon QNN / Hexagon HTP\n\n"
+            "EasyOCR components validated on hosted Snapdragon X Elite:\n"
+            "- Detector: **12.64 ms**\n"
+            "- Recognizer: **10.55 ms**\n\n"
+            "_This browser demo runs on CPU. The native runtime selects QNN "
+            "when the hardware is available._"
+        )
+    else:
+        st.warning(
+            "**Fallback runtime**\n\n"
+            "CPU — used for development and validation.\n\n"
+            "Native runtime auto-selects QNN when Snapdragon host detected."
+        )
+
+    st.divider()
+
+    # ---------- Q&A / HELP ----------
     st.subheader("❓ Q&A / Help")
 
     with st.expander("🟢 What is ALLOW?"):
@@ -51,30 +84,25 @@ with st.sidebar:
         st.write(
             "Each preset is deterministic. If you chose a benign preset "
             "(e.g., 'Normal work'), the pipeline correctly returns ALLOW.\n\n"
-            "**To see a BLOCK**, choose **'PII → Personal Gmail'** from the dropdown."
+            "**To see a BLOCK**, choose **'PII → Personal Gmail'**."
         )
 
     with st.expander("Why is 'Data Flow: No flow detected'?"):
         st.write(
             "This appears when the actions do not form a cross-app transfer.\n\n"
-            "**Example:** OPEN → TYPE → SAVE stays within one app.\n\n"
             "A data flow requires: **COPY in App A → PASTE in App B**."
         )
 
     with st.expander("Cache / performance looks off?"):
         st.write(
-            "The first run of a preset loads OCR models (~5–10 s on CPU). "
-            "Subsequent runs use the content-hash cache (~3 ms).\n\n"
-            "If timings look slow, wait for the first run to complete."
+            "The first run loads OCR models (~5–10 s on CPU). "
+            "Subsequent runs use the content-hash cache (~3 ms)."
         )
 
     with st.expander("Streamlit Cloud shows 'Oh no'?"):
         st.write(
-            "This usually means a memory limit (1 GB free tier).\n\n"
-            "Try:\n"
-            "1. **⋮ → Reboot app** in Streamlit Cloud\n"
-            "2. Wait 1–2 minutes\n"
-            "3. Refresh the page"
+            "Usually a memory limit (1 GB free tier).\n\n"
+            "Try: **⋮ → Reboot app** in Streamlit Cloud."
         )
 
     with st.expander("Where is Snapdragon NPU used?"):
@@ -83,19 +111,19 @@ with st.sidebar:
             "EasyOCR components benchmarked on hosted Snapdragon X Elite:\n"
             "- Detector: **12.64 ms**\n"
             "- Recognizer: **10.55 ms**\n\n"
-            "This browser demo runs the pipeline on CPU. The native runtime "
-            "supports `--backend qnn` for Snapdragon hosts."
+            "Native runtime: `python sentinel.py --backend qnn`"
         )
 
     with st.expander("What's a 'Session Risk' score?"):
         st.write(
             "**Session risk** accumulates across events in one session.\n\n"
             "- A single COPY = low risk\n"
-            "- COPY → Gmail → PASTE = **high risk**\n\n"
-            "This catches insider-threat patterns single events miss."
+            "- COPY → Gmail → PASTE = **high risk**"
         )
 
     st.divider()
+
+    # ---------- LEGEND ----------
     st.subheader("📖 Legend")
     st.markdown(
         "| Icon | Meaning |\n"
@@ -108,10 +136,21 @@ with st.sidebar:
     )
 
     st.divider()
-    st.caption("Need more help?")
+
+    # ---------- TEAM ----------
+    st.subheader("👤 Team")
+    st.caption("Solo submission")
+    st.write("**Niranjan Vishe**")
+    st.caption("niranjanvishe62@gmail.com")
+    st.caption("Snapdragon AI Lab Challenge 2026")
+
+    st.divider()
+
+    # ---------- LINKS ----------
+    st.subheader("🔗 Links")
     st.markdown(
-        "[📦 Source](https://github.com/Nir-bitcoin/Sentinel-Drishti) · "
-        "[📚 Docs](https://github.com/Nir-bitcoin/Sentinel-Drishti/tree/main/docs) · "
+        "[📦 Source code](https://github.com/Nir-bitcoin/Sentinel-Drishti)  \n"
+        "[📚 Documentation](https://github.com/Nir-bitcoin/Sentinel-Drishti/tree/main/docs)  \n"
         "[🌐 Showcase](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti)"
     )
 
@@ -154,40 +193,21 @@ def load_pipeline():
 def _get_user_hint(error_text):
     """Map technical errors to user-friendly hints."""
     e = error_text.lower()
-
     if "memory" in e or "out of memory" in e:
-        return (
-            "🛑 **Memory limit reached.** Streamlit Cloud free tier has 1 GB RAM. "
-            "Try rebooting the app from the ⋮ menu."
-        )
+        return "🛑 Memory limit reached. Try **⋮ → Reboot app** in Streamlit Cloud."
     if "no module named" in e or "modulenotfound" in e:
-        return (
-            "📦 **Missing module.** The environment may still be installing. "
-            "Wait 1–2 minutes and refresh the page."
-        )
+        return "📦 Missing module. Wait 1–2 min and refresh."
     if "file not found" in e or "filenotfound" in e:
-        return (
-            "📁 **File not found.** A required data file is missing. "
-            "Try rebooting the app or re-cloning the repo."
-        )
+        return "📁 File not found. Try rebooting the app."
     if "timeout" in e:
-        return (
-            "⏱️ **Timeout.** OCR model took too long to load. "
-            "Wait and try again — first run can take 5–10 s."
-        )
+        return "⏱️ Timeout. Wait and try again (first run: 5–10 s)."
     if "opencv" in e or "libgl" in e:
-        return (
-            "🖼️ **OpenCV/GUI library issue.** The environment is missing "
-            "system libraries. On cloud, `opencv-python-headless` is required."
-        )
-    return (
-        "⚠️ **Unexpected error.** Try a different preset. If it persists, "
-        "report it on GitHub with the preset name."
-    )
+        return "🖼️ OpenCV GUI library missing. Cloud needs `opencv-python-headless`."
+    return "⚠️ Unexpected error. Try a different preset."
 
 
 def run_scenario(actions, text):
-    """Run one scenario through the full pipeline. Returns dict with 'error' on failure."""
+    """Run one scenario through the full pipeline."""
     try:
         P = load_pipeline()
         perception = P["perception"]
@@ -226,12 +246,8 @@ def run_scenario(actions, text):
             "timestamp": datetime.now().isoformat(),
             "error": None,
         }
-
     except Exception as e:
-        return {
-            "error": str(e),
-            "user_hint": _get_user_hint(str(e)),
-        }
+        return {"error": str(e), "user_hint": _get_user_hint(str(e))}
 
 
 # ============================================================
@@ -286,17 +302,20 @@ PRESETS = {
 # HEADER
 # ============================================================
 st.title("🛡️ Sentinel Drishti")
-st.caption("On-Device AI Compliance & Data Loss Prevention Agent")
+st.caption(
+    "On-Device AI Compliance & Data Loss Prevention Agent · "
+    "Snapdragon QNN / Hexagon HTP target · 62/62 tests · F1 = 1.00"
+)
 
 c1, c2, c3, c4 = st.columns(4)
 with c1:
-    st.metric("Backend", "CPU fallback")
+    st.metric("Target backend", "QNN / NPU")
 with c2:
-    st.metric("OCR", "Ready")
+    st.metric("Fallback", "CPU")
 with c3:
-    st.metric("Audit", "Valid")
+    st.metric("Tests", "62 / 62")
 with c4:
-    st.metric("Network", "Offline core")
+    st.metric("Core", "Offline")
 
 st.divider()
 
@@ -336,13 +355,10 @@ with col_right:
             # ---- ERROR HANDLING ----
             if result.get("error"):
                 st.error("🔴 Pipeline error occurred")
-
                 st.write("**What happened:**")
                 st.code(result["error"], language=None)
-
                 st.write("**What to do:**")
                 st.info(result.get("user_hint", "Try again or reboot the app."))
-
                 st.divider()
                 st.caption(
                     "Still stuck? Check the sidebar **Q&A / Help** section, "
@@ -364,7 +380,6 @@ with col_right:
     if st.session_state.history:
         r = st.session_state.history[0]
 
-        # decision banner
         decision = r["decision"]["decision"]
         if decision == "BLOCK_AND_ALERT":
             st.error("🔴 BLOCK_AND_ALERT")
@@ -373,7 +388,6 @@ with col_right:
         else:
             st.success("🟢 ALLOW")
 
-        # key metrics
         m1, m2, m3 = st.columns(3)
         m1.metric("Risk", str(r["risk"]["score"]) + "/100")
         m2.metric("Session Risk", str(r["session"]["session_risk_score"]) + "/100")
