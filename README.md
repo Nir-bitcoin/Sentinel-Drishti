@@ -1,56 +1,67 @@
 <div align="center">
 
-<br/>
+<img src="https://img.shields.io/badge/-SNAPDRAGON%20AI%20LAB%202026-e2231a?style=for-the-badge&logo=qualcomm&logoColor=white" />
 
-<img src="https://img.shields.io/badge/⚡_QUALCOMM-SNAPDRAGON_AI_LAB_2026-8B0000?style=for-the-badge&labelColor=1a1a1a" alt="Snapdragon AI Lab 2026"/>
+# 🛡️ Sentinel Drishti
 
-<br/><br/>
+**An on-device AI agent that stops sensitive data from leaving enterprise laptops.**
 
-<h1>
-🛡️ Sentinel&nbsp;Drishti
-</h1>
+[![Tests](https://img.shields.io/badge/tests-62%2F62_passing-22c55e?style=flat-square)](tests/)
+[![F1](https://img.shields.io/badge/OCR→Entity_F1-1.00-22c55e?style=flat-square)](#evidence)
+[![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=flat-square)](#zero-cloud)
+[![Demo](https://img.shields.io/badge/🎬_Watch-Demo_Video-e2231a?style=for-the-badge&logo=youtube)](https://youtu.be/YOUR_VIDEO_ID)
 
-<h3><i>Watches every screen. Explains every decision. Never leaves the device.</i></h3>
-
-<p><b>An on-device AI agent that stops sensitive data from leaving enterprise laptops —<br/>
-without sending a single byte to the cloud.</b></p>
-
-<br/>
-
-<img src="https://img.shields.io/badge/tests-62%2F62_passing-2EA043?style=flat-square"/>&nbsp;
-<img src="https://img.shields.io/badge/OCR→Entity_F1-1.00-2EA043?style=flat-square"/>&nbsp;
-<img src="https://img.shields.io/badge/precision-1.00-2EA043?style=flat-square"/>&nbsp;
-<img src="https://img.shields.io/badge/core-100%25_offline-1E88E5?style=flat-square"/>&nbsp;
-<img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square"/>
-
-<br/><br/>
-
-[![Watch Demo](https://img.shields.io/badge/▶_WATCH_DEMO_VIDEO-DA1E28?style=for-the-badge)](your-video-link)
-&nbsp;
-[![Try Live Dashboard](https://img.shields.io/badge/🌐_TRY_LIVE_DASHBOARD-1E88E5?style=for-the-badge)](your-streamlit-link)
-
-<br/><br/>
-
-<sub>Built solo for the Snapdragon AI Lab Build & Present Challenge 2026 🇮🇳</sub>
-
-<br/><br/>
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*Built solo for the Snapdragon AI Lab Build & Present Challenge 2026.*
 
 </div>
+
+---
+
+> **Core contribution:** Sentinel Drishti is an on-device DLP agent that
+> reasons about *data flow across applications* (Excel → Clipboard → Gmail),
+> accumulates *session-level risk* across events, and produces *tamper-evident
+> audit decisions* — all without a single byte leaving the machine.
+
 ---
 
 ## The story
 
 Every enterprise laptop holds sensitive data — PAN numbers, salaries, phone numbers, confidential contracts. And every day, someone copies a row from Excel and pastes it into their personal Gmail. No sophisticated attack. No malware. Just a single keystroke.
 
-Existing DLP tools can't solve this. They're either cloud-based (which means your data leaves the device to be scanned — a privacy violation by design), or they watch every frame of your screen (which kills battery on a laptop built for all-day use).
+Conventional DLP tools struggle with this class of leak. Centralized and cloud-assisted approaches require data to leave the endpoint for scanning. Continuous-monitoring approaches burn battery on laptops built for all-day use. Neither design was built for the trade-off that enterprise Snapdragon PCs actually present.
 
-**Sentinel Drishti is a different approach.** It runs entirely on-device, watches only when security context justifies the compute, and produces tamper-evident audit decisions with physical alerting.
+**Sentinel Drishti is a different design.** It runs entirely on-device, watches only when security context justifies the compute, and produces tamper-evident audit decisions with physical alerting.
 
 The core idea:
 
 > **Spend AI compute only when security context justifies it.**
+
+---
+
+## The central innovation
+
+```
+      DATA SENSITIVITY
+            +
+      USER BEHAVIOR
+            +
+      DESTINATION
+            ↓
+  CONTEXT-AWARE DLP DECISION
+            ↓
+     ALLOW / WARN / BLOCK
+```
+
+Sentinel Drishti does not classify a single event in isolation. It combines **data sensitivity**, **user behavior**, and **destination** to produce a context-aware decision — with a tamper-evident audit trail.
+
+This is why:
+
+- A single `COPY` is **low-risk** → ALLOW
+- `COPY → Gmail → PASTE` is **exfiltration** → BLOCK
+- `READ` of a confidential file is **allowed** (local, no transfer)
+- `COPY → Google Drive → PASTE` triggers **WARN** (user confirmation)
+
+The same engine, four different outcomes. That is the difference between **event-driven** and **context-driven** DLP.
 
 ---
 
@@ -134,13 +145,13 @@ Audit Chain + Arduino
 
 **The three compute levels:**
 
-- **L0** — no security event. Skip OCR entirely. Costs ~3.93 ms.
+- **L0** — no security event. Skip OCR entirely. Costs ~8 ms.
 - **L1** — suspicious event (COPY, PASTE). Run fast OCR.
 - **L2** — critical event (USB insert, upload, email). Run precise ROI OCR.
 
 70% of frames take the L0 path. That's the whole point.
 
-**What makes it different from every other DLP agent:**
+**What makes it different:**
 
 - **Event-driven, not frame-driven.** OCR runs on user actions, not every tick.
 - **Two-stage ROI OCR.** Fast pass on the full image. Precise re-recognition only on the low-confidence regions. Cold path dropped from 16 s to 9 s on CPU.
@@ -149,6 +160,36 @@ Audit Chain + Arduino
 - **Coverage gate (L2).** On critical events, if fast OCR misses sensitive entities, it escalates to a full precise pass. Safety net.
 - **Privacy-preserving audit.** SHA-256 hash chain. Raw PII is never stored — only a masked summary like `ABCD****F`.
 - **Physical alerting.** Arduino UNO Q with LED and buzzer. Software fallback if hardware is absent.
+
+---
+
+## Design Trade-offs — vs Conventional DLP
+
+Conventional DLP and Sentinel Drishti make **different architectural trade-offs**. This is not a claim that one is universally better — it is a clear statement of which design priorities Sentinel Drishti is optimized for.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ CONVENTIONAL DLP APPROACH       vs      SENTINEL DRISHTI   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Centralized / cloud-assisted*            On-device core    │
+│ Sensitive data may leave endpoint        Data stays local   │
+│ Recurring infrastructure costs*          Local processing   │
+│ Continuous scanning can be costly*       70% frames skip    │
+│ Compute-heavy monitoring*                Event-driven OCR   │
+│ Point-in-time events                     Data-flow graph    │
+│ Limited session context*                 Session risk       │
+│ Sensitive audit data may be retained*    Masked audit       │
+│                                                             │
+│              Different design priorities                    │
+│       Centralized controls  ↔  Local, context-aware DLP     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+\*Architecture varies across DLP products; comparison describes
+the design trade-offs Sentinel Drishti is intended to address.
+
+**Sentinel Drishti is optimized for:** on-device, context-aware, privacy-preserving DLP on Snapdragon-powered laptops.
 
 ---
 
@@ -181,28 +222,28 @@ False negatives .... 0
 ### Performance (measured on CPU)
 
 ```
-Unchanged screen .......... 3.93 ms P50  (control plane, no OCR)
-Cached screen ............. ~3 ms P50    (SHA-256 hash lookup)
-Cold OCR .................. ~9 s         (was 15–16 s before ROI)
+Unchanged screen .......... ~8 ms P50   (control plane, no OCR)
+Cached screen ............. ~3 ms P50   (SHA-256 hash lookup)
+Cold OCR .................. ~9 s        (was 15–16 s before ROI)
 Final OCR confidence ...... 0.968
 ```
 
 **Stage-level control plane breakdown** (20 runs per stage):
 
 ```
-Change Detection .......... 0.15 ms P50
-Event Policy .............. 0.002 ms P50
-Entity Detection .......... 0.008 ms P50
-Behavior Tracking ......... 0.011 ms P50
-Risk Scoring .............. 0.001 ms P50
-Data Flow Graph ........... 0.016 ms P50
-Session Risk Engine ....... 0.009 ms P50
-Intent Classification ..... 0.001 ms P50
-DLP Decision .............. 1.06 ms P50
-Privacy Masking ........... 0.007 ms P50
-Audit Chain Write ......... 2.66 ms P50
+Change Detection .......... 0.27 ms P50
+Event Policy .............. 0.003 ms P50
+Entity Detection .......... 0.014 ms P50
+Behavior Tracking ......... 0.020 ms P50
+Risk Scoring .............. 0.002 ms P50
+Data Flow Graph ........... 0.029 ms P50
+Session Risk Engine ....... 0.017 ms P50
+Intent Classification ..... 0.003 ms P50
+DLP Decision .............. 2.71 ms P50
+Privacy Masking ........... 0.016 ms P50
+Audit Chain Write ......... 4.94 ms P50
 ────────────────────────────────────────
-TOTAL control plane ....... 3.93 ms P50
+TOTAL control plane ....... 8.03 ms P50
 ```
 
 Run it yourself:
@@ -283,9 +324,11 @@ Full pipeline ran with ZERO network calls.
 
 ---
 
-## Getting started
+## Four ways to experience Sentinel Drishti
 
-### Windows
+### 1. 🚀 One-command offline (real pipeline)
+
+Run the full pipeline locally — real OCR, real DLP decisions, real audit chain.
 
 ```powershell
 git clone https://github.com/Nir-bitcoin/Sentinel-Drishti
@@ -294,7 +337,7 @@ cd Sentinel-Drishti
 .\run.ps1
 ```
 
-### Linux / macOS
+Linux / macOS:
 
 ```bash
 git clone https://github.com/Nir-bitcoin/Sentinel-Drishti
@@ -302,6 +345,24 @@ cd Sentinel-Drishti
 bash setup.sh
 bash run.sh
 ```
+
+### 2. 🌐 Showcase site (visual overview)
+
+Landing page with features, architecture, and evidence:
+
+👉 [huggingface.co/spaces/kuchvo/Sentinel-Drishti](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti)
+
+### 3. 💻 Live dashboard (interactive)
+
+Click-through the pipeline with preset scenarios:
+
+👉 [sentinel-drishti.streamlit.app](https://sentinel-drishti.streamlit.app)
+
+### 4. 📦 Source code
+
+Full repository, 62 tests, documentation:
+
+👉 [github.com/Nir-bitcoin/Sentinel-Drishti](https://github.com/Nir-bitcoin/Sentinel-Drishti)
 
 ### Or use the launcher
 
@@ -407,7 +468,7 @@ These are documented in [docs/snapdragon_validation.md](docs/snapdragon_validati
 
 ## Why this exists
 
-Data leaks on enterprise laptops are not a cybersecurity problem. They're a design problem. The tools that exist are either too invasive (cloud-based) or too expensive (server-heavy) or too dumb (frame-blind). None of them respect the two constraints that actually matter: **privacy** and **battery**.
+Data leaks on enterprise laptops are not a cybersecurity problem. They're a design problem. The tools that exist are either too invasive (cloud-assisted) or too expensive (infrastructure-heavy) or too coarse (frame-blind). None of them respect the two constraints that actually matter: **privacy** and **battery**.
 
 Sentinel Drishti is a small attempt to fix that. It spends compute only when there's a reason to. It keeps audit logs that prove *that* a block happened, not *what* was blocked. It produces decisions a compliance officer can defend, not a black-box score.
 
@@ -443,10 +504,10 @@ And it runs on the machine that owns the data. Always.
 
 **Snapdragon AI Lab Build & Present Challenge 2026**
 
-Solo submission.
+Solo submission by **Niranjan Vishe** · **niranjanvishe62@gmail.com**
 
 <br>
 
-
+*Built with ❤️ for on-device privacy.*
 
 </div>
