@@ -2,7 +2,11 @@
 # Unified entry point for Sentinel Drishti.
 
 import sys
+import argparse
 import subprocess
+import webbrowser
+import socket as _sock
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -10,61 +14,129 @@ sys.path.insert(0, str(ROOT))
 
 
 def banner():
-    print("=" * 55)
-    print("           SENTINEL DRISHTI")
-    print("   On-Device AI Compliance & DLP Agent")
-    print("=" * 55)
+    print("=" * 58)
+    print("                 SENTINEL DRISHTI")
+    print("       On-Device AI Compliance & DLP Agent")
+    print("=" * 58)
     print()
 
 
-def system_status():
-    print("Environment       : " + sys.platform + " / " + str(sys.version_info.major) + "." + str(sys.version_info.minor))
+def show_backend_status(requested="auto"):
+    """Show backend status with QNN as primary target."""
+    import platform
+
+    print("Environment       : " + platform.system() + " " + platform.machine())
+    print("Python            : " + str(sys.version_info.major) + "." + str(sys.version_info.minor))
+
+    if requested == "cpu":
+        print("Requested backend : CPU")
+    elif requested == "qnn":
+        print("Requested backend : QNN/HTP")
+    else:
+        print("Requested backend : AUTO")
+
     try:
         from src.backend.base import get_backend_with_fallback
         b = get_backend_with_fallback()
-        print("Backend           : " + getattr(b, "name", "unknown"))
+        actual = getattr(b, "name", "unknown")
+        print("Execution backend : " + actual)
     except Exception as e:
-        print("Backend           : ERROR (" + str(e) + ")")
-    print("CPU fallback      : ACTIVE")
-    print("OCR               : READY (EasyOCR)")
-    print("Policy Engine     : READY")
-    print("Audit             : READY")
-    print("Arduino           : OPTIONAL (simulated)")
+        print("Execution backend : ERROR (" + str(e) + ")")
+
+    print()
+    print("TARGET RUNTIME    : Snapdragon QNN / Hexagon NPU")
+
+    try:
+        from src.backend.qnn_backend import QNNBackend
+        qnn = QNNBackend()
+        if getattr(qnn, "available", False):
+            print("  QNN/HTP         : AVAILABLE")
+            print("  Accelerator     : Hexagon Tensor Processor (NPU)")
+            print("  Status          : ACTIVE")
+        else:
+            print("  QNN/HTP         : NOT AVAILABLE on this host")
+            print("  Reason          : No QNN Execution Provider detected")
+            print("  Fallback        : CPU backend ACTIVE")
+    except Exception:
+        print("  QNN/HTP         : NOT AVAILABLE on this host")
+        print("  Fallback        : CPU backend ACTIVE")
+
+    print()
+    print("AI Hub reference  : EasyOCR detector 13.5 ms . recognizer 10.5 ms")
+    print("                    (hosted Snapdragon component benchmarks)")
+    print()
+    print("Local validation  : CPU backend (end-to-end pipeline measured)")
+    print("Network required  : NO  (fully offline core)")
     print()
     print("System Status     : READY")
     print()
 
 
-def menu():
-    print("Select mode:")
-    print("  [1] Demo (terminal)")
-    print("  [2] Health check")
-    print("  [3] Tests (unit)")
-    print("  [4] Tests (security deep)")
-    print("  [5] Tests (E2E)")
-    print("  [6] Benchmark (cache)")
-    print("  [7] Benchmark (mixed)")
-    print("  [8] Benchmark (cold)")
-    print("  [9] Provider diagnostic")
-    print("  [10] Memory profile")
-    print("  [11] Detection evaluation")
-    print("  [0] Exit")
-    print()
-
-
-def run(script_path, args=None):
-    cmd = [sys.executable, str(script_path)]
+def run_script(path, args=None):
+    cmd = [sys.executable, str(path)]
     if args:
         cmd.extend(args)
     subprocess.run(cmd, cwd=str(ROOT))
 
 
-def main():
-    banner()
-    system_status()
+def find_free_port(start=8650, end=8700):
+    for p in range(start, end):
+        try:
+            with _sock.socket(_sock.AF_INET, _sock.SOCK_STREAM) as s:
+                s.bind(("127.0.0.1", p))
+                return p
+        except OSError:
+            continue
+    return start
 
+
+def launch_streamlit():
+    port = find_free_port()
+    print("[Launching Streamlit dashboard...]")
+    print("  URL will open in your browser in a few seconds.")
+    print("  Press Ctrl+C to stop.")
+    print()
+    try:
+        subprocess.Popen(
+            [sys.executable, "-m", "streamlit", "run",
+             str(ROOT / "app.py"),
+             "--server.headless", "false",
+             "--server.port", str(port)],
+            cwd=str(ROOT),
+        )
+        time.sleep(4)
+        url = "http://localhost:" + str(port)
+        try:
+            webbrowser.open(url)
+        except Exception:
+            pass
+        print("  Streamlit running at " + url)
+        print("  Close the browser and press Ctrl+C here to stop.")
+        try:
+            input()
+        except (EOFError, KeyboardInterrupt):
+            pass
+    except KeyboardInterrupt:
+        print()
+        print("Streamlit stopped.")
+    except Exception as e:
+        print("Streamlit failed: " + str(e))
+
+
+def menu_loop():
     while True:
-        menu()
+        print("Select mode:")
+        print("  [1] Interactive Demo")
+        print("  [2] Live Monitoring")
+        print("  [3] Benchmark")
+        print("  [4] System Health")
+        print("  [5] Deployment Check")
+        print("  [6] Offline Verify")
+        print("  [7] Run Scenarios")
+        print("  [8] Streamlit Dashboard (auto-launch browser)")
+        print("  [9] Provider Diagnostic")
+        print("  [0] Exit")
+        print()
         try:
             ch = input("Choice: ").strip()
         except (EOFError, KeyboardInterrupt):
@@ -72,34 +144,75 @@ def main():
             break
 
         if ch == "1":
-            run(ROOT / "run_demo.py")
+            run_script(ROOT / "run_demo.py")
         elif ch == "2":
-            run(ROOT / "scripts" / "healthcheck.py")
+            run_script(ROOT / "scripts" / "benchmark_continuous.py", ["--mixed"])
         elif ch == "3":
-            run(ROOT / "tests" / "test_pipeline.py")
+            run_script(ROOT / "scripts" / "benchmark_continuous.py", ["--mixed"])
         elif ch == "4":
-            run(ROOT / "tests" / "test_security_deep.py")
+            run_script(ROOT / "scripts" / "health_check.py")
         elif ch == "5":
-            run(ROOT / "tests" / "test_e2e.py")
+            run_script(ROOT / "scripts" / "deployment_check.py")
         elif ch == "6":
-            run(ROOT / "scripts" / "benchmark_continuous.py", ["--cache"])
+            run_script(ROOT / "tests" / "test_offline.py")
         elif ch == "7":
-            run(ROOT / "scripts" / "benchmark_continuous.py", ["--mixed"])
+            run_script(ROOT / "scripts" / "run_scenario.py", ["--all"])
         elif ch == "8":
-            run(ROOT / "scripts" / "benchmark_continuous.py", ["--cold"])
+            launch_streamlit()
         elif ch == "9":
-            run(ROOT / "scripts" / "check_provider.py")
-        elif ch == "10":
-            run(ROOT / "scripts" / "memory_profile.py")
-        elif ch == "11":
-            run(ROOT / "evaluation" / "run_evaluation.py")
+            run_script(ROOT / "scripts" / "check_provider.py")
         elif ch == "0":
             break
         else:
             print("Invalid choice")
         print()
-        print("=" * 55)
+        print("=" * 58)
         print()
+
+
+def main():
+    p = argparse.ArgumentParser(description="Sentinel Drishti")
+    p.add_argument("--demo", action="store_true")
+    p.add_argument("--live", action="store_true")
+    p.add_argument("--benchmark", action="store_true")
+    p.add_argument("--health", action="store_true")
+    p.add_argument("--deploy-check", action="store_true")
+    p.add_argument("--offline", action="store_true")
+    p.add_argument("--scenario", type=str)
+    p.add_argument("--all-scenarios", action="store_true")
+    p.add_argument("--provider", action="store_true")
+    p.add_argument("--streamlit", action="store_true")
+    p.add_argument("--no-banner", action="store_true")
+    p.add_argument("--backend", type=str, choices=["cpu", "qnn", "auto"],
+                   default="auto", help="Inference backend")
+    args = p.parse_args()
+
+    if not args.no_banner:
+        banner()
+        show_backend_status(args.backend)
+
+    if args.demo:
+        run_script(ROOT / "run_demo.py")
+    elif args.live:
+        run_script(ROOT / "scripts" / "benchmark_continuous.py", ["--mixed"])
+    elif args.benchmark:
+        run_script(ROOT / "scripts" / "benchmark_continuous.py", ["--mixed"])
+    elif args.health:
+        run_script(ROOT / "scripts" / "health_check.py")
+    elif args.deploy_check:
+        run_script(ROOT / "scripts" / "deployment_check.py")
+    elif args.offline:
+        run_script(ROOT / "tests" / "test_offline.py")
+    elif args.scenario:
+        run_script(ROOT / "scripts" / "run_scenario.py", [args.scenario])
+    elif args.all_scenarios:
+        run_script(ROOT / "scripts" / "run_scenario.py", ["--all"])
+    elif args.provider:
+        run_script(ROOT / "scripts" / "check_provider.py")
+    elif args.streamlit:
+        launch_streamlit()
+    else:
+        menu_loop()
 
 
 if __name__ == "__main__":

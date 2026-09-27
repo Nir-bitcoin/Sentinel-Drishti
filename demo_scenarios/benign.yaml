@@ -1,0 +1,11 @@
+name: Benign Local Activity
+description: Normal typing in Notepad - no sensitive data, no external transfer
+actions:
+  - {action: OPEN, app: Notepad}
+  - {action: TYPE, app: Notepad}
+text: "Team meeting scheduled for 3pm to discuss Q4 roadmap"
+expected:
+  entities: []
+  behavior: NORMAL
+  destination: LOCAL
+  decision: ALLOW

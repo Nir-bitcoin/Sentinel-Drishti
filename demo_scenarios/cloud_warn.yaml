@@ -1,0 +1,13 @@
+name: PII to Cloud Storage
+description: Sensitive data uploaded to Google Drive - WARN with confirmation
+actions:
+  - {action: OPEN, app: Excel}
+  - {action: COPY, app: Excel}
+  - {action: OPEN, app: Google Drive}
+  - {action: PASTE, app: Google Drive}
+text: "PAN ABCDE1234F"
+expected:
+  entities: [PAN]
+  behavior: HIGH_RISK
+  destination: CLOUD_STORAGE
+  decision: WARN_AND_ALERT

@@ -1,0 +1,13 @@
+name: PII to Personal Gmail
+description: Employee salary data pasted to personal Gmail - should block
+actions:
+  - {action: OPEN, app: Excel}
+  - {action: COPY, app: Excel}
+  - {action: OPEN, app: Gmail}
+  - {action: PASTE, app: Gmail}
+text: "Employee salary record: PAN ABCDE1234F phone 9876543210"
+expected:
+  entities: [PAN, PHONE, EMPLOYEE_FINANCIAL_DATA]
+  behavior: CRITICAL_RISK
+  destination: PERSONAL_EMAIL
+  decision: BLOCK_AND_ALERT

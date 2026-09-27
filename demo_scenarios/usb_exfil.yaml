@@ -1,0 +1,13 @@
+name: PII to USB Drive
+description: Sensitive data copied to removable USB device
+actions:
+  - {action: OPEN, app: Excel}
+  - {action: COPY, app: Excel}
+  - {action: USB_INSERT, app: USB Drive}
+  - {action: PASTE, app: USB Drive}
+text: "PAN ABCDE1234F salary record 5000000"
+expected:
+  entities: [PAN, EMPLOYEE_FINANCIAL_DATA]
+  behavior: CRITICAL_RISK
+  destination: EXTERNAL_DEVICE
+  decision: BLOCK_AND_ALERT

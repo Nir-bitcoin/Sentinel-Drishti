@@ -1,0 +1,11 @@
+name: Confidential Document Read
+description: Reading a confidential document locally - should not block
+actions:
+  - {action: OPEN, app: Word}
+  - {action: READ, app: Word}
+text: "CONFIDENTIAL: Internal only - Q4 pricing strategy draft"
+expected:
+  entities: [CONFIDENTIAL_MARKING]
+  behavior: NORMAL
+  destination: LOCAL
+  decision: ALLOW
