@@ -1,20 +1,43 @@
 <div align="center">
 
-<img src="https://img.shields.io/badge/-SNAPDRAGON%20AI%20LAB%202026-e2231a?style=for-the-badge&logo=qualcomm&logoColor=white" />
+<br/>
 
-# 🛡️ Sentinel Drishti
+<img src="https://img.shields.io/badge/⚡_QUALCOMM-SNAPDRAGON_AI_LAB_2026-8B0000?style=for-the-badge&labelColor=1a1a1a" alt="Snapdragon AI Lab 2026"/>
 
-**An on-device AI agent that stops sensitive data from leaving enterprise laptops.**
+<br/><br/>
 
-[![Tests](https://img.shields.io/badge/tests-62%2F62_passing-22c55e?style=flat-square)](tests/)
-[![F1](https://img.shields.io/badge/OCR→Entity_F1-1.00-22c55e?style=flat-square)](#measured-evidence)
-[![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=flat-square)](#zero-cloud-core)
-[![Demo](https://img.shields.io/badge/🎬_Watch-Demo_Video-e2231a?style=for-the-badge&logo=youtube)](https://youtu.be/YOUR_VIDEO_ID)
+<h1>
+🛡️ Sentinel&nbsp;Drishti
+</h1>
 
-*Built solo for the Snapdragon AI Lab Build & Present Challenge 2026.*
+<h3><i>Watches every screen. Explains every decision. Never leaves the device.</i></h3>
+
+<p><b>An on-device AI agent that stops sensitive data from leaving enterprise laptops —<br/>
+without sending a single byte to the cloud.</b></p>
+
+<br/>
+
+<img src="https://img.shields.io/badge/tests-62%2F62_passing-2EA043?style=flat-square"/>&nbsp;
+<img src="https://img.shields.io/badge/OCR→Entity_F1-1.00-2EA043?style=flat-square"/>&nbsp;
+<img src="https://img.shields.io/badge/precision-1.00-2EA043?style=flat-square"/>&nbsp;
+<img src="https://img.shields.io/badge/core-100%25_offline-1E88E5?style=flat-square"/>&nbsp;
+<img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square"/>
+
+<br/><br/>
+
+[![Watch Demo](https://img.shields.io/badge/▶_WATCH_DEMO_VIDEO-DA1E28?style=for-the-badge)](your-video-link)
+&nbsp;
+[![Try Live Dashboard](https://img.shields.io/badge/🌐_TRY_LIVE_DASHBOARD-1E88E5?style=for-the-badge)](your-streamlit-link)
+
+<br/><br/>
+
+<sub>Built solo for the Snapdragon AI Lab Build & Present Challenge 2026 🇮🇳</sub>
+
+<br/><br/>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 </div>
-
 ---
 
 ## The story
