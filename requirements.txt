@@ -1,9 +1,9 @@
 streamlit
-numpy
-Pillow
 easyocr
-psutil
-pyyaml
-
+torch
+torchvision
+opencv-python-headless
+pillow
+numpy
 psutil
 pyyaml
