@@ -9,18 +9,13 @@
 [![Tests](https://img.shields.io/badge/tests-62%2F62_passing-22c55e?style=flat-square)](tests/)
 [![F1](https://img.shields.io/badge/OCR→Entity_F1-1.00-22c55e?style=flat-square)](#evidence)
 [![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=flat-square)](#zero-cloud)
-[![Demo](https://img.shields.io/badge/🎬_Watch-Demo_Video-e2231a?style=for-the-badge&logo=youtube)](https://youtu.be/YOUR_VIDEO_ID)
-
-*Built solo for the Snapdragon AI Lab Build & Present Challenge 2026.*
-
-</div>
-
----
 
 > **Core contribution:** Sentinel Drishti is an on-device DLP agent that
 > reasons about *data flow across applications* (Excel → Clipboard → Gmail),
 > accumulates *session-level risk* across events, and produces *tamper-evident
 > audit decisions* — all without a single byte leaving the machine.
+
+</div>
 
 ---
 
