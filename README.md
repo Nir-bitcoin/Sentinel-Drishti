@@ -1,34 +1,51 @@
 <div align="center">
 
+
+
 # 🐉 Sentinel Drishti
 
 **An on-device AI agent that stops sensitive data from leaving enterprise laptops.**
 
-<br>
-
-[![Tests](https://img.shields.io/badge/62%2F62-tests_passing-22c55e?style=for-the-badge&logo=pytest&logoColor=white)](#evidence)
-[![F1](https://img.shields.io/badge/OCR→Entity-F1_1.00-22c55e?style=for-the-badge)](#evidence)
-[![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=for-the-badge&logo=windows&logoColor=white)](#zero-cloud)
-[![Snapdragon](https://img.shields.io/badge/Snapdragon-QNN_%2F_HTP-e2231a?style=for-the-badge&logo=qualcomm&logoColor=white)](docs/snapdragon_validation.md)
+[![Tests](https://img.shields.io/badge/tests-62%2F62_passing-22c55e?style=flat-square)](tests/)
+[![F1](https://img.shields.io/badge/OCR→Entity_F1-1.00-22c55e?style=flat-square)](#evidence)
+[![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=flat-square)](#zero-cloud)
+[![Snapdragon](https://img.shields.io/badge/Snapdragon-QNN%20%2F%20HTP-e2231a?style=flat-square)](docs/snapdragon_validation.md)
 
 <br>
 
-| 🚀 [**Run offline**](#four-ways-to-experience-sentinel-drishti) | 🌐 [**Showcase**](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti) | 💻 [**Live demo**](https://sentinel-drishti.streamlit.app) | 📦 [**Source**](https://github.com/Nir-bitcoin/Sentinel-Drishti) |
-|:---:|:---:|:---:|:---:|
-| One-command install | Visual overview | Interactive pipeline | Full repository |
+[![Showcase](https://img.shields.io/badge/🌐_Showcase-Hugging%20Face-yellow?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti)
+[![Live Demo](https://img.shields.io/badge/💻_Live_Demo-Streamlit-ff4b4b?style=for-the-badge&logo=streamlit&logoColor=white)](https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/)
+[![GitHub](https://img.shields.io/badge/📦_Source-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Nir-bitcoin/Sentinel-Drishti)
 
 <br>
+
+**SusDetect Team** — by **Niranjan Vishe**
+
+Snapdragon AI Lab Build & Present Challenge 2026
+
+</div>
+
+---
 
 > **Core contribution:** Sentinel Drishti is an on-device DLP agent that
 > reasons about *data flow across applications* (Excel → Clipboard → Gmail),
 > accumulates *session-level risk* across events, and produces *tamper-evident
 > audit decisions* — all without a single byte leaving the machine.
 
-</div>
+---
+
+## Try Sentinel Drishti — Four Ways
+
+| # | Channel | Link | What it shows |
+|:-:|:---|:---|:---|
+| 1 | 🚀 **One-Command Offline** | [Run locally](#-one-command-setup) | Real pipeline, real OCR, real DLP decisions |
+| 2 | 🌐 **Showcase Site** | [Hugging Face](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti) | Visual overview of architecture + evidence |
+| 3 | 💻 **Live Dashboard** | [Streamlit Cloud](https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/) | Interactive presets, decisions, audit log |
+| 4 | 📦 **Source Code** | [GitHub](https://github.com/Nir-bitcoin/Sentinel-Drishti) | Full repo, 62 tests, documentation |
 
 ---
 
-## The story
+## The Story
 
 Every enterprise laptop holds sensitive data — PAN numbers, salaries, phone numbers, confidential contracts. And every day, someone copies a row from Excel and pastes it into their personal Gmail. No sophisticated attack. No malware. Just a single keystroke.
 
@@ -42,7 +59,7 @@ The core idea:
 
 ---
 
-## The central innovation
+## The Central Innovation
 
 ```
       DATA SENSITIVITY
@@ -69,7 +86,7 @@ The same engine, four different outcomes. That is the difference between **event
 
 ---
 
-## What it does
+## What It Does
 
 When an employee copies sensitive data from Excel, Sentinel Drishti notices. When they open Gmail, it notices that too. When they paste — it builds a data flow graph across apps, accumulates session risk, classifies intent, and makes a decision.
 
@@ -180,7 +197,7 @@ python scripts\latency_breakdown.py
 
 ---
 
-## How it works
+## How It Works
 
 Sentinel Drishti is a 12-stage pipeline. Here's the flow:
 
@@ -228,8 +245,7 @@ Audit Chain + Arduino
 
 ### Rule-based intent engine
 
-The intent layer is **rule-based**, not a black-box classifier. It produces
-explicit, auditable output:
+The intent layer is **rule-based**, not a black-box classifier. It produces explicit, auditable output:
 
 ```
 Intent: BENIGN
@@ -245,8 +261,7 @@ Matched rules: PII_001, FIN_001
 Evidence level: HIGH
 ```
 
-No probabilistic score is fabricated. The evidence level is derived from the
-policy rules that actually fired.
+No probabilistic score is fabricated. The evidence level is derived from the policy rules that actually fired.
 
 ---
 
@@ -273,8 +288,7 @@ Conventional DLP and Sentinel Drishti make **different architectural trade-offs*
 └─────────────────────────────────────────────────────────────┘
 ```
 
-\*Architecture varies across DLP products; comparison describes
-the design trade-offs Sentinel Drishti is intended to address.
+\*Architecture varies across DLP products; comparison describes the design trade-offs Sentinel Drishti is intended to address.
 
 **Sentinel Drishti is optimized for:** on-device, context-aware, privacy-preserving DLP on Snapdragon-powered laptops.
 
@@ -284,13 +298,9 @@ the design trade-offs Sentinel Drishti is intended to address.
 
 Sentinel Drishti's target runtime is Snapdragon QNN / Hexagon HTP.
 
-The Snapdragon-targeted perception components have been compiled, profiled,
-and benchmarked through Qualcomm AI Hub on a hosted Snapdragon X Elite NPU
-environment.
+The Snapdragon-targeted perception components have been compiled, profiled, and benchmarked through Qualcomm AI Hub on a hosted Snapdragon X Elite NPU environment.
 
-The complete Sentinel Drishti pipeline is validated end-to-end on the local
-CPU development environment. Full end-to-end validation on a physical
-Snapdragon PC remains the hardware-dependent step.
+The complete Sentinel Drishti pipeline is validated end-to-end on the local CPU development environment. Full end-to-end validation on a physical Snapdragon PC remains the hardware-dependent step.
 
 ### Three-tier evidence model
 
@@ -329,12 +339,11 @@ python sentinel.py --backend cpu     # Force CPU (development)
 python sentinel.py --backend auto    # Auto-detect (default)
 ```
 
-On a Snapdragon host, `--backend qnn` selects the Hexagon NPU. On any other
-host, it falls back to CPU with a visible reason.
+On a Snapdragon host, `--backend qnn` selects the Hexagon NPU. On any other host, it falls back to CPU with a visible reason.
 
 ---
 
-## Zero cloud
+## Zero Cloud
 
 The core DLP pipeline never leaves the device.
 
@@ -369,15 +378,9 @@ Full pipeline ran with ZERO network calls.
 
 ---
 
-## Four ways to experience Sentinel Drishti
+## One-Command Setup
 
-> **Deployment & Accessibility.** Sentinel Drishti runs in four distinct
-> environments — from a fully offline one-command install to a live
-> browser dashboard. Pick the one that fits how you want to evaluate it.
-
-### 1. 🚀 One-command offline (real pipeline)
-
-Run the full pipeline locally — real OCR, real DLP decisions, real audit chain.
+### Windows
 
 ```powershell
 git clone https://github.com/Nir-bitcoin/Sentinel-Drishti
@@ -386,7 +389,7 @@ cd Sentinel-Drishti
 .\run.ps1
 ```
 
-Linux / macOS:
+### Linux / macOS
 
 ```bash
 git clone https://github.com/Nir-bitcoin/Sentinel-Drishti
@@ -394,24 +397,6 @@ cd Sentinel-Drishti
 bash setup.sh
 bash run.sh
 ```
-
-### 2. 🌐 Showcase site (visual overview)
-
-Landing page with features, architecture, and evidence:
-
-👉 [huggingface.co/spaces/kuchvo/Sentinel-Drishti](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti)
-
-### 3. 💻 Live dashboard (interactive)
-
-Click-through the pipeline with preset scenarios:
-
-👉 [sentinel-drishti.streamlit.app](https://sentinel-drishti.streamlit.app)
-
-### 4. 📦 Source code
-
-Full repository, 62 tests, documentation:
-
-👉 [github.com/Nir-bitcoin/Sentinel-Drishti](https://github.com/Nir-bitcoin/Sentinel-Drishti)
 
 ### Or use the launcher
 
@@ -435,7 +420,7 @@ The launcher presents an interactive menu:
 
 ---
 
-## Verify everything
+## Verify Everything
 
 Run each check independently, cheapest first:
 
@@ -455,7 +440,7 @@ Every command is deterministic. Every number is reproducible.
 
 ---
 
-## Repository structure
+## Repository Structure
 
 ```
 Sentinel-Drishti/
@@ -506,6 +491,17 @@ Each module is self-contained. Any one can be swapped or tested independently.
 
 ---
 
+## Links
+
+| Channel | Link |
+|:---|:---|
+| 🌐 **Showcase Site** | [huggingface.co/spaces/kuchvo/Sentinel-Drishti](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti) |
+| 💻 **Live Dashboard** | [sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app](https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/) |
+| 📦 **Source Code** | [github.com/Nir-bitcoin/Sentinel-Drishti](https://github.com/Nir-bitcoin/Sentinel-Drishti) |
+| ⚙️ **CI/CD** | [GitHub Actions](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions) |
+
+---
+
 <div align="center">
 
 ### Built with
@@ -518,9 +514,14 @@ Each module is self-contained. Any one can be swapped or tested independently.
 
 <br>
 
-**Snapdragon AI Lab Build & Present Challenge 2026**
+**SusDetect Team** — by **Niranjan Vishe**
 
-Solo submission by **Niranjan Vishe** · **niranjanvishe62@gmail.com**
+Snapdragon AI Lab Build & Present Challenge 2026
+
+<br>
+
+[![GitHub stars](https://img.shields.io/github/stars/Nir-bitcoin/Sentinel-Drishti?style=social)](https://github.com/Nir-bitcoin/Sentinel-Drishti)
+[![GitHub forks](https://img.shields.io/github/forks/Nir-bitcoin/Sentinel-Drishti?style=social)](https://github.com/Nir-bitcoin/Sentinel-Drishti)
 
 <br>
 
