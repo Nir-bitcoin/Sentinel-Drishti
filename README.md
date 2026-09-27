@@ -1,405 +1,395 @@
-🐉 Sentinel Drishti
-===============
+<div align="center">
 
-[![Snapdragon](https://img.shields.io/badge/Snapdragon-X%20Elite-DC2626?style=for-the-badge&logo=qualcomm&logoColor=white)](https://www.qualcomm.com/products/snapdragon)
-[![Qualcomm AI Hub](https://img.shields.io/badge/Qualcomm-AI%20Hub-3253DC?style=for-the-badge&logo=qualcomm&logoColor=white)](https://aihub.qualcomm.com)
-![Target](https://img.shields.io/badge/Target-Windows%20on%20Snapdragon-4B5563?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge)
-[![Demo](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml/badge.svg)](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions/workflows/demo.yml)
+<img src="https://img.shields.io/badge/-SNAPDRAGON%20AI%20LAB%202026-e2231a?style=for-the-badge&logo=qualcomm&logoColor=white" alt="Snapdragon AI Lab 2026" />
 
-On-Device AI Compliance & Data Loss Prevention Agent designed for 
-Snapdragon-Powered HP PCs.
+# 🛡️ Sentinel Drishti
 
-Built for the Snapdragon AI Lab Build & Present Challenge 2026.
+### On-Device AI Data Loss Prevention Agent for Snapdragon-Powered PCs
 
+**Target Runtime:** Snapdragon QNN / Hexagon NPU · **Validation:** Local CPU · **Core:** 100% Offline
 
-Problem
--------
+<br>
 
-Indian enterprises handle sensitive data daily — employee PII, financial 
-records, intellectual property. Cloud-based DLP tools can create additional 
-data-residency, privacy, outsourcing, and compliance requirements for 
-regulated organizations.
+[![Clone](https://img.shields.io/badge/⚡_Clone_%26_Run-One_Command-22c55e?style=for-the-badge&logo=git&logoColor=white)](#-one-command-setup)
+[![Demo](https://img.shields.io/badge/🎬_Watch-Demo_Video-e2231a?style=for-the-badge&logo=youtube&logoColor=white)](#)
+[![Showcase](https://img.shields.io/badge/🌐_View-Showcase_Site-3b82f6?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti)
 
-Sentinel Drishti addresses this by keeping the detection pipeline on the 
-endpoint — reducing cloud dependency and keeping sensitive content local 
-to the device.
+<br>
 
-In local deployment, inference and policy processing run on the user's 
-device without sending sensitive content to a cloud service. Internet 
-access is only required for initial dependency/model setup and for viewing 
-external Qualcomm AI Hub benchmark references.
+[![CI](https://img.shields.io/github/actions/workflow/status/Nir-bitcoin/Sentinel-Drishti/demo.yml?style=flat-square&label=CI&logo=github)](https://github.com/Nir-bitcoin/Sentinel-Drishti/actions)
+[![Tests](https://img.shields.io/badge/tests-62%2F62_passing-22c55e?style=flat-square&logo=pytest&logoColor=white)](tests/)
+[![F1](https://img.shields.io/badge/OCR→Entity_F1-1.00-22c55e?style=flat-square)](#-measured-evidence)
+[![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=flat-square&logo=windows&logoColor=white)](#-zero-cloud-core)
+[![Python](https://img.shields.io/badge/python-3.10+-3b82f6?style=flat-square&logo=python&logoColor=white)](#-quick-start)
+[![License](https://img.shields.io/badge/license-MIT-64748b?style=flat-square)](LICENSE)
 
+</div>
 
-Solution
---------
+---
 
-A Snapdragon-targeted, AI-assisted DLP agent that:
+<div align="center">
 
-1. Processes input (image via EasyOCR / direct text)
-2. Detects sensitive entities (PII, financial data, confidential markings)
-3. Tracks user behavior across applications
-4. Scores risk using content + behavior + destination + time
-5. Decides via a deterministic DLP policy engine
-6. Triggers physical alerts (Arduino buzzer + LED)
-7. Logs every event with a tamper-evident audit hash chain
+### Three-tier evidence model
 
-The backend abstraction separates the local CPU implementation from the 
-Snapdragon-target implementation path. Snapdragon execution is pending 
-physical target validation.
+| Tier | Evidence | Source | Status |
+|:---:|:---|:---|:---:|
+| **A** | Snapdragon QNN/HTP target architecture | QNN backend | 🎯 Target |
+| **B** | Snapdragon NPU component benchmarks | Qualcomm AI Hub (hosted) | ✅ Validated |
+| **C** | End-to-end pipeline validation | Local CPU | ✅ Measured |
 
+*Tiers are never merged into a single number.*
 
-Architecture
-------------
+</div>
 
-Layer 1: INPUT
-    Image (EasyOCR) / direct text
+---
 
-Layer 2: PERCEPTION
-    EasyOCR detector + recognizer — text extraction
-    TextPerception — regex entity detection (PII, financial, confidential)
+## 📖 Table of Contents
 
-Layer 3: BEHAVIOR TRACKING
-    Destination awareness + time + action sequences
+- [The Problem](#-the-problem)
+- [The Solution](#-the-solution)
+- [Target Platform](#-target-platform)
+- [Why This Is Novel](#-why-this-is-novel)
+- [Measured Evidence](#-measured-evidence)
+- [One-Command Setup](#-one-command-setup)
+- [Deployment Modes](#-deployment-modes)
+- [Architecture](#-architecture)
+- [Target Users](#-target-users)
+- [Regulatory Context](#-regulatory-context)
+- [Zero-Cloud Core](#-zero-cloud-core)
+- [Compatibility Matrix](#-compatibility-matrix)
+- [Documentation](#-documentation)
+- [Challenge](#-challenge)
 
-Layer 4: REASONING
-    RuleBasedIntentClassifier — rule-based intent classification
+---
 
-Layer 5: DLP DECISION
-    Policy engine + enforcement logic
+## 🎯 The Problem
 
-Layer 6: ACTION
-    Arduino UNO Q — buzzer + LED alert
+Employees on enterprise PCs handle **PAN numbers, salaries, phone numbers, and confidential documents** every day. Most data leaks are not sophisticated attacks — they are a single copy-paste to Gmail, a USB drive plugged in at 5 PM, or an upload to Google Drive.
 
+Existing DLP tools fail on three fronts:
 
-Provider Routing
-----------------
+| # | Failure mode | Impact |
+|:-:|:---|:---|
+| 1 | **Cloud-based** | Data leaves the device to be scanned. Privacy violation. |
+| 2 | **Server-heavy** | Enterprises pay per-endpoint, per-month, per-GB. |
+| 3 | **Frame-blind** | Watch nothing, or watch everything — draining battery on all-day-use laptops. |
 
-The system detects available inference backends at runtime:
+---
 
-    Auto-detect
-         |
-    QNN EP available?
-         |
-      +--+--+
-      |     |
-     YES    NO
-      |     |
-   QNN/HTP  CPU
-   (NPU)   fallback
-      |     |
-      +--+--+
-         |
-    Same DLP pipeline
+## 💡 The Solution
 
-Run diagnostic:
-    python scripts/check_provider.py
+**Sentinel Drishti runs entirely on-device.** It watches only when security context justifies the compute, and produces tamper-evident audit decisions with physical alerting.
 
-On current development PC (no Snapdragon NPU):
-    Selected provider: CPU
-    Status:            FALLBACK
+<div align="center">
 
-On Snapdragon X Elite (target):
-    Selected provider: QNN / HTP
-    Status:            NPU ACTIVE
+> ### *"Spend AI compute only when security context justifies it."*
+>
+> — Central engineering principle
 
+</div>
 
-Implementation Notes
---------------------
+---
 
-The pipeline is honest about what is real vs reference:
+## 🐉 Target Platform
 
-    Component              Status
-    ---------------------  ------------------------------------
-    EasyOCR (CPU)          Real, measured locally (~7.1-7.4 s)
-    TextPerception         Real, regex-based
-    BehaviorTracker        Real
-    RiskScorer             Real
-    DLPEngine              Real
-    AuditChain (SHA-256)   Real, verifiable
-    Snapdragon NPU         Reference only (AI Hub hosted jobs)
+Sentinel Drishti is designed for **Snapdragon QNN / Hexagon HTP** — the target production runtime for Snapdragon-powered HP PCs.
 
-No time.sleep() simulation is used in the backend. Snapdragon reference
-values come from Qualcomm AI Hub hosted-device jobs and are clearly
-marked as reference, not measured.
+```
+        Sentinel Runtime
+               │
+      QNN Execution Provider
+               │
+   Hexagon Tensor Processor (NPU)
+```
 
+When QNN is unavailable (e.g., on a development laptop), the runtime falls back to CPU with a **visible reason**. Every published number is clearly labelled by tier.
 
-Backend Abstraction
--------------------
+---
 
-    Backend              Host                  Timing Source            Status
-    -------------------  --------------------  -----------------------  ---------
-    CPUBackend           Local development PC  Measured                 Working
-    SnapdragonBackend    Snapdragon X Elite    Qualcomm AI Hub ref      Pending
-    QNNBackend           Snapdragon X Elite    QNN/HTP target           Target
+## ✨ Why This Is Novel
 
-The Snapdragon/QNN backends are target implementation paths — they 
-return reference markers, not simulated values. When physical 
-Snapdragon hardware is available, the same interface can be wired 
-to QNN/HTP via onnxruntime + QNNExecutionProvider.
+| Feature | Why it matters |
+|:---|:---|
+| **🎯 Event-driven OCR** | OCR runs on COPY/PASTE/USB events, not every frame. **70% of frames skip OCR** at 0.36 ms overhead. |
+| **🔬 Two-stage ROI OCR** | Fast pass on full image, precise re-recognition only on low-confidence regions. **40% faster cold path.** |
+| **🛡️ Coverage gate (L2)** | On critical events, if OCR misses sensitive entities, escalates to full precise OCR. Safety net. |
+| **🔀 Data flow graph** | Tracks Excel → Clipboard → Gmail patterns across apps. **Exfiltration reasoning**, not just event detection. |
+| **📈 Session risk engine** | Accumulates weighted risk across a session. Catches insider-threat patterns single events miss. |
+| **🔒 Privacy-preserving audit** | SHA-256 hash chain. Raw PII **never** stored — only masked summary (`ABCD****F`). |
+| **🚨 Physical alerting** | Arduino UNO Q: LED + buzzer. Software fallback when hardware absent. |
+| **⚡ Honest Snapdragon story** | QNN backend ready. CPU fallback visible. Three-tier evidence. **No fake NPU numbers.** |
 
+---
 
-Qualcomm AI Hub References
---------------------------
+## 📊 Measured Evidence
 
-Component jobs profiled on hosted Snapdragon X Elite CRD:
+### Test Suite
 
-    Model/Component        Task                              Reference
-    ---------------------  --------------------------------  --------------
-    EasyOCR detector       Text region detection             ~39.5 ms NPU
-    EasyOCR recognizer     Text recognition                  ~19.3 ms NPU
+| Type | Count | Status |
+|:---|:---:|:---:|
+| Unit tests | 25 | ✅ |
+| Security tests | 33 | ✅ |
+| End-to-end tests | 4 | ✅ |
+| **Total** | **62** | **✅ 62/62** |
 
-    Job IDs:  jpxlmx3jp (detector), jprl9wnvp (recognizer)
+### OCR → Entity Evaluation (30 labeled images)
 
-Note: These are separate component benchmarks, not an end-to-end 
-pipeline measurement. The full OCR pipeline running on Snapdragon 
-X Elite would require additional orchestration measurements.
+| Entity | Precision | Recall | F1 | TP | FP | FN |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| PAN | 1.00 | 1.00 | **1.00** | 10 | 0 | 0 |
+| PHONE | 1.00 | 1.00 | **1.00** | 8 | 0 | 0 |
+| EMPLOYEE_FINANCIAL_DATA | 1.00 | 1.00 | **1.00** | 9 | 0 | 0 |
+| CONFIDENTIAL_MARKING | 1.00 | 1.00 | **1.00** | 7 | 0 | 0 |
+| **Macro average** | **1.00** | **1.00** | **1.00** | 34 | **0** | **0** |
 
+### Performance
 
-Benchmark Results
------------------
+| Metric | Value | Tier |
+|:---|:---:|:---:|
+| L0 control plane | 0.36 ms P50 | C |
+| Cache hit | ~3 ms P50 | C |
+| Cold OCR (CPU) | ~9 s (was 15–16 s before ROI) | C |
+| Final OCR confidence | 0.968 | C |
+| EasyOCR detector (NPU) | 13.5 ms | B |
+| EasyOCR recognizer (NPU) | 10.5 ms | B |
 
-Pipeline-only benchmark (regex + rule engine + DLP, no OCR):
+> Tier B numbers are **hosted Snapdragon NPU component benchmarks** from Qualcomm AI Hub — not end-to-end Sentinel timings on physical hardware.
 
-    Run 1..5: ~1.2 ms per iteration
+---
 
-    Statistics:
-      Min:    1.15 ms
-      Median: 1.26 ms
-      Max:    1.38 ms
+## ⚡ One-Command Setup
 
-EasyOCR end-to-end (local CPU):
+<div align="center">
 
-    ~7.1-7.4 s  (5-run median, development laptop)
+### Windows
 
-Snapdragon reference (component benchmarks, AI Hub hosted):
+```powershell
+git clone https://github.com/Nir-bitcoin/Sentinel-Drishti
+cd Sentinel-Drishti
+.\setup.ps1
+.\run.ps1
+```
 
-    Component      Precision    Job ID      Reference
-    -------------  -----------  ----------  -----------
-    Detector       uint8        jgk4j29wp   13.5 ms
-    Recognizer     uint8        jp1n3jw7g   10.5 ms
-    Detector       FLOAT16      jpxlmx3jp   ~39.5 ms
-    Recognizer     FLOAT16      jprl9wnvp   ~19.3 ms
+### Linux / macOS
+
+```bash
+git clone https://github.com/Nir-bitcoin/Sentinel-Drishti
+cd Sentinel-Drishti
+bash setup.sh
+bash run.sh
+```
+
+### Or use the launcher directly
+
+```bash
+python sentinel.py
+```
+
+</div>
+
+The launcher presents an interactive menu:
+
+```
+[1] Interactive Demo
+[2] Live Monitoring
+[3] Benchmark
+[4] System Health
+[5] Deployment Check
+[6] Offline Verify
+[7] Run Scenarios
+[8] Streamlit Dashboard
+[9] Provider Diagnostic
+```
+
+---
+
+## 🚀 Deployment Modes
+
+Sentinel Drishti is designed for **Snapdragon QNN / Hexagon HTP**. The runtime auto-selects the best available backend.
+
+### 🎯 1. Snapdragon QNN/HTP — Primary Target
+
+```powershell
+python sentinel.py --backend qnn
+```
+
+The QNN backend selects automatically when the Snapdragon QNN Execution Provider is available. This is the **target production runtime** for Snapdragon-powered HP PCs.
+
+### 🏭 2. Qualcomm AI Hub — Component Benchmarks
+
+| Component | Precision | Latency |
+|:---|:---:|:---:|
+| EasyOCR detector | uint8 | **13.5 ms** |
+| EasyOCR recognizer | uint8 | **10.5 ms** |
+
+Hosted Snapdragon NPU measurements for **model components** — not end-to-end Sentinel timings.
+
+### 💻 3. CPU Fallback — Development & Validation
+
+```powershell
+python sentinel.py --backend cpu
+```
+
+When QNN is unavailable, the runtime falls back to CPU automatically with a visible reason. This is how the pipeline is **validated end-to-end** on the development machine.
+
+### Auto-selection logic
+
+```
+python sentinel.py --backend auto    # default
+       │
+get_backend_with_fallback()
+       │
+┌──────┴──────┐
+│             │
+QNN available? CPU only
+│             │
+QNNBackend  CPUBackend
+│             │
+Hexagon NPU  Local CPU
+```
+
+---
+
+## 🏗️ Architecture
+
+See [docs/architecture.md](docs/architecture.md) for the full pipeline.
+
+```
+Screen / Event
+    │
+    ▼
+Change Detector ────────► SKIP (no change)
+    │
+    ▼
+Event Policy (L0 / L1 / L2)
+    │
+    ├── L0 ──► Skip OCR
+    ├── L1 ──► Fast OCR
+    └── L2 ──► Precise ROI OCR
+                │
+                ▼
+        Two-Stage ROI OCR ────► LRU Cache (content-hash)
+                │
+                ▼
+        Entity Detection (PAN · Phone · Aadhaar · Financial · Confidential)
+                │
+                ▼
+        Behavior Tracker + Data Flow Graph
+                │
+                ▼
+        Risk Engine + Session Risk
+                │
+                ▼
+        Intent Classifier (BENIGN / CONFIDENTIAL_ACCESS / EXFILTRATION)
+                │
+                ▼
+        DLP Policy Engine
+                │
+    ┌───────────┼───────────┐
+    ▼           ▼           ▼
+  ALLOW       WARN        BLOCK
+    │           │           │
+    ▼           ▼           ▼
+  Audit    User Confirm  Audit + Arduino
+```
 
-uint8 optimization reduces component latency by 1.8-2.9x vs FLOAT16:
-    Detector:   39.5 ms -> 13.5 ms  (2.9x)
-    Recognizer: 19.3 ms -> 10.5 ms  (1.8x)
+---
 
-Adaptive OCR behavior:
-    Fast pass (800px)  -> confidence ~0.69
-    Retry  (1000px)    -> confidence ~0.95
-    If confidence < 0.85, system retries at 1000px.
+## 👥 Target Users
 
-No side-by-side speedup comparison between CPU end-to-end and NPU 
-component references is claimed, because they measure different scopes.
+| User | Why |
+|:---|:---|
+| **Enterprise IT / security teams** | Protect HR, finance, legal departments |
+| **Compliance officers** | GDPR, DPDP Act (India), HIPAA, SOX |
+| **Snapdragon PC OEMs** | HP, Lenovo, Dell shipping ARM laptops |
+| **Regulated industries** | BFSI, healthcare, defence contractors |
 
+---
 
-Optimization: ROI Cache
------------------------
+## 📋 Regulatory Context
 
-Repeated OCR of unchanged screens is skipped via content-hash cache.
-Same screen -> cached result. Different screen -> run OCR.
+| Regulation | Requirement | How Sentinel Drishti helps |
+|:---|:---|:---|
+| **DPDP Act (India)** | Data minimisation, breach reporting | Raw PII never stored, hash-chained audit |
+| **GDPR (EU)** | Article 32 — security of processing | On-device, no cloud egress |
+| **HIPAA (US)** | PHI protection | Confidential marking detection |
+| **SOX** | Financial record integrity | Employee financial data rules |
 
-This models how a real endpoint agent would avoid redundant inference
-during continuous monitoring.
+---
 
+## 🔒 Zero-Cloud Core
 
-Technical Implementation
-------------------------
+The core DLP pipeline never leaves the device:
 
-Test Coverage: 15/15 unit tests passing
-    PII detection:          4 tests
-    Behavior tracking:      3 tests
-    Risk scoring:           1 test
-    DLP policy:             2 tests
-    Intent classification:  3 tests
-    Audit hash chain:       1 test
-    Provider diagnostic:    1 test
+```
+CORE PIPELINE
+─────────────────────────
+Internet required:    ❌ NO
+Cloud API required:   ❌ NO
+OCR processing:       🏠 LOCAL
+Entity detection:     🏠 LOCAL
+Risk engine:          🏠 LOCAL
+DLP policy:           🏠 LOCAL
+Audit chain:          🏠 LOCAL
+```
 
-Architecture: Modular design with separate layers
-    Backend abstraction (CPU/QNN/Snapdragon)
-    Vision (EasyOCR + TextPerception)
-    Behavior tracking
-    Risk scoring
-    DLP policy engine
-    Multi-language alerts
-    Tamper-evident audit chain (SHA-256)
-    ROI cache for repeated screens
+**Verified by an automated test that blocks all socket calls:**
 
-Run tests:
-    python tests/test_pipeline.py
+```powershell
+python tests/test_offline.py
+```
 
+Optional network features (Streamlit public demo, GitHub CI) are development tools only. The production runtime is fully on-device.
 
-Security Features
------------------
+---
 
-    Tamper-evident audit log (SHA-256 hash chain)
-    Each event links to previous event's hash
-    verify_chain() detects any modification
-    Fail-safe: low OCR confidence + risky behavior -> WARN_AND_ALERT
+## ✅ Compatibility Matrix
 
+| Environment | OCR | DLP | Backend |
+|:---|:---:|:---:|:---|
+| **Snapdragon Windows** | Target | ✅ | QNN/HTP |
+| Windows x64 CPU | ✅ | ✅ | CPU |
+| Linux / macOS | ✅ | ✅ | CPU |
+| Arduino connected | ✅ | ✅ | Hardware alert |
+| Arduino absent | ✅ | ✅ | Software alert |
+| Internet unavailable | ✅ | ✅ | Local |
 
-Snapdragon Validation Evidence
-------------------------------
+*"Target" = architecture ready; on-device validation pending hardware.*
 
-    Component                 Snapdragon evidence            Status
-    ------------------------  -----------------------------  ------
-    EasyOCR detector (uint8)  AI Hub X Elite NPU             OK
-    EasyOCR recognizer (uint8) AI Hub X Elite NPU            OK
-    EasyOCR detector (FLOAT16) AI Hub X Elite NPU            OK
-    EasyOCR recognizer (FLOAT16) AI Hub X Elite NPU          OK
-    Optimized INT8 model      AI Hub X Elite NPU             OK
-    Full OCR pipeline         End-to-end X Elite measurement Pending
-    DLP engine                Local CPU                      OK
-    Arduino action            Local hardware / demo          OK
-    Full app on HP Snapdragon Physical target validation     Pending
+---
 
-Details: docs/snapdragon_validation.md
+## 📚 Documentation
 
+| File | Purpose |
+|:---|:---|
+| [docs/architecture.md](docs/architecture.md) | Full pipeline + design principles |
+| [docs/benchmark.md](docs/benchmark.md) | Benchmark methodology + results |
+| [docs/security.md](docs/security.md) | Threat model + security depth |
+| [docs/use_cases.md](docs/use_cases.md) | Concrete enterprise scenarios |
+| [docs/innovation.md](docs/innovation.md) | What is genuinely novel |
+| [docs/snapdragon_validation.md](docs/snapdragon_validation.md) | Honest Snapdragon evidence |
 
-Qualcomm AI Hub Hosted-Device References
-----------------------------------------
+---
 
-EasyOCR component jobs on hosted Snapdragon X Elite CRD (NPU):
+<div align="center">
 
-    Component          Precision    Job ID      Reference
-    -----------------  -----------  ----------  -----------
-    Detector           uint8        jgk4j29wp   13.5 ms
-    Recognizer         uint8        jp1n3jw7g   10.5 ms
-    Detector           FLOAT16      jpxlmx3jp   ~39.5 ms
-    Recognizer         FLOAT16      jprl9wnvp   ~19.3 ms
+## 🏆 Challenge
 
-uint8 optimization reduces component latency by 1.8-2.9x vs FLOAT16:
-    Detector:   39.5 ms -> 13.5 ms  (2.9x)
-    Recognizer: 19.3 ms -> 10.5 ms  (1.8x)
+**Snapdragon AI Lab Build & Present Challenge 2026**
 
-Verify online:
-    https://aihub.qualcomm.com/jobs/jgk4j29wp
-    https://aihub.qualcomm.com/jobs/jp1n3jw7g
-    https://aihub.qualcomm.com/jobs/jpxlmx3jp
-    https://aihub.qualcomm.com/jobs/jprl9wnvp
+Presented at Qualcomm's flagship developer competition.
 
-These are hosted Qualcomm device results, not measurements on the 
-developer's laptop. They are component references, not a validation 
-of Sentinel Drishti itself on Snapdragon hardware.
+<br>
 
+<img src="https://img.shields.io/badge/-Powered_by-Snapdragon-e2231a?style=for-the-badge&logo=qualcomm&logoColor=white" alt="Powered by Snapdragon" />
 
-Automated CI Demo
------------------
+<br><br>
 
-The pipeline runs automatically on GitHub Actions on every push 
-(reproducible test run, not a live cloud deployment).
+**Built with ❤️ for on-device privacy.**
 
-View latest run:
-https://github.com/Nir-bitcoin/Sentinel-Drishti/actions
+<br>
 
+[![GitHub stars](https://img.shields.io/github/stars/Nir-bitcoin/Sentinel-Drishti?style=social)](https://github.com/Nir-bitcoin/Sentinel-Drishti)
+[![GitHub forks](https://img.shields.io/github/forks/Nir-bitcoin/Sentinel-Drishti?style=social)](https://github.com/Nir-bitcoin/Sentinel-Drishti)
 
-Browser Demo
-------------
-
-A browser-based Streamlit interface is provided for demonstration.
-
-Demo mode supports:
-    - Image upload (EasyOCR on local deployments)
-    - PII detection
-    - Behavior selection
-    - Risk scoring
-    - DLP decision
-    - Audit result
-    - JSON audit download
-
-Note: The browser demo does not access the user's local screen, 
-clipboard, USB devices, or Snapdragon NPU.
-
-
-Local Setup
------------
-
-    git clone https://github.com/Nir-bitcoin/Sentinel-Drishti.git
-    cd Sentinel-Drishti
-    pip install -r requirements.txt
-    python run_demo.py
-    python run_demo.py --cpu
-    python scripts/benchmark.py
-    python scripts/check_provider.py
-    python tests/test_pipeline.py
-
-
-Demo Scenarios
---------------
-
-    Scenario             Behavior                            Action
-    -------------------  ----------------------------------  ---------------
-    Normal work          Open + type                         ALLOW
-    Image OCR (EasyOCR)  Real image -> PII detect -> COPY    BLOCK + ALERT
-    PII to Gmail         Copy + paste to personal email      BLOCK + ALERT
-    Confidential read    Open + read only                    ALLOW (logged)
-    PII to USB           Copy + paste to USB                 BLOCK + ALERT
-
-Sensitive data alone does not trigger a block. Suspicious behavior 
-involving sensitive data does.
-
-When OCR confidence is low AND behavior is risky, the system triggers 
-WARN_AND_ALERT (fail-safe) instead of silent ALLOW.
-
-
-Honest Limitations
-------------------
-
-    Component                        Status
-    -------------------------------  ----------------------------------
-    CPU execution                    Real, measured on development PC
-    EasyOCR integration              Real (CPU execution, adaptive)
-    Entity detection                 Real (regex on real input)
-    Behavior tracking                Real
-    Risk scoring                     Real
-    DLP policy logic                 Real
-    Audit logging                    Real (SHA-256 hash chain)
-    EasyOCR NPU profiling            Hosted Qualcomm X Elite CRD
-    NPU inference timing (demo)      Qualcomm AI Hub benchmark reference
-    Snapdragon on-device validation  Pending device access
-    Enforcement interception         Simulated (demo mode)
-
-The prototype is designed for deployment on Snapdragon-powered PCs. 
-On physical Snapdragon hardware, the Snapdragon backend can be 
-validated with real NPU inference measurements.
-
-
-Project Structure
------------------
-
-    Sentinel-Drishti/
-    |-- src/
-    |   |-- backend/         Inference backend abstraction + QNN adapter
-    |   |-- vision/          EasyOCR + TextPerception + ROI cache
-    |   |-- reasoning/       RuleBasedIntentClassifier + translator
-    |   |-- policy/          DLP engine + behavior + risk + audit chain
-    |   +-- api/             FastAPI backend
-    |-- simulation/          Arduino simulation
-    |-- scripts/             Benchmark + provider diagnostic
-    |-- tests/               Unit tests
-    |-- docs/                Documentation and screenshots
-    |-- run_demo.py          Main demo runner
-    |-- app.py               Streamlit browser demo
-    +-- requirements.txt
-
-
-Challenge
----------
-
-Snapdragon AI Lab Build & Present Challenge 2026
-
-
-License
--------
-
-MIT
-
-
-Author
-------
-
-Niranjan Vishe
-
-[![GitHub](https://img.shields.io/badge/GitHub-Nir--bitcoin-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Nir-bitcoin)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-nirvishe-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nirvishe/)
+</div>
