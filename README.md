@@ -41,6 +41,21 @@ The main design idea is:
 
 ---
 
+## Evaluation Criteria
+
+The project is structured around the four evaluation areas listed for the challenge.
+
+| Criterion                             | Sentinel Drishti evidence                                                                                                                                                                                                      |
+| :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Technical Implementation**          | 12-stage security pipeline, L0/L1/L2 event policy, two-stage ROI OCR, entity detection, behavior tracking, data-flow graph, session risk engine, rule-based intent engine, DLP policy engine, audit chain and Arduino alerting |
+| **Application Use Case & Innovation** | Enterprise data-loss prevention use case combining data sensitivity, user behavior and destination context; cross-application transfer tracking; session-level risk; coverage-gated OCR; privacy-preserving audit              |
+| **Deployment & Accessibility**        | Local/offline runtime, unified launcher, CPU fallback, Snapdragon QNN/HTP target backend, Streamlit dashboard, Hugging Face showcase and documented setup/verification commands                                                |
+| **Presentation & Documentation**      | README, architecture and security documentation, benchmark reports, Snapdragon validation notes, reproducible test commands, interactive dashboard and visual showcase                                                         |
+
+The four criteria are treated as separate evidence areas throughout this repository.
+
+---
+
 ## Try Sentinel Drishti
 
 There are four ways to explore the project:
@@ -421,7 +436,7 @@ The comparison below describes the design priorities of this project rather than
 │ Centralized / cloud-assisted*  │ On-device core            │
 │ Data may leave endpoint*       │ Data stays local          │
 │ Continuous monitoring*         │ Event-driven OCR          │
-│ Point-in-time events           │ Data-flow graph            │
+│ Point-in-time events           │ Data-flow graph           │
 │ Limited session context*       │ Session-level risk        │
 │ Sensitive audit retention*     │ Masked audit              │
 └─────────────────────────────────────────────────────────────┘
