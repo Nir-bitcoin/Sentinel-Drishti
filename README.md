@@ -42,7 +42,7 @@ Snapdragon AI Lab Build & Present Challenge 2026
 
 > **Metric scope matters:** 8.03 ms is the measured control plane, not full OCR latency. The 1.00 F1 result comes from a controlled 30-image regression evaluation and is not presented as general real-world accuracy.
 
-<!-- Add your final demo screenshot or GIF here.
+<!-- Add the final demo screenshot or GIF here.
 Example:
 ![Sentinel Drishti demo](docs/demo.gif)
 -->
@@ -63,7 +63,7 @@ A data-loss event does not always look like a sophisticated cyberattack.
 
 Sometimes it looks like normal work:
 
-```text id="9xg51f"
+```text
 Employee salary data
         ↓
       Excel
@@ -91,7 +91,7 @@ Sentinel Drishti is a local-first DLP agent that evaluates **context before enfo
 
 It asks:
 
-```text id="3xj0dp"
+```text
 What data is involved?
         +
 What is the user doing?
@@ -105,7 +105,7 @@ DLP decision
 
 The policy engine then produces:
 
-```text id="clw7v7"
+```text
 ALLOW / WARN / BLOCK
 ```
 
@@ -117,7 +117,7 @@ The system connects AI-based perception with behavioral context and deterministi
 
 The central scenario is intentionally simple:
 
-```text id="04n9w2"
+```text
 Employee salary data
         ↓
       Excel
@@ -145,7 +145,7 @@ The system detects **how the information is moving**.
 
 ### Benign Flow
 
-```text id="eqrs22"
+```text
 Team meeting notes
         ↓
        Word
@@ -182,7 +182,7 @@ A sensitive value does not automatically mean a violation.
 
 Sentinel Drishti combines:
 
-```text id="clc8w1"
+```text
 DATA SENSITIVITY
        +
 USER BEHAVIOR
@@ -202,7 +202,7 @@ This allows the policy engine to distinguish a local copy from a cross-applicati
 
 The system does not spend the same amount of compute on every frame.
 
-```text id="5kk9c0"
+```text
 L0
 No relevant security event
         ↓
@@ -223,7 +223,7 @@ Coverage check
 
 In the measured workload, **70% of frames take the L0 path**, avoiding unnecessary OCR work.
 
-The design goal is simple:
+The design goal is:
 
 > **Spend AI compute only when security context justifies it.**
 
@@ -233,7 +233,7 @@ The design goal is simple:
 
 Instead of treating every event independently, Sentinel Drishti connects related activity:
 
-```text id="xw4yq5"
+```text
 Excel
   ↓
 Clipboard
@@ -245,7 +245,7 @@ A session-level risk engine then accumulates context across related actions.
 
 For example:
 
-```text id="1cm5a3"
+```text
 COPY
   ↓
 Gmail
@@ -269,7 +269,7 @@ has a different security context from a single local `COPY`.
 
 Sentinel Drishti is organized as a 12-stage pipeline:
 
-```text id="nczx72"
+```text
 Screen / Event
       ↓
 Change Detector ───────────► SKIP if unchanged
@@ -324,7 +324,7 @@ EMAIL
 
 The system can use precise ROI recognition and the coverage check.
 
-```text id="5oe8j6"
+```text
 Critical event
       ↓
 Precise ROI OCR
@@ -344,7 +344,7 @@ Everything in this section is tied to the project's listed test or evaluation se
 
 **62/62 means 62 automated tests passed:**
 
-```text id="x0p8ht"
+```text
 Unit tests ............... 25/25 passing
 Security tests ........... 33/33 passing
 End-to-end tests ......... 4/4 passing
@@ -356,7 +356,7 @@ Total .................... 62/62 passing
 
 **30 controlled labeled images**
 
-```text id="8wu2c4"
+```text
 PAN ................ Precision 1.00 · Recall 1.00 · F1 1.00
 PHONE .............. Precision 1.00 · Recall 1.00 · F1 1.00
 FINANCIAL .......... Precision 1.00 · Recall 1.00 · F1 1.00
@@ -371,7 +371,7 @@ False negatives .... 0
 
 ## CPU Performance
 
-```text id="cxpycm"
+```text
 Unchanged screen .......... ~8 ms P50   (control plane, no OCR)
 Cached screen ............. ~3 ms P50   (SHA-256 hash lookup)
 Cold OCR .................. ~9 s        (after ROI optimization)
@@ -384,7 +384,7 @@ The measured cold OCR path was reduced from the earlier 15–16 second range aft
 
 Measured over 20 runs per stage:
 
-```text id="kctbf7"
+```text
 Change Detection .......... 0.27 ms P50
 Event Policy .............. 0.003 ms P50
 Entity Detection .......... 0.014 ms P50
@@ -402,7 +402,7 @@ TOTAL control plane ....... 8.03 ms P50
 
 Run the breakdown locally:
 
-```powershell id="8yw8p3"
+```powershell
 python scripts\latency_breakdown.py
 ```
 
@@ -416,7 +416,7 @@ The AI-heavy part of the pipeline handles perception such as OCR and entity dete
 
 Example:
 
-```text id="djggmb"
+```text
 Intent: BENIGN
 Matched rules: NONE
 Evidence level: LOW
@@ -424,7 +424,7 @@ Evidence level: LOW
 
 High-risk example:
 
-```text id="c8idn0"
+```text
 Intent: EXFILTRATION
 Matched rules: PII_001, FIN_001
 Evidence level: HIGH
@@ -442,7 +442,7 @@ The audit layer is designed to retain security evidence without storing raw sens
 
 Example:
 
-```text id="jz7wl0"
+```text
 Original:
 ABCD1234F
 
@@ -470,26 +470,26 @@ The Snapdragon evidence is intentionally separated into distinct tiers.
 | :---- | :-------------------------------------------- | :-------------------------------------------- |
 | **A** | QNN / Hexagon HTP target runtime              | Snapdragon target architecture                |
 | **B** | EasyOCR detector and recognizer benchmarks    | Qualcomm AI Hub hosted Snapdragon X Elite NPU |
-| **C** | Complete Sentinel Drishti end-to-end pipeline | Local CPU development environment             |
+| **C** | Complete Sentinel Drishti end-to-end pipeline | Local development environment                 |
 
-This avoids combining component-level NPU measurements with full-pipeline CPU timings.
+This keeps target architecture, Snapdragon component measurements and complete-pipeline validation clearly separated.
 
 ## Tier B — Qualcomm AI Hub
 
 Snapdragon-targeted EasyOCR components were compiled and benchmarked through Qualcomm AI Hub:
 
-```text id="5pq6h4"
-EasyOCR detector (w8a8) ...... 12.64 ms  · NPU
-EasyOCR recognizer (w8a8) .... 10.55 ms  · NPU
+```text
+EasyOCR detector (w8a8) ...... 12.6 ms  · NPU
+EasyOCR recognizer (w8a8) .... 10.5 ms  · NPU
 ```
 
-These are **component-level Snapdragon measurements**, not end-to-end Sentinel Drishti latency.
+These are **component-level Snapdragon measurements**.
 
 ## Cross-Platform Runtime
 
 The runtime supports backend selection across environments:
 
-```text id="u7kncr"
+```text
 Standard / development host
         ↓
     CPU backend
@@ -503,7 +503,7 @@ Automatic backend selection can use CPU fallback when the requested Snapdragon b
 
 ## Backend Selection
 
-```powershell id="cxx9in"
+```powershell
 python sentinel.py --backend qnn     # Request QNN / HTP
 python sentinel.py --backend cpu     # Force CPU
 python sentinel.py --backend auto    # Auto-detect
@@ -515,7 +515,7 @@ Full validation notes:
 
 ## Reproduce the AI Hub Benchmark
 
-```bash id="d56xxb"
+```bash
 pip install qai-hub qai-hub-models
 qai-hub configure --api_token YOUR_TOKEN
 qai-hub-models perf easyocr
@@ -527,12 +527,12 @@ qai-hub-models perf easyocr
 
 The challenge lists four evaluation areas. The README maps the implementation and evidence to each area without assigning unofficial weights.
 
-| Criterion                             | Evidence in Sentinel Drishti                                                                                                                                                         | README evidence                                                                                                              |
-| :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| **Technical Implementation**          | 12-stage DLP pipeline, L0/L1/L2 policy, ROI OCR, entity detection, behavior tracking, data-flow graph, session risk, rule-based intent, DLP engine, audit chain and Arduino alerting | [Architecture](#architecture) · [Evidence](#evidence)                                                                        |
-| **Application Use Case & Innovation** | Enterprise DLP scenario, context-driven decisions, cross-application data flow, session-level risk and event-driven compute                                                          | [The Story](#the-story) · [Demo](#demo) · [Core Innovation](#core-innovation)                                                |
-| **Deployment & Accessibility**        | Local runtime, CPU execution, QNN/HTP target support, automatic backend selection, offline operation, Streamlit dashboard and Hugging Face showcase                                  | [Deployment & Accessibility](#deployment--accessibility) · [Snapdragon Validation](#snapdragon-validation) · [Setup](#setup) |
-| **Presentation & Documentation**      | Reproducible tests, benchmark methodology, architecture documentation, security documentation, Snapdragon validation notes and visual showcase                                       | [Evidence](#evidence) · [Documentation](#documentation)                                                                      |
+| Criterion                             | Evidence in Sentinel Drishti                                                                                                                        | README evidence                                                                                            |
+| :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| **Technical Implementation**          | 12-stage DLP pipeline, L0/L1/L2 policy, ROI OCR, entity detection, behavior tracking, data-flow graph, session risk, DLP policy and audit           | [Architecture](#architecture) · [Evidence](#evidence)                                                      |
+| **Application Use Case & Innovation** | Enterprise DLP scenario, context-driven decisions, cross-application data flow, event-driven compute and session-level risk                         | [The Story](#the-story) · [Demo](#demo) · [Core Innovation](#core-innovation)                              |
+| **Deployment & Accessibility**        | Local runtime, CPU execution, QNN/HTP target support, automatic backend selection, offline operation, Streamlit dashboard and Hugging Face showcase | [Deployment & Accessibility](#deployment--accessibility) · [Snapdragon Validation](#snapdragon-validation) |
+| **Presentation & Documentation**      | Reproducible tests, benchmark methodology, architecture documentation, security documentation, Snapdragon validation notes and visual showcase      | [Evidence](#evidence) · [Documentation](#documentation)                                                    |
 
 ---
 
@@ -540,7 +540,7 @@ The challenge lists four evaluation areas. The README maps the implementation an
 
 The **core DLP pipeline** is designed to run without cloud processing of protected content.
 
-```text id="az4s2c"
+```text
 Internet required ....... NO
 Cloud API required ...... NO
 OCR processing .......... LOCAL
@@ -552,13 +552,13 @@ Audit chain ............. LOCAL
 
 Offline verification blocks socket calls before the full pipeline is executed:
 
-```powershell id="a73ee3"
+```powershell
 python tests/test_offline.py
 ```
 
 Expected result:
 
-```text id="w0g6wq"
+```text
 Blocking all network calls...
 Network block: ACTIVE
 
@@ -601,7 +601,7 @@ The runtime can operate using the CPU development path and is structured for Sna
 
 ## Windows
 
-```powershell id="kq4suw"
+```powershell
 git clone https://github.com/Nir-bitcoin/Sentinel-Drishti
 cd Sentinel-Drishti
 .\setup.ps1
@@ -610,7 +610,7 @@ cd Sentinel-Drishti
 
 ## Linux / macOS
 
-```bash id="0kjh9q"
+```bash
 git clone https://github.com/Nir-bitcoin/Sentinel-Drishti
 cd Sentinel-Drishti
 bash setup.sh
@@ -619,13 +619,13 @@ bash run.sh
 
 ## Launcher
 
-```bash id="a3qfac"
+```bash
 python sentinel.py
 ```
 
 Available modes:
 
-```text id="qprl53"
+```text
 [1] Interactive Demo
 [2] Live Monitoring
 [3] Benchmark
@@ -643,7 +643,7 @@ Available modes:
 
 Run the checks independently:
 
-```powershell id="o9uhx8"
+```powershell
 python tests/test_pipeline.py
 python tests/test_security_deep.py
 python tests/test_e2e.py
@@ -671,7 +671,7 @@ These cover:
 
 # Repository Structure
 
-```text id="v4nvna"
+```text
 Sentinel-Drishti/
 ├── src/
 │   ├── backend/       CPUBackend, QNNBackend, fallback selector
@@ -705,7 +705,7 @@ The codebase is separated into modules so individual components can be tested or
 * Direct QNN-compiled EasyOCR deployment on-device
 * Native OS-level clipboard and USB interception
 * Multi-language OCR beyond English
-* MDM integration for enterprise fleet deployment
+* MDM integration for enterprise deployment
 
 ---
 
@@ -713,20 +713,24 @@ The codebase is separated into modules so individual components can be tested or
 
 The recommended demonstration flow is:
 
-```text id="h1xjmi"
+```text
 Problem
    ↓
 Excel → Clipboard → Gmail
    ↓
 BLOCK_AND_ALERT
    ↓
-Streamlit dashboard
+Context + Data Flow + Session Risk
    ↓
-Architecture / innovation
+Architecture
    ↓
-Snapdragon validation
+Measured Evidence
    ↓
-GitHub tests and evidence
+Snapdragon Validation
+   ↓
+Offline Verification
+   ↓
+Deployment
 ```
 
 **Demo video:** add the final video link here after upload.
