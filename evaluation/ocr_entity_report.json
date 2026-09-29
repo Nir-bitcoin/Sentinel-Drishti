@@ -1,53 +1,53 @@
 {
-  "total_images": 30,
-  "ocr_success": 30,
+  "total_images": 540,
+  "ocr_success": 540,
   "ocr_failure": 0,
   "ocr_success_rate_pct": 100.0,
   "entities": {
     "PAN": {
       "precision": 1.0,
-      "recall": 1.0,
-      "f1": 1.0,
-      "tp": 10,
+      "recall": 0.8944,
+      "f1": 0.9443,
+      "tp": 161,
       "fp": 0,
-      "fn": 0
+      "fn": 19
     },
     "PHONE": {
       "precision": 1.0,
-      "recall": 1.0,
-      "f1": 1.0,
-      "tp": 8,
+      "recall": 0.9375,
+      "f1": 0.9677,
+      "tp": 135,
       "fp": 0,
-      "fn": 0
+      "fn": 9
     },
     "EMPLOYEE_FINANCIAL_DATA": {
       "precision": 1.0,
-      "recall": 1.0,
-      "f1": 1.0,
-      "tp": 9,
+      "recall": 0.963,
+      "f1": 0.9811,
+      "tp": 156,
       "fp": 0,
-      "fn": 0
+      "fn": 6
     },
     "CONFIDENTIAL_MARKING": {
       "precision": 1.0,
-      "recall": 1.0,
-      "f1": 1.0,
-      "tp": 7,
+      "recall": 0.9286,
+      "f1": 0.963,
+      "tp": 117,
       "fp": 0,
-      "fn": 0
+      "fn": 9
     }
   },
   "macro": {
     "precision": 1.0,
-    "recall": 1.0,
-    "f1": 1.0,
-    "tp": 34,
+    "recall": 0.9297,
+    "f1": 0.9636,
+    "tp": 569,
     "fp": 0,
-    "fn": 0
+    "fn": 43
   },
   "per_image": [
     {
-      "image_id": "img01",
+      "image_id": "img01_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.999,
       "ocr_text": "Employee Record PAN: ABCDE1234F",
@@ -61,7 +61,245 @@
       "spurious": []
     },
     {
-      "image_id": "img02",
+      "image_id": "img01_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.966,
+      "ocr_text": "Employee Record PAN: 1234F ABCDE123",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.891,
+      "ocr_text": "Employee Record PAN: ABCDE 1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.963,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.955,
+      "ocr_text": "PAN: ABCDE1234F Employee Record",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.942,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.958,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.969,
+      "ocr_text": "PAN: ABCDE1234F Employee Record",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.884,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.952,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.976,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.924,
+      "ocr_text": "Employee Record: PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.989,
+      "ocr_text": "Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img01_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.935,
+      "ocr_text": "Employee Record PAN: ABCDE 1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.947,
       "ocr_text": "PAN ABCDE1234F",
@@ -75,7 +313,245 @@
       "spurious": []
     },
     {
-      "image_id": "img03",
+      "image_id": "img02_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.946,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.906,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.866,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.96,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.979,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.874,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "AN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.923,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.936,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug13",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.737,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.994,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.919,
+      "ocr_text": "PAN ABCDE1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img02_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "PAN ABCDE 1234F",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.938,
       "ocr_text": "PAN: FGHIJ5678K Name: Rajesh Kumar",
@@ -89,7 +565,245 @@
       "spurious": []
     },
     {
-      "image_id": "img04",
+      "image_id": "img03_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.98,
+      "ocr_text": "Kumar Rajesh Name: FGHIJ5678K PAN:",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.9,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.953,
+      "ocr_text": "Name: Rajesh Kumar",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.943,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.924,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.937,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.965,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.928,
+      "ocr_text": "PAN: FGHIJ5678K Name: Rajesh Kumar",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.978,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.899,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJS678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.934,
+      "ocr_text": "PAN: FGHIJ5678K Name: Rajesh Kumar",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.971,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.97,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.929,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.917,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img03_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.977,
+      "ocr_text": "Name: Rajesh Kumar PAN: FGHIJ5678K",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.967,
       "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
@@ -103,7 +817,245 @@
       "spurious": []
     },
     {
-      "image_id": "img05",
+      "image_id": "img04_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.956,
+      "ocr_text": "TAX DOCUMENT PAN: DOCCUMEN",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.987,
+      "ocr_text": "PAN: ZZZZZ9999Z TAX DOCUMENT",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug02",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.82,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.961,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.963,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.956,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.928,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.959,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.971,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.967,
+      "ocr_text": "AX DOCUMENT IN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.973,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.97,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.934,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug13",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.784,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.942,
+      "ocr_text": "TAX DOCUMENT PAN: ZZZZZ9999Z",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.954,
+      "ocr_text": "PAN: ZZZZZ9999Z TAX DOCUMENT",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img04_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "DOCUMENT TAX PAN: N:",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.939,
       "ocr_text": "Ref no: ABCDE1234F valid",
@@ -117,7 +1069,245 @@
       "spurious": []
     },
     {
-      "image_id": "img06",
+      "image_id": "img05_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.993,
+      "ocr_text": "no: ABCDE1234F valid Ref",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.914,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.853,
+      "ocr_text": "Ref no: ABCDE 1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.903,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.967,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.937,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.893,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.943,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.97,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.878,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.98,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug13",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.799,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.971,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.85,
+      "ocr_text": "Ref no: ABCDE1234F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img05_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.968,
+      "ocr_text": "Ref no: ABCDE1234F F valid",
+      "gt": [
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.948,
       "ocr_text": "Contact Mobile: 9876543210",
@@ -131,7 +1321,245 @@
       "spurious": []
     },
     {
-      "image_id": "img07",
+      "image_id": "img06_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "Contact 9876543210 Mobile:",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.881,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Contact",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.979,
+      "ocr_text": "Mobile: 9876543210 Contact",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.932,
+      "ocr_text": "Mobile: 9876543210 Contact",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.904,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.941,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.958,
+      "ocr_text": "Mobile: 9876543210 Contact",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Mobile: 9876543210 Contact",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.879,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.917,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.927,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.992,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.935,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.909,
+      "ocr_text": "Contact Mobile: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.97,
+      "ocr_text": "Mobile: 9876543210 Contact",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img06_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Mobile: Contact tact",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.974,
       "ocr_text": "9876543210",
@@ -145,7 +1573,245 @@
       "spurious": []
     },
     {
-      "image_id": "img08",
+      "image_id": "img07_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.98,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.968,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.961,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.949,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.905,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.867,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.907,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img07_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.87,
+      "ocr_text": "9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.902,
       "ocr_text": "Customer Support Call 9123456780",
@@ -159,7 +1825,245 @@
       "spurious": []
     },
     {
-      "image_id": "img09",
+      "image_id": "img08_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.981,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.93,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.933,
+      "ocr_text": "Call 9123456780 Customer Support",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug03",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.756,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.876,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.931,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.918,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.902,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.922,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.926,
+      "ocr_text": "ustomer Support all 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug10",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.799,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug11",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.82,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.958,
+      "ocr_text": "Customer Support",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.87,
+      "ocr_text": "Customer Support Call 9123456780:",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.875,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.921,
+      "ocr_text": "Customer Support Call 9123456780",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img08_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Customer 9123456780 Call er",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.966,
       "ocr_text": "Contact List Primary: 9876543210",
@@ -173,7 +2077,245 @@
       "spurious": []
     },
     {
-      "image_id": "img10",
+      "image_id": "img09_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "List Contact List 98",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.936,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug03",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.808,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.887,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.966,
+      "ocr_text": "Primary: 9876543210 Contact List",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug06",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.827,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.994,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.92,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.941,
+      "ocr_text": "Contact List 'rimary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.969,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.938,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.896,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.948,
+      "ocr_text": "Contact List Primary: 9876543210_",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.905,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.924,
+      "ocr_text": "Contact List Primary: 9876543210",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img09_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.967,
+      "ocr_text": "Primary: Contact 9876543210 ct List",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.93,
       "ocr_text": "Reach me at 9988776655 anytime",
@@ -187,7 +2329,245 @@
       "spurious": []
     },
     {
-      "image_id": "img11",
+      "image_id": "img10_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.983,
+      "ocr_text": "Reach me at anytime at",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.971,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.943,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.887,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.951,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.895,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.893,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.914,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.897,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.874,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.952,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.859,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.966,
+      "ocr_text": "Reach me at 9988776655 anytime",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img10_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.947,
+      "ocr_text": "me at anytime Reach at",
+      "gt": [
+        "PHONE"
+      ],
+      "detected": [],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.998,
       "ocr_text": "Payroll Employee salary: 1500000",
@@ -201,7 +2581,245 @@
       "spurious": []
     },
     {
-      "image_id": "img12",
+      "image_id": "img11_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.978,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.975,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.941,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.977,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.925,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.971,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.939,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.943,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.975,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.942,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.935,
+      "ocr_text": "Employee salary: 1500000 Payroli_",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.952,
+      "ocr_text": "Payroll Employee salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img11_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.987,
+      "ocr_text": "Payroll Employee 1500000 ee",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 1.0,
       "ocr_text": "CTC breakdown Annual CTC: 2500000",
@@ -215,7 +2833,245 @@
       "spurious": []
     },
     {
-      "image_id": "img13",
+      "image_id": "img12_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.982,
+      "ocr_text": "breakdown CTC 2500000 CTC: Annual",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.944,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.99,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.959,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.993,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.927,
+      "ocr_text": "TC breakdown nnual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.957,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.912,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.965,
+      "ocr_text": "CTC breakdown Annual CTC; 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "CTC breakdown Annual CTC: 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img12_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.989,
+      "ocr_text": "breakdown CTC CTC: Annual 2500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.978,
       "ocr_text": "Payroll Summary Q4",
@@ -229,7 +3085,245 @@
       "spurious": []
     },
     {
-      "image_id": "img14",
+      "image_id": "img13_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.978,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.976,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.99,
+      "ocr_text": "Payroll Summary 04",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.982,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.864,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.904,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.922,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.99,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.97,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.857,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.928,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.906,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "Payroll Summary Q4",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img13_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "Q4 Payroll Summary",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.914,
       "ocr_text": "Bonus: 300000 Bonus structure",
@@ -243,7 +3337,245 @@
       "spurious": []
     },
     {
-      "image_id": "img15",
+      "image_id": "img14_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.975,
+      "ocr_text": "Bonus structure 300000 Bonus:",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.991,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug02",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.746,
+      "ocr_text": "Bonus structure",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "Bonus: 300000 Bonus structure",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.934,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.993,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.991,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.991,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.954,
+      "ocr_text": "onus: 300000 onus structure",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [],
+      "missed": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.926,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.911,
+      "ocr_text": "Bonus: 300000 Bonus structure",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.971,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.984,
+      "ocr_text": "Bonus: 300000 Bonus structure",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img14_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "Bonus structure Bonus: 300000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 1.0,
       "ocr_text": "Compensation review",
@@ -257,7 +3589,245 @@
       "spurious": []
     },
     {
-      "image_id": "img16",
+      "image_id": "img15_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.928,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.984,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.983,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.958,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.963,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.87,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.959,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "ompensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [],
+      "missed": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.915,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.867,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.992,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img15_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.938,
+      "ocr_text": "Compensation review",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.997,
       "ocr_text": "CONFIDENTIAL Internal only",
@@ -271,7 +3841,245 @@
       "spurious": []
     },
     {
-      "image_id": "img17",
+      "image_id": "img16_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.89,
+      "ocr_text": "CONFIDENTIAL only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.987,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.938,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.99,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.994,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.933,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.94,
+      "ocr_text": "CONFIDENTIAL: Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.964,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img16_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.97,
+      "ocr_text": "only CONFIDENTIAL Internal",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.978,
       "ocr_text": "PROPRIETARY Do not distribute",
@@ -285,7 +4093,245 @@
       "spurious": []
     },
     {
-      "image_id": "img18",
+      "image_id": "img17_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.972,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.9,
+      "ocr_text": "PROPRIETARY Do not distrbute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.941,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.989,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.981,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.985,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.964,
+      "ocr_text": "Jo not distribute ROPRIETARY",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [],
+      "missed": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.992,
+      "ocr_text": "Do not distribute PROPRIETARY",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.939,
+      "ocr_text": "PROPRIETARY Do not distribute",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img17_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "Do not distribute PROPRIETARY",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.999,
       "ocr_text": "Internal only Q4 pricing draft",
@@ -299,7 +4345,245 @@
       "spurious": []
     },
     {
-      "image_id": "img19",
+      "image_id": "img18_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "only draft pricing Q4 Internal",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [],
+      "missed": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.906,
+      "ocr_text": "Internal ' -Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [],
+      "missed": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.974,
+      "ocr_text": "Internal only 04 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.872,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.993,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.981,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.942,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "Q4 pricing draft ternal",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [],
+      "missed": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.957,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.981,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.857,
+      "ocr_text": "Q4 pricing draft Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.94,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.982,
+      "ocr_text": "Internal only Q4 pricing draft",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img18_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "only draft pricing Q4 Internal",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [],
+      "missed": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_orig",
       "ocr_status": "LOW_CONFIDENCE",
       "ocr_confidence": 0.73,
       "ocr_text": "Trade secret information",
@@ -313,7 +4597,245 @@
       "spurious": []
     },
     {
-      "image_id": "img20",
+      "image_id": "img19_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "secret information Trade",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [],
+      "missed": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.991,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.879,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.989,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.889,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.906,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.983,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "de secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [],
+      "missed": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug11",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.77,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.899,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug14",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.825,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Trade secret information",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img19_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.965,
+      "ocr_text": "information secret Trade",
+      "gt": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "detected": [],
+      "missed": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.932,
       "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
@@ -323,7 +4845,177 @@
       "spurious": []
     },
     {
-      "image_id": "img21",
+      "image_id": "img20_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.963,
+      "ocr_text": "Notes Meeting Team roadmap Discuss ss Q4 ro=",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.971,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.927,
+      "ocr_text": "Team Meeting Notes Discuss 04 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.981,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.929,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.967,
+      "ocr_text": "Meeting Notes Discuss Q4 roadmap Team M",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.948,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.899,
+      "ocr_text": "Discuss Q4 roadmap Diccucc",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.969,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.922,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.94,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.915,
+      "ocr_text": "Meeting Notes Team M Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.896,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap\"",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.916,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.873,
+      "ocr_text": "Team Meeting Notes Discuss Q4 roadmap",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img20_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.985,
+      "ocr_text": "Q4 Team Meeting Notes roadmap Discuss",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 1.0,
       "ocr_text": "Project notes Due Friday",
@@ -333,7 +5025,177 @@
       "spurious": []
     },
     {
-      "image_id": "img22",
+      "image_id": "img21_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.989,
+      "ocr_text": "notes Project Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.984,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.938,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.928,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.991,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.863,
+      "ocr_text": "Due Friday Project:notes",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "Friday Project notes Due Fr",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img21_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Project notes Due Friday",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.942,
       "ocr_text": "Room 4 Lunch at Ipm",
@@ -343,7 +5205,177 @@
       "spurious": []
     },
     {
-      "image_id": "img23",
+      "image_id": "img22_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "Room 4 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.95,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.977,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.979,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.963,
+      "ocr_text": "Room 4 Lunch at Ipm",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.987,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.943,
+      "ocr_text": "Room 4 Lunch at Ipm",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.964,
+      "ocr_text": "Room 4 Lunch at Ipm",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.934,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug09",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.764,
+      "ocr_text": "unch at Ipm",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.944,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.957,
+      "ocr_text": "Room 4 Lunch at Ipm",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.993,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.984,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.923,
+      "ocr_text": "Room 4 Lunch at",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.942,
+      "ocr_text": "Lunch at Ipm Room 4",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img22_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.959,
+      "ocr_text": "at Ipm 4 Lunch Room",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.855,
       "ocr_text": "Shopping list Milk; eggs, bread",
@@ -353,7 +5385,177 @@
       "spurious": []
     },
     {
-      "image_id": "img24",
+      "image_id": "img23_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.963,
+      "ocr_text": "list Shopping bread eggs, Milk;",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug01",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.829,
+      "ocr_text": "Shopping list Milk, eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug02",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.643,
+      "ocr_text": "Shopping list Milk, eggs; bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.918,
+      "ocr_text": "Milk, eggs, bread bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.863,
+      "ocr_text": "Shopping list Milk, eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.954,
+      "ocr_text": "Shopping list Milk; eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.933,
+      "ocr_text": "Shopping list Milk, eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.879,
+      "ocr_text": "Shopping list Milk, eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.861,
+      "ocr_text": "Shopping list Milk; eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug09",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.839,
+      "ocr_text": "opping list k, eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.869,
+      "ocr_text": "Shopping list Milk; eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.886,
+      "ocr_text": "Shopping list Milk; eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.905,
+      "ocr_text": "Shopping list Milk, eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.981,
+      "ocr_text": "Shopping list Milk; eggs, bread'",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug14",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.824,
+      "ocr_text": "Shopping list Milk, eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug15",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.803,
+      "ocr_text": "Shopping list Milk, eggs, bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img23_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.995,
+      "ocr_text": "list Shopping bre bread",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.867,
       "ocr_text": "Good morning team",
@@ -363,7 +5565,177 @@
       "spurious": []
     },
     {
-      "image_id": "img25",
+      "image_id": "img24_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.883,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.855,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug03",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.807,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug05",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.748,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug06",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.829,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.896,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.852,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.859,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.857,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.99,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.906,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.996,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.96,
+      "ocr_text": "Good morning team",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img24_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.966,
+      "ocr_text": "morning team Good",
+      "gt": [],
+      "detected": [],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.851,
       "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
@@ -379,7 +5751,281 @@
       "spurious": []
     },
     {
-      "image_id": "img26",
+      "image_id": "img25_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.953,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.877,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.912,
+      "ocr_text": "Phone: 9123456780 Employee Record PAN: ABCDE 1234F",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PHONE"
+      ],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.998,
+      "ocr_text": "PAN: ABCDE1234F Employee Record Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.969,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.946,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.975,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.851,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.974,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.861,
+      "ocr_text": "mployee Record IN: ABCDE1234F Ione: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.979,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.911,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.905,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug13",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.817,
+      "ocr_text": "Employee Record: PAN: ABCDE1234F Phone: 91.23456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.905,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.957,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Phone: 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img25_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.975,
+      "ocr_text": "PAN: Phone: Record Employee ABCDE1234F 9123456780",
+      "gt": [
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.91,
       "ocr_text": "Salary: 2000000 PAN: FGHIJ5678K",
@@ -395,7 +6041,281 @@
       "spurious": []
     },
     {
-      "image_id": "img27",
+      "image_id": "img26_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.939,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.95,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.884,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 20",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.866,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.91,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.936,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.947,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.923,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.933,
+      "ocr_text": "Salary: 2000000 PAN: FGHIJ5678K",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.982,
+      "ocr_text": "AN: FGHIJ5678K alary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "PAN"
+      ],
+      "missed": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.963,
+      "ocr_text": "Salary: 2000000 PAN: FGHIJ5678K",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.919,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.991,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.933,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.904,
+      "ocr_text": "Salary: 2000000 PAN: FGHIJ5678K",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.985,
+      "ocr_text": "PAN: FGHIJ5678K Salary: 2000000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img26_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.952,
+      "ocr_text": "PAN: Salary: 2000000 N:",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.958,
       "ocr_text": "Employee Record PAN: ZZZZZ9999Z Phone: 9876543210 Salary: 1500000",
@@ -413,7 +6333,317 @@
       "spurious": []
     },
     {
-      "image_id": "img28",
+      "image_id": "img27_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "Employee PAN: Phone: 9876543210 Salary: 1500000 Record AN:",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PHONE"
+      ],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.921,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Salary: 1500000 Phone: 9876543210",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug02",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.834,
+      "ocr_text": "Salary: 1500000 Employee Record PAN: ZZZZZ9999Z",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "missed": [
+        "PHONE"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.98,
+      "ocr_text": "PAN: ZZZZZ9999Z Salary: 1500000 Employee Record Phone: 9876543210",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.922,
+      "ocr_text": "PAN: ZZZZZ9999Z Phone: 9876543210 Salary: 1500000 DAN",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.923,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Salary: 1500000 Phone: 9876543210",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.97,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Salary: 1500000 Phone: 9876543210",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.961,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Phone: 9876543210 Salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.981,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Salary: 1500000 Phone: 9876543210",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.944,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Salary: 1500000 Phone: 9876543210",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.942,
+      "ocr_text": "PAN: ZZZZZ9999Z Employee Record Phone: 9876543210 Salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.948,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Phone: 9876543210 Salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.92,
+      "ocr_text": "Employee Record Salary: 1500000 PAN: ZZZZZ9999Z Phone: 9876543210",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug13",
+      "ocr_status": "LOW_CONFIDENCE",
+      "ocr_confidence": 0.847,
+      "ocr_text": "Employee Record Salary: 1500000: PAN: ZZZZZ9999Z Phone; 9876543210;",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.884,
+      "ocr_text": "Employee Record 1500000 Salary: PAN: ZZZZz9999Z Phone: 9876543210",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PHONE"
+      ],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "Employee Record PAN: ZZZZZ9999Z Phone: 9876543210 Salary: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img27_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.976,
+      "ocr_text": "Employee Record PAN: Phone: 9876543210 Salary: IN: 1500000",
+      "gt": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PHONE"
+      ],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 1.0,
       "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
@@ -429,7 +6659,281 @@
       "spurious": []
     },
     {
-      "image_id": "img29",
+      "image_id": "img28_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.872,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE 1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.972,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.942,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.955,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.962,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.997,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.976,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.999,
+      "ocr_text": "PAN: ABCDE1234F CONFIDENTIAL",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 1.0,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.993,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img28_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.889,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE DDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "PAN"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.95,
       "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
@@ -445,7 +6949,280 @@
       "spurious": []
     },
     {
-      "image_id": "img30",
+      "image_id": "img29_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.985,
+      "ocr_text": "CONFIDENTIAL record Internal only Employee",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING"
+      ],
+      "missed": [
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.982,
+      "ocr_text": "Internal only Employee salary record CONFIDENTIAL",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.937,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.992,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.969,
+      "ocr_text": "CONFIDENTIAL Employee salary record Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.911,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.931,
+      "ocr_text": "CONFIDENTIAL Employee salary record Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.864,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.856,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.899,
+      "ocr_text": "Internal only CONFIDENTIAL Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.927,
+      "ocr_text": "Employee salary record CONFIDENTIAL Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.991,
+      "ocr_text": "CONFIDENTIAL Employee salary record Internal only",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.954,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.884,
+      "ocr_text": "Internal only: CONFIDENTIAL Employee salary record:",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.954,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.903,
+      "ocr_text": "CONFIDENTIAL Internal only Employee salary record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img29_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.985,
+      "ocr_text": "only salary Employee Internal CONFIDENTIAL record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_orig",
       "ocr_status": "SUCCESS",
       "ocr_confidence": 0.958,
       "ocr_text": "CONFIDENTIAL Employee Record PAN: ABCDE1234F Phone: 9876543210 Salary: 3000000",
@@ -462,6 +7239,350 @@
         "PHONE"
       ],
       "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug00",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.965,
+      "ocr_text": "CONFIDENTIAL PAN: 1234F Phone: 9876543210 3000000 Employee Record ABCDE JC",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "PHONE"
+      ],
+      "missed": [
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug01",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.891,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Salary: 3000000 CONFIDENTIAL Phone: 9876543210",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug02",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.923,
+      "ocr_text": "CONFIDENTIAL Employee Record Phone: 9876543210 PAN: ABCDE 1234F Salary: 3000000",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PHONE"
+      ],
+      "missed": [
+        "PAN"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug03",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "CONFIDENTIAL Employee Record PAN: ABCDE1234F Salary: 3000000 Phone: 9876543210",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug04",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.931,
+      "ocr_text": "Employee Record Phone: 9876543210 Salary: 3000000 CONFIDENTIAL PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug05",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.889,
+      "ocr_text": "Employee Record PAN: ABCDE1234F CONFIDENTIAL Phone: 9876543210 Salary: 3000000",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug06",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.969,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Salary: 3000000 CONFIDENTIAL Phone: 9876543210",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug07",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.976,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Salary: 3000000 CONFIDENTIAL Phone: 9876543210",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug08",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.994,
+      "ocr_text": "CONFIDENTIAL Employee Record PAN: ABCDE1234F Phone: 9876543210 Salary: 3000000",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug09",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.917,
+      "ocr_text": "NFIDENTIAL Employee Record V: ABCDE1234F ary: 3000000 ne: 9876543210",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA"
+      ],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug10",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.926,
+      "ocr_text": "Employee Record PAN: ABCDE1234F CONFIDENTIAL Phone: 9876543210 Salary: 3000000",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug11",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.986,
+      "ocr_text": "CONFIDENTIAL PAN: ABCDE1234F Phone: 9876543210 Salary: 3000000 Employee Record",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug12",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.946,
+      "ocr_text": "Employee Record PAN: ABCDE1234F Salary: 3000000 CONFIDENTIAL Phone: 9876543210",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug13",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.94,
+      "ocr_text": "CONFIDENTIAL Employee Record PAN: ABCDE1234F Salary: 3000000 Phone: 9876543210",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug14",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.946,
+      "ocr_text": "CONFIDENTIAL Employee Record PAN: ABCDE1234F Phone: 9876543210 y: 3000000 Salary: 30",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug15",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.938,
+      "ocr_text": "Phone: 9876543210 Salary: 3000000 CONFIDENTIAL Employee Record PAN: ABCDE1234F",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "missed": [],
+      "spurious": []
+    },
+    {
+      "image_id": "img30_aug16",
+      "ocr_status": "SUCCESS",
+      "ocr_confidence": 0.946,
+      "ocr_text": "CONFIDENTIAL Employee Record PAN: ABCDE 1234F Phone: 9876543210 3000000 Salary:",
+      "gt": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PAN",
+        "PHONE"
+      ],
+      "detected": [
+        "CONFIDENTIAL_MARKING",
+        "EMPLOYEE_FINANCIAL_DATA",
+        "PHONE"
+      ],
+      "missed": [
+        "PAN"
+      ],
       "spurious": []
     }
   ]

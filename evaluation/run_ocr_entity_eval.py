@@ -11,7 +11,7 @@ from src.vision.perception import TextPerception
 
 
 EVAL_DIR = Path("evaluation")
-MANIFEST = EVAL_DIR / "dataset_manifest.csv"
+MANIFEST = EVAL_DIR / "augmented_manifest.csv"
 OUT_PATH = EVAL_DIR / "ocr_entity_report.json"
 
 
