@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel Drishti — On-Device AI DLP</title>
+    <meta name="description" content="On-device AI agent for detecting and preventing sensitive data loss on enterprise laptops.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0e1a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container { max-width: 900px; text-align: center; }
+        .logo { font-size: 80px; margin-bottom: 20px; }
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #22c55e, #0891b2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+        }
+        .tagline {
+            font-size: 1.2rem;
+            color: #8896ab;
+            margin-bottom: 40px;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .metric {
+            background: rgba(34, 197, 94, 0.06);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #22c55e;
+        }
+        .metric-label {
+            font-size: 0.85rem;
+            color: #8896ab;
+            margin-top: 5px;
+        }
+        .links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .links a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #22c55e;
+            color: #0a0e1a;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .links a:hover {
+            background: #4ade80;
+            transform: translateY(-2px);
+        }
+        .links a.secondary {
+            background: transparent;
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+        .links a.secondary:hover {
+            background: rgba(34, 197, 94, 0.1);
+        }
+        .footer {
+            margin-top: 60px;
+            font-size: 0.9rem;
+            color: #8896ab;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🐉</div>
+        <h1>SENTINEL DRISHTI</h1>
+        <p class="tagline">On-Device AI Data Loss Prevention</p>
+
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">62/62</div>
+                <div class="metric-label">Tests Passing</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1.00</div>
+                <div class="metric-label">Macro F1</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">540</div>
+                <div class="metric-label">Eval Images</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">8.03ms</div>
+                <div class="metric-label">Control Plane P50</div>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/" target="_blank">💻 Live Demo</a>
+            <a href="https://huggingface.co/spaces/kuchvo/Sentinel-Drishti" target="_blank" class="secondary">🌐 Showcase</a>
+            <a href="https://github.com/Nir-bitcoin/Sentinel-Drishti" target="_blank" class="secondary">📦 GitHub</a>
+        </div>
+
+        <div class="footer">
+            SusDetect Team — Niranjan Vishe<br>
+            Snapdragon AI Lab Build & Present Challenge 2026
+        </div>
+    </div>
+</body>
+</html>
