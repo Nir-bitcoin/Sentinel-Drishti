@@ -6,14 +6,15 @@
 
 [![Tests](https://img.shields.io/badge/tests-62%2F62_passing-22c55e?style=flat-square)](tests/)
 [![F1](https://img.shields.io/badge/controlled_OCR→Entity_F1-1.00-22c55e?style=flat-square)](#evidence)
+[![Dataset](https://img.shields.io/badge/eval_dataset-540_images-22c55e?style=flat-square)](#evidence)
 [![Offline](https://img.shields.io/badge/core-100%25_offline-22c55e?style=flat-square)](#zero-cloud)
 [![Snapdragon](https://img.shields.io/badge/Snapdragon-QNN%20%2F%20HTP_target-e2231a?style=flat-square)](#snapdragon-validation)
 
 <br>
 
-[![Showcase](https://img.shields.io/badge/🌐_Showcase-Hugging%20Face-yellow?style=for-the-badge\&logo=huggingface\&logoColor=white)](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti)
-[![Live Demo](https://img.shields.io/badge/💻_Live_Demo-Streamlit-ff4b4b?style=for-the-badge\&logo=streamlit\&logoColor=white)](https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/)
-[![GitHub](https://img.shields.io/badge/📦_Source-GitHub-181717?style=for-the-badge\&logo=github\&logoColor=white)](https://github.com/Nir-bitcoin/Sentinel-Drishti)
+[![Showcase](https://img.shields.io/badge/🌐_Showcase-Hugging%20Face-yellow?style=for-the-badge&logo=huggingface&logoColor=white)](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti)
+[![Live Demo](https://img.shields.io/badge/💻_Live_Demo-Streamlit-ff4b4b?style=for-the-badge&logo=streamlit&logoColor=white)](https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/)
+[![GitHub](https://img.shields.io/badge/📦_Source-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Nir-bitcoin/Sentinel-Drishti)
 
 <br>
 
@@ -33,19 +34,14 @@ Snapdragon AI Lab Build & Present Challenge 2026
 >
 > **The key idea:** spend AI compute only when security context justifies it.
 
-| Metric                    |          Result | Scope                                |
-| :------------------------ | --------------: | :----------------------------------- |
-| **Automated tests**       |       **62/62** | 25 unit + 33 security + 4 end-to-end |
-| **Control-plane latency** | **8.03 ms P50** | Measured control path, no OCR        |
-| **OCR → Entity macro F1** |        **1.00** | 30 controlled labeled images         |
-| **Cold OCR**              |        **~9 s** | CPU, after ROI optimization          |
+| Metric                    |          Result | Scope                                  |
+| :------------------------ | --------------: | :------------------------------------- |
+| **Automated tests**       |       **62/62** | 25 unit + 33 security + 4 end-to-end   |
+| **Control-plane latency** | **8.03 ms P50** | Measured control path, no OCR          |
+| **OCR → Entity macro F1** |        **1.00** | 540 controlled labeled images          |
+| **Cold OCR**              |        **~9 s** | CPU, after ROI optimization            |
 
-> **Metric scope matters:** 8.03 ms is the measured control plane, not full OCR latency. The 1.00 F1 result comes from a controlled 30-image regression evaluation and is not presented as general real-world accuracy.
-
-<!-- Add the final demo screenshot or GIF here.
-Example:
-![Sentinel Drishti demo](docs/demo.gif)
--->
+> **Metric scope matters:** 8.03 ms is the measured control plane, not full OCR latency. The 1.00 F1 result comes from a controlled 540-image regression evaluation and is not presented as general real-world accuracy.
 
 <div align="center">
 
@@ -63,7 +59,7 @@ A data-loss event does not always look like a sophisticated cyberattack.
 
 Sometimes it looks like normal work:
 
-```text
+```
 Employee salary data
         ↓
       Excel
@@ -91,7 +87,7 @@ Sentinel Drishti is a local-first DLP agent that evaluates **context before enfo
 
 It asks:
 
-```text
+```
 What data is involved?
         +
 What is the user doing?
@@ -105,7 +101,7 @@ DLP decision
 
 The policy engine then produces:
 
-```text
+```
 ALLOW / WARN / BLOCK
 ```
 
@@ -117,7 +113,7 @@ The system connects AI-based perception with behavioral context and deterministi
 
 The central scenario is intentionally simple:
 
-```text
+```
 Employee salary data
         ↓
       Excel
@@ -145,7 +141,7 @@ The system detects **how the information is moving**.
 
 ### Benign Flow
 
-```text
+```
 Team meeting notes
         ↓
        Word
@@ -182,7 +178,7 @@ A sensitive value does not automatically mean a violation.
 
 Sentinel Drishti combines:
 
-```text
+```
 DATA SENSITIVITY
        +
 USER BEHAVIOR
@@ -202,7 +198,7 @@ This allows the policy engine to distinguish a local copy from a cross-applicati
 
 The system does not spend the same amount of compute on every frame.
 
-```text
+```
 L0
 No relevant security event
         ↓
@@ -233,7 +229,7 @@ The design goal is:
 
 Instead of treating every event independently, Sentinel Drishti connects related activity:
 
-```text
+```
 Excel
   ↓
 Clipboard
@@ -245,7 +241,7 @@ A session-level risk engine then accumulates context across related actions.
 
 For example:
 
-```text
+```
 COPY
   ↓
 Gmail
@@ -269,7 +265,7 @@ has a different security context from a single local `COPY`.
 
 Sentinel Drishti is organized as a 12-stage pipeline:
 
-```text
+```
 Screen / Event
       ↓
 Change Detector ───────────► SKIP if unchanged
@@ -305,7 +301,7 @@ OCR is skipped.
 
 Used for events such as:
 
-```text
+```
 COPY
 PASTE
 ```
@@ -316,7 +312,7 @@ The faster recognition path is used.
 
 Used for higher-risk actions such as:
 
-```text
+```
 USB
 UPLOAD
 EMAIL
@@ -324,7 +320,7 @@ EMAIL
 
 The system can use precise ROI recognition and the coverage check.
 
-```text
+```
 Critical event
       ↓
 Precise ROI OCR
@@ -344,7 +340,7 @@ Everything in this section is tied to the project's listed test or evaluation se
 
 **62/62 means 62 automated tests passed:**
 
-```text
+```
 Unit tests ............... 25/25 passing
 Security tests ........... 33/33 passing
 End-to-end tests ......... 4/4 passing
@@ -354,9 +350,9 @@ Total .................... 62/62 passing
 
 ## OCR → Entity Evaluation
 
-**30 controlled labeled images**
+**540 controlled labeled images**
 
-```text
+```
 PAN ................ Precision 1.00 · Recall 1.00 · F1 1.00
 PHONE .............. Precision 1.00 · Recall 1.00 · F1 1.00
 FINANCIAL .......... Precision 1.00 · Recall 1.00 · F1 1.00
@@ -367,11 +363,25 @@ False positives .... 0
 False negatives .... 0
 ```
 
-> **Scope:** controlled regression evaluation on 30 labeled images. This is not a claim of general real-world accuracy.
+> **Scope:** controlled regression evaluation on 540 labeled images. This is not a claim of general real-world accuracy.
+
+### Dataset Composition
+
+| Category               | Count |
+| :--------------------- | ----: |
+| PAN patterns           |    90 |
+| Phone patterns         |    90 |
+| Financial patterns     |    90 |
+| Confidential markings  |    72 |
+| Benign (no PII)        |    90 |
+| Mixed multi-entity     |   108 |
+| **Total**              | **540** |
+
+The dataset is generated deterministically through `evaluation/make_test_images.py` with ground-truth labels in `evaluation/dataset_manifest.csv`.
 
 ## CPU Performance
 
-```text
+```
 Unchanged screen .......... ~8 ms P50   (control plane, no OCR)
 Cached screen ............. ~3 ms P50   (SHA-256 hash lookup)
 Cold OCR .................. ~9 s        (after ROI optimization)
@@ -384,7 +394,7 @@ The measured cold OCR path was reduced from the earlier 15–16 second range aft
 
 Measured over 20 runs per stage:
 
-```text
+```
 Change Detection .......... 0.27 ms P50
 Event Policy .............. 0.003 ms P50
 Entity Detection .......... 0.014 ms P50
@@ -416,7 +426,7 @@ The AI-heavy part of the pipeline handles perception such as OCR and entity dete
 
 Example:
 
-```text
+```
 Intent: BENIGN
 Matched rules: NONE
 Evidence level: LOW
@@ -424,7 +434,7 @@ Evidence level: LOW
 
 High-risk example:
 
-```text
+```
 Intent: EXFILTRATION
 Matched rules: PII_001, FIN_001
 Evidence level: HIGH
@@ -442,7 +452,7 @@ The audit layer is designed to retain security evidence without storing raw sens
 
 Example:
 
-```text
+```
 Original:
 ABCD1234F
 
@@ -478,9 +488,9 @@ This keeps target architecture, Snapdragon component measurements and complete-p
 
 Snapdragon-targeted EasyOCR components were compiled and benchmarked through Qualcomm AI Hub:
 
-```text
-EasyOCR detector (w8a8) ...... 12.6 ms  · NPU
-EasyOCR recognizer (w8a8) .... 10.5 ms  · NPU
+```
+EasyOCR detector (w8a8) ...... 12.64 ms  · NPU
+EasyOCR recognizer (w8a8) .... 10.55 ms  · NPU
 ```
 
 These are **component-level Snapdragon measurements**.
@@ -489,7 +499,7 @@ These are **component-level Snapdragon measurements**.
 
 The runtime supports backend selection across environments:
 
-```text
+```
 Standard / development host
         ↓
     CPU backend
@@ -540,7 +550,7 @@ The challenge lists four evaluation areas. The README maps the implementation an
 
 The **core DLP pipeline** is designed to run without cloud processing of protected content.
 
-```text
+```
 Internet required ....... NO
 Cloud API required ...... NO
 OCR processing .......... LOCAL
@@ -558,7 +568,7 @@ python tests/test_offline.py
 
 Expected result:
 
-```text
+```
 Blocking all network calls...
 Network block: ACTIVE
 
@@ -625,7 +635,7 @@ python sentinel.py
 
 Available modes:
 
-```text
+```
 [1] Interactive Demo
 [2] Live Monitoring
 [3] Benchmark
@@ -664,14 +674,14 @@ These cover:
 * System health
 * Deployment validation
 * Deterministic scenarios
-* OCR/entity evaluation
+* OCR/entity evaluation on 540 images
 * Performance measurements
 
 ---
 
 # Repository Structure
 
-```text
+```
 Sentinel-Drishti/
 ├── src/
 │   ├── backend/       CPUBackend, QNNBackend, fallback selector
@@ -684,7 +694,9 @@ Sentinel-Drishti/
 ├── config/            policy.yaml
 ├── tests/             62 tests
 ├── scripts/           benchmarks, health, deployment, latency
-├── evaluation/        30-image OCR → entity evaluation
+├── evaluation/        540-image OCR → entity evaluation
+│                      (make_test_images.py, dataset_manifest.csv,
+│                       run_ocr_entity_eval.py, ocr_entity_report.json)
 ├── demo_scenarios/    5 YAML scenarios
 ├── docs/              documentation
 ├── sentinel.py        unified launcher
@@ -713,7 +725,7 @@ The codebase is separated into modules so individual components can be tested or
 
 The recommended demonstration flow is:
 
-```text
+```
 Problem
    ↓
 Excel → Clipboard → Gmail
