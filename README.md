@@ -45,7 +45,7 @@ Snapdragon AI Lab Build & Present Challenge 2026
 
 <div align="center">
 
-[🎥 **Demo Video**](#demo-video) · [💻 **Live Dashboard**](https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/) · [🌐 **Showcase**](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti) · [📚 **Documentation**](#documentation)
+[🎥 **Demo Video**](https://youtu.be/KP_4bEQyFBg) · [💻 **Live Dashboard**](https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/) · [🌐 **Showcase**](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti) · [📚 **Documentation**](#documentation)
 
 </div>
 
@@ -723,6 +723,8 @@ The codebase is separated into modules so individual components can be tested or
 
 # Demo Video
 
+[Watch on YouTube](https://youtu.be/KP_4bEQyFBg)
+
 The recommended demonstration flow is:
 
 ```
@@ -745,8 +747,6 @@ Offline Verification
 Deployment
 ```
 
-**Demo video:** add the final video link here after upload.
-
 ---
 
 # Documentation
@@ -767,6 +767,7 @@ Deployment
 
 | Channel               | Link                                                                        |
 | :-------------------- | :-------------------------------------------------------------------------- |
+| 🎥 **Demo Video**     | [YouTube](https://youtu.be/KP_4bEQyFBg)                                     |
 | 🌐 **Showcase Site**  | [Hugging Face](https://huggingface.co/spaces/kuchvo/Sentinel-Drishti)       |
 | 💻 **Live Dashboard** | [Streamlit](https://sentinel-drishti-kgxhnyuna9wmtswppmgmze.streamlit.app/) |
 | 📦 **Source Code**    | [GitHub](https://github.com/Nir-bitcoin/Sentinel-Drishti)                   |
